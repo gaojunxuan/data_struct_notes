@@ -1,0 +1,99 @@
+\section*{Rules of Inference} \label{rulesofinference}
+
+\begin{axiom_appendix}[Modus Ponens]
+$(P \wedge (P \implies Q)) \implies Q $
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Modus Tollens]
+$(\neg Q \wedge (P \implies Q)) \implies \neg P $
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Hypothetical Syllogism (transitivity)]
+\hfill
+
+$((P \implies Q) \wedge (Q \implies R)) \implies (P \implies R) $
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Disjunctive Syllogism]
+$((P \vee Q) \wedge \neg P) \implies Q$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Addition]
+$P \implies (P \vee Q)$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Simplification]
+$(P \wedge Q) \implies P$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Conjunction]
+$((P) \wedge (Q)) \implies (P \wedge Q)$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Resolution]
+$((P \vee Q) \wedge (\neg P \vee R)) \implies (Q \vee R)$
+\end{axiom_appendix}
+
+\section*{Laws of Logic}
+
+\begin{axiom_appendix}[Implication Law]
+$(P \implies Q) \equiv (\neg P \vee Q)$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Distributive Law]
+\begin{align*}
+    (P \wedge (Q \vee R)) &\equiv ((P \wedge Q) \vee (P \wedge R)) \\
+    (P \vee (Q \wedge R)) &\equiv ((P \vee Q) \wedge (P \vee R))
+\end{align*}
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[De Morgan's Law]
+\begin{align*}
+    \neg (P \wedge Q) &\equiv (\neg P \vee \neg Q) \\
+    \neg (P \vee Q) &\equiv (\neg P \wedge \neg Q)
+\end{align*}
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Absorption Law]
+\begin{align*}
+    (P \vee (P \wedge Q)) &\equiv P \\
+    (P \wedge (P \vee Q)) &\equiv P
+\end{align*}
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Commutativity of AND]
+$A \wedge B \equiv B \wedge A$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Associativity of AND]
+$(A \wedge B) \wedge C \equiv A \wedge (B \wedge C)$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Identity of AND]
+$\textbf{T} \wedge A \equiv A$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Zero of AND]
+$\textbf{F} \wedge A \equiv \textbf{F}$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Idempotence for AND]
+$A \wedge A \equiv A$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Contradiction for AND]
+$A \wedge \neg A \equiv \textbf{F}$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Double Negation]
+$\neg (\neg A) \equiv A$
+\end{axiom_appendix}
+
+\begin{axiom_appendix}[Validity for OR]
+$A \vee \neg A \equiv \textbf{T}$
+\end{axiom_appendix}
+
+\section*{Induction}
+\begin{axiom_appendix}[Well Ordering Principle]
+Every nonempty set of nonnegative integers has a smallest element. i.e., For any $A \subset \N$ such that $A \neq \emptyset$, there is some $a \in A$ such that $\forall a' \in A.a\leq a'$.
+\end{axiom_appendix}
