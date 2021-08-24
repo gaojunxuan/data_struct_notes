@@ -146,7 +146,7 @@ To insert into a max-heap while maintaining the heap property, we use a similar 
 
 \begin{codebox}
     \Procname{$\proc{Build-Max-Heap}(A)$}
-    \li $A.heap-size = A.length$
+    \li $A.heapsize = A.length$
     \li \For $i = \left\lfloor A.length / 2 \right\rfloor$ \textbf{downto} 1
     \li \Then $\proc{Max-Heapify}(A,i)$
     \End
@@ -157,13 +157,39 @@ The reason we start calling \proc{Max-Heapify} at $\left\lfloor A.length / 2 \ri
 
 \subsection{Running Time of \proc{Build-Max-Heap}}
 
+Each call of \proc{Max-Heapify} takes $O(\log n)$ time, and \proc{Build-Max-Heap} calls \proc{Max-Heapify} $O(n)$ times. Thus, the running time of \proc{Build-Max-Heap} is $O(n \log n)$. However, this upper bound is not tight. We will prove a tighter upper bound of $O(n)$.
+
 {
     \setlength\columnsep{4em}
     \begin{multicols}{2}
         
         Note that \proc{Max-Heapify} takes $O(1)$ time for nodes tthat are one level above the leaves, and in general, it takes $O(k)$ for nodes that are $k$ levels above the leaves.
-        We have $n / 4$ nodes at level 1, $n / 8$ at level 2, etc. At the root level, which is $\log n$ levels above the leaves, we have only 1 node.
+        We have $n / 4$ nodes at level 1, $n / 8$ at level 2, etc. At the root level, which is $\log_2 n$ levels above the leaves, we have only 1 node.
 
         \includegraphics[width=\linewidth]{figures/build_max_heap.pdf}
     \end{multicols}
 }
+
+More generally, a heap with $n$ nodes has a height of $\left\lfloor \log_2 n \right\rfloor$ and at most $\left\lceil n / 2^{h+1} \right\rceil $ nodes at any height $h$. Hence, the total cost of \proc{Build-Max-Heap} can be written as
+\[
+\sum_{h=0}^{\left\lfloor \log_2 n \right\rfloor} \left\lceil \frac{n}{2^{h+1}} \right\rceil O(h) = O \left( n \sum_{h=0}^{\log_2 n} \frac{h}{2^h} \right)
+.\]
+The last summation is bounded by a constant, namely
+\[
+\sum_{h=0}^{\log_2 n} \frac{h}{2^h} \leq \sum_{h=0}^{\infty} \frac{h}{2^h} = 2 = O(1)
+.\]
+Thus,
+\[
+O \left( n \sum_{h=0}^{\log_2 n} \frac{h}{2^h} \right) = O(n) O(1) = O(n)
+.\]
+
+\section{Heapsort}
+
+\begin{codebox}
+    \Procname{$\proc{Heapsort}(A)$}
+    \li \For $i = A.length$ \textbf{downto} 2
+    \li \Then exchange $A[1]$ with $A[i]$
+    \li $A.heapsize = A.heapsize - 1$
+    \li $\proc{Max-Heapify}(A,1)$
+    \End 
+\end{codebox}

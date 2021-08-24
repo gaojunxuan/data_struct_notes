@@ -103,7 +103,6 @@
 \newcommand{\lnand}{\textsc{ nand }}
 
 \setlength{\parindent}{0cm}
-\setlength{\parskip}{1em}
 
 \lstset{style=pythonstyle}
 
@@ -124,7 +123,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-% placeholder
+\includepdf[pages=-]{datastruct_cover.pdf}
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
@@ -165,6 +164,8 @@
 %----------------------------------------------------------------------------------------
 %	PART
 %----------------------------------------------------------------------------------------
+\setlength{\parskip}{1em}
+
 \part{Data Structures}
 
 \chapter{Abstract Data Types}
@@ -175,7 +176,7 @@
 
 \chapter{Mergeable Heaps}
 
-\chapter{Binary Search Trees}
+\chapter{Balanced Binary Search Trees}
 
 \chapter{Augmenting Data Structures}
 
@@ -242,12 +243,24 @@
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Proof Templates}}
 \input{appendix/appendix3}
 
-\chapter*{Bibliography}
-\addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}} % Add a Bibliography heading to the table of contents
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+
+\chapter*{Index}
+
+\cleardoublepage % Make sure the index starts on an odd (right side) page
+\phantomsection
+\setlength{\columnsep}{0.75cm} % Space between the 2 columns of the index
+\addcontentsline{toc}{chapter}{\textcolor{ocre}{Index}} % Add an Index heading to the table of contents
+
+\printindex % Output the index
 
 %------------------------------------------------
 %   BIBLIOGRAPHY ENTRIES
 %------------------------------------------------
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}} % Add a Bibliography heading to the table of contents
 
 \section*{Courses}
 \addcontentsline{toc}{section}{Courses}
@@ -266,19 +279,6 @@
 \part*{Tutorial}
 
 \newpage
-
-\definecolor{ocre}{HTML}{00a1d5}
-
-%----------------------------------------------------------------------------------------
-%	INDEX
-%----------------------------------------------------------------------------------------
-
-\cleardoublepage % Make sure the index starts on an odd (right side) page
-\phantomsection
-\setlength{\columnsep}{0.75cm} % Space between the 2 columns of the index
-\addcontentsline{toc}{chapter}{\textcolor{ocre}{Index}} % Add an Index heading to the table of contents
-
-\printindex % Output the index
 
 %----------------------------------------------------------------------------------------
 
