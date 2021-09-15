@@ -1,0 +1,17 @@
+\section{Balanced Trees}
+
+There are two different ways of defining balancedness of a binary tree: weight balance and height balance. In this chapter, we will mainly focus on height balanced trees. As it turns out, weight balance is a more strict requirement than height balance, and weight balance implies height balance. Since the runtime complexity of binaryy tree operations are height-dependent, both definitions should give us $O(\lg n)$ time on most operations.
+
+\begin{definition}[Height Balancedness] \index{height balanced}
+    A binary tree is height balanced if for every node in the tree, the height of its left and right subtrees differ by at most one.
+\end{definition}
+
+\begin{definition}[Weight Balancedness] \index{weight balanced}
+    A binary tree is weight balanced if for every node in the tree, the number of nodes of its left and right subtrees differ by at most one.
+\end{definition}
+
+\begin{corollary}
+    Weight-balanced binary trees are height-balanced.
+\end{corollary}
+
+In this section we will look at a few height balanced search tree including red-black trees, AVL (Adelson-Velskii and Landis) trees, 2-3 trees, and B-trees which is a more general form of 2-3 trees. The first two are binary trees while 2-3 tree and B-tree are not necessarily binary.

@@ -1,0 +1,22 @@
+\section{Augmenting Data Structures}
+
+For many problems, it is not enough to use only the elementary data structures such as linked list, hash table, or binary tree. But for most of those problems, we don't need to reinvent the wheel. Instead, we can augment the data structures we already have along with some additional information.
+
+\section{Order Statistics With Red-Black Trees}
+
+\section{Steps To Create Augmented Data Structures}
+
+To create augmented data strucutres, we typically follow these four steps:
+
+\begin{enumerate}
+    \item choose an underlying data structure
+    \item determine additional information to be maintained
+    \item verify that the additional information can be maintained by update operations (or basic steps of update operations, e.g. rotations)
+    \item develop new operations
+\end{enumerate}
+
+\begin{theorem}[Augmenting Red-Black Tree]
+    Let $f$ be a field augmenting each node of a red-black tree and suppose that $x.f$ can be computed using information in node $x$, $x.left$, and $x.right$, possibly including $x.left.f$ and $x.right.f$. Then, the $f$ field can be maintained in all nodes during insertion and deletion without asymptotically affecting the $O(\lg n)$ performance of these operations.  
+\end{theorem}
+
+\textit{Proof Idea.} A change to $x.f$ only propagates to $y.f$ for the ancestors $y$ of $x$. Since the height of a red-black tree is $O(\lg n)$, at most $O(\lg n)$ nodes have their $f$ fields changed an each change takes $O(1)$ time.

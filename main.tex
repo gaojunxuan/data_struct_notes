@@ -91,9 +91,14 @@
 \fi
 \makeatother
 
+
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+\newcommand{\Expected}{\mathrm{E}}
+\newcommand{\Prob}{\mathrm{Prob}}
 
 \renewcommand{\implies}{\textsc{ implies }}
 \renewcommand{\land}{\textsc{ and }}
@@ -169,38 +174,50 @@
 \part{Data Structures}
 
 \chapter{Abstract Data Types}
+\input{notes/adt.tex}
+
+\chapter{Binary Search Trees}
+\input{notes/bst.tex}
+
+\chapter{Balanced Search Trees}
+\input{notes/balanced.tex}
+\input{notes/rbtree.tex}
+\input{notes/avl.tex}
+\input{notes/btree.tex}
+
+\chapter{Augmenting Data Structures}
+\input{notes/augmenting.tex}
 
 \chapter{Priority Queue and Heap}
-
 \input{notes/heap.tex}
 
 \chapter{Mergeable Heaps}
 
-\chapter{Balanced Binary Search Trees}
-
-\chapter{Augmenting Data Structures}
-
-\chapter{Hashing}
 
 \part{Algorithm Analysis}
 
-\chapter{Randomized Algorithms}
+\chapter{Average Case Complexity and Randomized Algorithms}
+\input{notes/average.tex}
+
+\chapter{Hashing}
+\input{notes/hashing.tex}
 
 \chapter{Amortized Analysis}
-
 \input{notes/amortized.tex}
 
 
 \part{Advanced Data Structures}
 
-\chapter{Dynamic Tables}
+\chapter{Dynamic Arrays}
+
+\chapter{Fibonacci Heaps}
 
 \chapter{Disjoint Sets}
+
 
 \part{Lower Bounds}
 
 \chapter{Decision Trees}
-
 \input{notes/lowerbounds.tex}
 
 \chapter{Information Theory}
@@ -208,6 +225,7 @@
 \chapter{Adversary Arguments}
 
 \chapter{Reduction}
+
 
 \part{Graphs}
 

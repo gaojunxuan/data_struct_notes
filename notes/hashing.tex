@@ -1,0 +1,21 @@
+\section{Hashing and Hash Function}
+
+Let $U$ be the universe of possible keys, and let $m$ be the size of the hash table. Then, we say that
+$$
+h:\; U \to \{0, \cdots, m-1 \}
+$$
+is a hash function.
+
+If two keys are mapped to the same location/bucket/slot by the hash function, we say that they collide.
+
+Furthermore, if $|U| > m$, then by the pigeonhole principle, there are at least two keys that collide. And because in virtually all cases, $|U| > m$, collision is unavoidable. A well-chosen hash function will minimize the number of collisions, but we still need some means to resolve collisions.
+
+\begin{remark}
+    A fun fact about the etymology of the word ``hash'': it is said that the word ``hash'' originated from the french word ``hache'', which refers to the action of chopping something into pieces. Hashing, as we will see, involves the same notion of randomly chopping and mixing.
+\end{remark}
+
+\section{Resolving Collision}
+
+\section{Universal Hashing}
+
+Let $\mathcal{H}$ be a finite collection of hash functions that map a given universe $U$ into the range $\{0,\cdots,m-1\}$. Such a collection is said to be universal if for each pair of distinct keys, $k,l \in U$, the number of hash functions $h \in \mathcal{H}$ for which $h(k) = h(l)$ is at most $|\mathcal{H}|/m$. In other words, with a hash function randomly chosen from $\mathcal{H}$, the chance of a collision between distinct keys is not more than the chance $1/m$ of a collision if $h(k)$ and $h(l)$ were randomly and independently chosen from the set $\{0,\cdots,m-1\}$. 

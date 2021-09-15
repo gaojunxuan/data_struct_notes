@@ -121,11 +121,11 @@ First, assume that the trees rooted at $\proc{Left}(i)$ and $\proc{Right}(i)$ ar
     \Procname{$\proc{Max-Heapify}(A,i)$}
     \li $l = \proc{Left}(i)$
     \li $r = \proc{Right}(i)$ 
-    \li \If $l \leq A.heap-size$ and $A[l] > A[i]$
+    \li \If $l \leq A.heapsize$ and $A[l] > A[i]$
     \li \Then $largest = l$
     \li \Else $largest = i$
     \End
-    \li \If $r \leq A.heap-size$ and $A[r] > A[largest]$ 
+    \li \If $r \leq A.heapsize$ and $A[r] > A[largest]$ 
     \li \Then $largest = r$
     \End
     \li \If $largest \neq i$
