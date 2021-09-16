@@ -21,6 +21,7 @@
     \end{itemize}
 \end{example}
 
+
 \section{Data Structures}
 
 \vspace{0.5\parskip}
@@ -30,7 +31,7 @@
 \end{definition}
 
 \begin{example}[Data Structures for Stack]
-    A data structure for stacks is an array with a counter. Alternatively, a stack can be implemented as a linked list with the top of the stack at the beginning of the list.
+    A data structure for stacks is an array with a counter. Alternatively, a stack can be implemented as a singly linked list with the top of the stack at the beginning of the list.
 \end{example}
 
 An ADT specifies what kind of data you can have and what you can do with the data. A data structure specifies how the data is implemented; in other words, it specifies how the data is stored and how you actually do the operations on the data.
@@ -61,10 +62,12 @@ The definition of input size depends on the problem that we are interested in. B
 In this seciton, we will take a look at an example of ADT and some implementation of it. For the dictionary ADT, the objects are defined to be the set of elements each of which has a key drawn from a totally ordered set. And the dictionary ADT should support the following operations:
 
 \begin{itemize}
-    \item $\textsc{Search}(S,k)$: search the set $S$ for an element with the key $k$ and return a pointer to one such element. If no such element exists, return $NIL$.
+    \item $\textsc{Search}(S,k)$: search the set $S$ for an element with the key $k$ and return a pointer to one such element. If no such element exists, return $\textsc{nil}$.
     \item $\textsc{Insert}(S,x)$: insert element pointed by the pointer $x$ into the set $S$.
     \item $\textsc{Delte}(S,x)$: delete the element pointed to by the pointer $x$ from the set $S$.
 \end{itemize}
+
+Each element $x$ will contain a property $k$ that stores the key.
 
 \begin{remark}
     Some examples of totally ordered sets are: $\Z$, $\Q$, $\R$, colors, English words. The set of complex numbers $\mathbb{C}$ is not totally ordered. A more formal definition of a total order can be found in the notes on Theory of Computation (CSC 240/CSC 236).
@@ -99,7 +102,7 @@ where $h$ is the height of the tree.
 
 \subsubsection{Sorted Array with Counter}
 
-$\textsc{Search}$: $O(\log n)$ using binary search
+$\textsc{Search}$: $O(\log n)$ using binary search \\
 $\textsc{Insert}$: $\Theta(n)$ \\
 $\textsc{Delete}$: $\Theta(n)$
 
@@ -117,13 +120,19 @@ $\textsc{Delete}$: $\Theta(1)$
 
 \subsubsection{Sorted Doubly Linked List}
 
-$\textsc{Search}$: $\Theta(n)$ \\
-$\textsc{Insert}$: $\Theta(n)$ to insert into the correct positiobn to keep the list sorted \\
-$\textsc{Delete}$: $\Theta(n)$ if singly linked; $\Theta(1)$ if doubly linked
+$\textsc{Search}$: $\Theta(n)$; we cannot perform binary search because we don't know the length of the array \\
+$\textsc{Insert}$: $\Theta(n)$ to insert into the correct position to keep the list sorted \\
+$\textsc{Delete}$: $\Theta(1)$
 
 \subsubsection{Direct Access Table} \index{direct access table}
 
-If our set of keys $S$ is a subset of some finite universe $U = \{ 0, 1, \ldots, m-1 \}$ where $|U| = m$, then we can use a direct access table to implement a dictionary ADT. To represent the dictionary, we use an array $A$ with $m$ slots indexed from 0 to $m$, each of which corresponds to a key in $S$. The value of the slot $A[i]$ is the pointer to the element in the set $S$ with the key $i$.
+If our set of keys $S$ is a subset of some finite universe $U = \{ 0, 1, \ldots, m-1 \}$ where $|U| = m$, then we can use a direct access table to implement a dictionary ADT. To represent the dictionary, we use an array $A$ with $m$ slots indexed from 0 to $m$, each of which corresponds to a key in $S$. The value of the slot $A[i]$ is the pointer to the element in the set $S$ with the key $i$. The limitations of such implementation include:
+
+\begin{itemize}
+    \item keys have to be unique
+    \item size of the list can get arbitrarily large
+    \item size of the list is limited
+\end{itemize}
 
 \begin{figure}[htbp]
     \includegraphics[width=0.6\linewidth]{direct_access_table.pdf}

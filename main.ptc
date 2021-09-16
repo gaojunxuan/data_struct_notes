@@ -1,5 +1,5 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
-\babel@toc {english}{}
+\babel@toc {english}{}\relax 
 \defcounter {refsection}{0}\relax 
 \contentsline {part}{\@mypartnumtocformat {I}{Data Structures}}{7}{part.1}%
 \ttl@starttoc {default@1}
@@ -30,7 +30,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Unsorted Doubly Linked List}{11}{section*.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Sorted Doubly Linked List}{11}{section*.8}%
+\contentsline {subsubsection}{Sorted Doubly Linked List}{12}{section*.8}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Direct Access Table}{12}{section*.9}%
 \defcounter {refsection}{0}\relax 
@@ -42,7 +42,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.3}Insertion}{15}{section.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Deletion}{15}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Deletion}{16}{section.2.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Balanced Search Trees}{17}{chapter.3}%
 \defcounter {refsection}{0}\relax 
@@ -56,9 +56,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{Case 1}{19}{section*.13}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Case 2}{19}{section*.15}%
+\contentsline {subsubsection}{Case 2}{20}{section*.15}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Case 3}{19}{section*.17}%
+\contentsline {subsubsection}{Case 3}{20}{section*.17}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}AVL Tree}{20}{section.3.3}%
 \defcounter {refsection}{0}\relax 
@@ -66,161 +66,161 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.4.1}2-3 Tree}{20}{subsection.3.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Augmenting Data Structures}{21}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Augmenting Data Structures}{23}{chapter.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Augmenting Data Structures}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.1}Augmenting Data Structures}{23}{section.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Order Statistics With Red-Black Trees}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Order Statistics With Red-Black Trees}{23}{section.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Steps To Create Augmented Data Structures}{21}{section.4.3}%
+\contentsline {section}{\numberline {4.3}Steps To Create Augmented Data Structures}{23}{section.4.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Priority Queue and Heap}{23}{chapter.5}%
+\contentsline {chapter}{\numberline {5}Priority Queue and Heap}{25}{chapter.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Priority Queue}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.1}Priority Queue}{25}{section.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.1}Priority Queue ADT}{23}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.1}Priority Queue ADT}{25}{subsection.5.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.2}Primitive Implementation Using Linked Lists}{23}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.2}Primitive Implementation Using Linked Lists}{25}{subsection.5.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Heap}{23}{section.5.2}%
+\contentsline {section}{\numberline {5.2}Heap}{26}{section.5.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.1}Types of Binary Trees}{24}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.1}Types of Binary Trees}{26}{subsection.5.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.2}Heap Property}{25}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.2}Heap Property}{27}{subsection.5.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Maintaining the Heap Property}{25}{section.5.3}%
+\contentsline {section}{\numberline {5.3}Maintaining the Heap Property}{27}{section.5.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.1}Correctness of \textnormal {\scshape Max-Heapify}}{26}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.1}Correctness of \textnormal {\scshape Max-Heapify}}{28}{subsection.5.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3.2}Running Time of \textnormal {\scshape Max-Heapify}}{26}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.2}Running Time of \textnormal {\scshape Max-Heapify}}{28}{subsection.5.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.4}Inserting Into Max-Heap}{26}{section.5.4}%
+\contentsline {section}{\numberline {5.4}Inserting Into Max-Heap}{28}{section.5.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.5}Build Heap From Unsorted Array}{26}{section.5.5}%
+\contentsline {section}{\numberline {5.5}Build Heap From Unsorted Array}{28}{section.5.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.5.1}Running Time of \textnormal {\scshape Build-Max-Heap}}{26}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.1}Running Time of \textnormal {\scshape Build-Max-Heap}}{28}{subsection.5.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.6}Heapsort}{27}{section.5.6}%
+\contentsline {section}{\numberline {5.6}Heapsort}{29}{section.5.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Mergeable Heaps}{29}{chapter.6}%
+\contentsline {chapter}{\numberline {6}Mergeable Heaps}{31}{chapter.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {II}{Algorithm Analysis}}{31}{part.2}%
+\contentsline {part}{\@mypartnumtocformat {II}{Algorithm Analysis}}{33}{part.2}%
 \ttl@stoptoc {default@1}
 \ttl@starttoc {default@2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Average Case Complexity and Randomized Algorithms}{33}{chapter.7}%
+\contentsline {chapter}{\numberline {7}Average Case Complexity and Randomized Algorithms}{35}{chapter.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.1}Basic Probability Theory}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.1}Basic Probability Theory}{35}{section.7.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1.1}Sample Space and Events}{33}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.1}Sample Space and Events}{35}{subsection.7.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {7.1.2}Properties of Probability Functions}{33}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.2}Properties of Probability Functions}{35}{subsection.7.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.2}Conditional Probability and Independence}{34}{section.7.2}%
+\contentsline {section}{\numberline {7.2}Conditional Probability and Independence}{36}{section.7.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.3}Average Case Analysis}{34}{section.7.3}%
+\contentsline {section}{\numberline {7.3}Average Case Analysis}{36}{section.7.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.4}Average Case Analysis of Linear Search}{35}{section.7.4}%
+\contentsline {section}{\numberline {7.4}Average Case Analysis of Linear Search}{37}{section.7.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.5}Average Case Analysis of Quick Sort}{36}{section.7.5}%
+\contentsline {section}{\numberline {7.5}Average Case Analysis of Quick Sort}{38}{section.7.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {7.6}Randomized Quicksort}{38}{section.7.6}%
+\contentsline {section}{\numberline {7.6}Randomized Quicksort}{40}{section.7.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {8}Hashing}{41}{chapter.8}%
+\contentsline {chapter}{\numberline {8}Hashing}{43}{chapter.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.1}Hashing and Hash Function}{41}{section.8.1}%
+\contentsline {section}{\numberline {8.1}Hashing and Hash Function}{43}{section.8.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.2}Resolving Collision}{41}{section.8.2}%
+\contentsline {section}{\numberline {8.2}Resolving Collision}{43}{section.8.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.3}Universal Hashing}{41}{section.8.3}%
+\contentsline {section}{\numberline {8.3}Universal Hashing}{43}{section.8.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {9}Amortized Analysis}{43}{chapter.9}%
+\contentsline {chapter}{\numberline {9}Amortized Analysis}{45}{chapter.9}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.1}Amortized Cost}{43}{section.9.1}%
+\contentsline {section}{\numberline {9.1}Amortized Cost}{45}{section.9.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.2}Aggregate Method}{44}{section.9.2}%
+\contentsline {section}{\numberline {9.2}Aggregate Method}{46}{section.9.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.3}Accounting Method}{44}{section.9.3}%
+\contentsline {section}{\numberline {9.3}Accounting Method}{46}{section.9.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.4}Potential Method}{44}{section.9.4}%
+\contentsline {section}{\numberline {9.4}Potential Method}{46}{section.9.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {III}{Advanced Data Structures}}{45}{part.3}%
+\contentsline {part}{\@mypartnumtocformat {III}{Advanced Data Structures}}{47}{part.3}%
 \ttl@stoptoc {default@2}
 \ttl@starttoc {default@3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {10}Dynamic Arrays}{47}{chapter.10}%
+\contentsline {chapter}{\numberline {10}Dynamic Arrays}{49}{chapter.10}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {11}Fibonacci Heaps}{49}{chapter.11}%
+\contentsline {chapter}{\numberline {11}Fibonacci Heaps}{51}{chapter.11}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {12}Disjoint Sets}{51}{chapter.12}%
+\contentsline {chapter}{\numberline {12}Disjoint Sets}{53}{chapter.12}%
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {IV}{Lower Bounds}}{53}{part.4}%
+\contentsline {part}{\@mypartnumtocformat {IV}{Lower Bounds}}{55}{part.4}%
 \ttl@stoptoc {default@3}
 \ttl@starttoc {default@4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {13}Decision Trees}{55}{chapter.13}%
+\contentsline {chapter}{\numberline {13}Decision Trees}{57}{chapter.13}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {13.1}Lower Bounds}{55}{section.13.1}%
+\contentsline {section}{\numberline {13.1}Lower Bounds}{57}{section.13.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {13.2}Comparison Model}{55}{section.13.2}%
+\contentsline {section}{\numberline {13.2}Comparison Model}{57}{section.13.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {13.3}Decision Tree}{56}{section.13.3}%
+\contentsline {section}{\numberline {13.3}Decision Tree}{58}{section.13.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {13.3.1}Intuition}{56}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.1}Intuition}{58}{subsection.13.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {13.3.2}Decision Tree for Searching}{56}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.2}Decision Tree for Searching}{58}{subsection.13.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {13.3.3}Decision Tree for Sorting}{56}{subsection.13.3.3}%
+\contentsline {subsection}{\numberline {13.3.3}Decision Tree for Sorting}{58}{subsection.13.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {13.4}Sorting in Linear Time}{56}{section.13.4}%
+\contentsline {section}{\numberline {13.4}Sorting in Linear Time}{58}{section.13.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {14}Information Theory}{57}{chapter.14}%
+\contentsline {chapter}{\numberline {14}Information Theory}{59}{chapter.14}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {15}Adversary Arguments}{59}{chapter.15}%
+\contentsline {chapter}{\numberline {15}Adversary Arguments}{61}{chapter.15}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {16}Reduction}{61}{chapter.16}%
+\contentsline {chapter}{\numberline {16}Reduction}{63}{chapter.16}%
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {V}{Graphs}}{63}{part.5}%
+\contentsline {part}{\@mypartnumtocformat {V}{Graphs}}{65}{part.5}%
 \ttl@stoptoc {default@4}
 \ttl@starttoc {default@5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {17}Breadth-First Search}{65}{chapter.17}%
+\contentsline {chapter}{\numberline {17}Breadth-First Search}{67}{chapter.17}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {17.1}Definition}{65}{section.17.1}%
+\contentsline {section}{\numberline {17.1}Definition}{67}{section.17.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {17.2}Representations of Graphs}{65}{section.17.2}%
+\contentsline {section}{\numberline {17.2}Representations of Graphs}{67}{section.17.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {17.2.1}Adjacency List}{65}{subsection.17.2.1}%
+\contentsline {subsection}{\numberline {17.2.1}Adjacency List}{67}{subsection.17.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {17.3}Breadth-first Search}{65}{section.17.3}%
+\contentsline {section}{\numberline {17.3}Breadth-first Search}{67}{section.17.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {18}Depth-First Search}{67}{chapter.18}%
+\contentsline {chapter}{\numberline {18}Depth-First Search}{69}{chapter.18}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {19}Minimum Spanning Trees}{69}{chapter.19}%
+\contentsline {chapter}{\numberline {19}Minimum Spanning Trees}{71}{chapter.19}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {20}Bellman-Ford's Algorithm}{71}{chapter.20}%
+\contentsline {chapter}{\numberline {20}Bellman-Ford's Algorithm}{73}{chapter.20}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {21}Dijkstra's Algorithm}{73}{chapter.21}%
+\contentsline {chapter}{\numberline {21}Dijkstra's Algorithm}{75}{chapter.21}%
 \ttl@stoptoc {default@5}
 \ttl@starttoc {default@6}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Appendix\hskip 1em\relax \mbox {}}}}{75}{section*.26}%
+\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Appendix\hskip 1em\relax \mbox {}}}}{77}{section*.26}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Axioms \& Theorems}}{77}{appendix*.27}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Axioms \& Theorems}}{79}{appendix*.27}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Basic Prerequisite Mathematics}}{81}{appendix*.31}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Basic Prerequisite Mathematics}}{83}{appendix*.31}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Proof Templates}}{87}{appendix*.32}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Proof Templates}}{89}{appendix*.32}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{99}{section*.34}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{101}{section*.34}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{101}{appendix*.35}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{103}{appendix*.35}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Courses}{101}{section*.36}%
+\contentsline {section}{Courses}{103}{section*.36}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Books}{101}{section*.37}%
+\contentsline {section}{Books}{103}{section*.37}%
 \ttl@stoptoc {default@6}
 \ttl@starttoc {default@7}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Tutorial\hskip 1em\relax \mbox {}}}}{103}{section*.39}%
+\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Tutorial\hskip 1em\relax \mbox {}}}}{105}{section*.39}%
 \contentsfinish 

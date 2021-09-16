@@ -1,11 +1,59 @@
 \section{Binary Search Tree}
 
-In this section, we will review some definition and properties of binary search trees.
+\begin{definition}[Binary Search Property]
+    If $y$ is in the left subtree of $x$, then $y.key \leq x.key$. If $y$ is in the right subtree of $x$, hen $y.key \geq x.key$.
+\end{definition}
+
+\begin{definition}[Binary Search Tree]
+    A binary tree is a binary search tree if all nodes $x,y$ of the tree satisfies the binary search property.
+\end{definition}
+
+If we perform an in-order traversal of a binary search tree, we gets the nodes in increasing order by key.
 
 \section{Searching in BST}
 
+\begin{codebox}
+    \Procname{$\proc{Search}(T,k)$}
+    \li \If $T = \textsc{nil}$
+    \li \Then \Return $\textsc{nil}$
+    \End
+    \li \If $T.key \isequal k$
+    \li \Then \Return $T$
+    \End
+    \li \If $T.key > k$
+    \li \Then \Return $\proc{Search}(T.left, k)$
+    \End
+    \li \If $T.key < k$
+    \li \Then \Return $\proc{Search}(T.right,k)$
+    \End
+\end{codebox}
+
 \section{Insertion}
+
+\begin{codebox}
+    \Procname{$\proc{Insert}(T,x)$}
+    \li $\id{X} = \proc{Search}(T,x)$
+    \li \If $\id{X} \isequal \textsc{nil}$
+    \li \Then $X = x$
+    \li \Else
+    \li \Comment{there is already an element with key $x.k$ stored in BST, we can do the following}
+    \li \Comment{1. return without inserting $x$}
+    \li \Comment{2. continues to search until $\textsc{nil}$ is found}
+    \li \Comment{3. store all elements with the same key in an auxillary data structure (e.g. linked list)}
+    \li \Comment{4. replace old element with $x$}
+    \End
+\end{codebox}
 
 \section{Deletion}
 
 Deletion is the trickiest operation for BST.
+
+\begin{codebox}
+    \Procname{$\proc{Delete}(T,x)$}
+    \li $y = x.left$
+    \li \While $y.right \neq \textsc{nil}$ \Do
+    \li $y = y.right$
+    \End
+    \li $x = y$
+    \li $y = \textsc{nil}$
+\end{codebox}
