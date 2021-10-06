@@ -2,7 +2,85 @@
 
 For many problems, it is not enough to use only the elementary data structures such as linked list, hash table, or binary tree. But for most of those problems, we don't need to reinvent the wheel. Instead, we can augment the data structures we already have along with some additional information.
 
+An example of augmenting data structure is a dictionary ADT with a size variable. This has the benefit of allowing for computing the size of the dictionary in $O(1)$ time.
+
 \section{Order Statistics With Red-Black Trees}
+
+Dictionary implemented by a red-black tree with a $\proc{Minimum}(S)$ operation that returns the pointer to the element with smallest key in $S$.
+
+Normally, this $\proc{Minimum}$ operation would take $O(\lg n)$ by following the left-most path. But we can make it better by augmenting the red-black tree:
+
+\begin{itemize}
+    \item Maintain a pointer $\proc{MINPTR}$ to the minimum element.
+    
+    When performing $\proc{Insert}$, compare key of newly inserted element and if it is less than the key of the element pointed to by $\proc{MINPTR}$, update $\proc{MINPTR}$.
+
+    For $\proc{Delete}$, if the element to be deleted is not the minimum element, then do nothing. If the current minimum is deleted, we need to recompute $\proc{MINPTR}$ using $O(\lg n)$ time.
+
+    \item Add a variable $\proc{MINVAL}$ storing the node with minimum value.
+    \item Maintain a doubly linked list of the elements in the list ordered by their key.
+    
+    If you insert a node $v$ as a left child of a node $p$, then $v$ is the predecessor of $p$. If $v$ is inserted as the right child, then $v$ is the successor of $p$.
+
+    \item At each node, store the minimum element in the subtree rooted at that node.
+    
+    After insertion and deletion, update the minimum field of the ancestor of the inserted or deleted node. Also updaate the minimum field during red-black tree rotation.
+\end{itemize}
+
+\subsection{The \proc{Rank} Operation}
+
+The function $\proc{Rank}(S,k)$ returns the number of elements in $S$ with key $\leq k$. Let's take a look at some elementary data structures that enables the \proc{Rank} operation.
+
+\begin{itemize}
+    \item Unordered array: linear search, $\Theta(n)$
+    \item Ordered array: binary search, $\Theta(\lg n)$
+    \item Red-black tree: compare with every element in $T$, or perform an in-order traversal until reached a key $> k$; count the number of nodes visited while doing the traversal. In both cases, $\Theta(n)$.
+\end{itemize}
+
+Without augmentation, the best we can achieve is doing binary search on a sorted array, with $\Theta(n)$ time for the \proc{Rank} operation.
+
+We can augment a red-black tree in the following way.
+
+With each node, store the number of nodes in its subtree. By doing so, $\attrib{v}{size}$ is equal to the number of nodes in the subtree rooted at $v$.
+
+For $\proc{Rank}(S,k)$, search for $k$. Whenever you go right, add the one plus the number of nodes in the left subtree. 
+
+If multiple elements in $S$ has the same key, find the last node (in an inorder traversal) with value $\leq k$.
+
+\subsection{Maintaining the Size Property at Each Node}
+
+The problem then arises with how to maintain the size field under insertion and deletion.
+
+When inserting, add 1 to the size field of proper ancestors of newly inserted node. Similarly, when deleting, subtract 1 from the size field of all proper ancestors of the node being deleted $v$ ($v$ is the physically deleted node with $\leq 1$ children).
+
+We also need to maintain the size field when doing rotations. Size of a node can be recomputed from the sizes of its children.
+
+$$
+\attrib{v}{size} = \attrib{\attrib{v}{left}}{size} + \attrib{\attrib{v}{right}}{size} + 1
+$$
+
+2. As a small improvement from the previous implementation, we can store $\attrib{\attrib{v}{left}}{size}$ instead of $\attrib{v}{size}$.
+
+3. Store the rank of each node within the node. But then, \proc{Insert} and \proc{Delete} are now $\Theta(n)$ in the worst case because we need to go back to recalculate the rank.
+
+\subsection{The \proc{Select} Operation}
+
+$\proc{Select}(S,i)$ returns the element of rank $i$ in the set $S$.
+
+Suppose $S$ is represented by a RB-tree $T$. If $T$ is not augmented, we need to do an in-order traversal until $i$ nodes have been visited, which costs $\Theta(n)$ time.
+
+If $\attrib{T}{root}{sizeleft} \geq i$, then search in the left subtree. If $\attrib{T}{root}{sizeleft} = i-1$, then return the root. If $\attrib{T}{root}{sizeleft} < i$, then search in the right subtree for element of rank $i - \attrib{T}{root}{sizeleft} - 1$.
+
+\begin{codebox}
+    \Procname{$\proc{Select}(v, i)$}
+    \li $r = \attrib{v}{sizeleft} + 1$
+    \li \If $r > i$ \Then
+        \li \Return $\proc{Select}(\attrib{v}{left}, i)$
+    \li \ElseIf $r \isequal i$ \Then
+        \li \Return $r$
+    \End
+    \li \Return $\proc{Select}(\attrib{v}{right}, i-r)$
+\end{codebox}
 
 \section{Steps To Create Augmented Data Structures}
 
@@ -20,3 +98,54 @@ To create augmented data strucutres, we typically follow these four steps:
 \end{theorem}
 
 \textit{Proof Idea.} A change to $x.f$ only propagates to $y.f$ for the ancestors $y$ of $x$. Since the height of a red-black tree is $O(\lg n)$, at most $O(\lg n)$ nodes have their $f$ fields changed an each change takes $O(1)$ time.
+
+\section{Intervals ADT}
+
+\begin{itemize}
+    \item Objects: a set of closed intervals $[t,\, t']$ where $t \leq t'$, or equivalently, the set $\{ x \in \R \mid t \leq x \leq t' \}$.
+    \item Operations: $\proc{Interval-Insert}(S,\, [t,t'])$, $\proc{Interval-Delete}(S,\, [t,t'])$, $\proc{Interval-Search}(S,\, [t,t'])$ that returns a pointer to the interval in $S$ that overlaps with $[t,t']$ (non-empty intersection).
+\end{itemize}
+
+Naive implementations:
+
+\begin{itemize}
+    \item Unsorted linked list: $\Theta(n)$
+    \item Sorted linked list: $\Theta(n)$
+    \item Sorted array: $\Theta(n)$
+    \item Red-black tree: store $\attrib{i}{low}$ as the key, $O(\lg n)$ for insertion and deletion. For search, skip intervals $i \leq T$ with $t' \leq \attrib{i}{low}$.
+\end{itemize}
+
+Augment each node $x$ with 
+$$
+\proc{Max-High}(x) = \max\{ \attrib{y}{high} \mid \text{ $y$ is an interval stored in the subtree rooted at $x$ } \}
+$$
+
+This field can be calculated using
+$$
+\attrib{x}{max-high} = \max\{ \attrib{x}{high}, \attrib{\attrib{x}{right}}{max-high}, \attrib{\attrib{x}{right}}{max-high} \}
+$$
+
+\begin{codebox}
+    \Procname{$\proc{Interval-Search}(T,\, [t,t'])$}
+    \li $x = \attrib{T}{root}$
+    \li \While $x \neq \textsc{nil}$ and $[t,t']$ does not intersect $[\attrib{x}{low},\attrib{x}{high}]$ \Do
+        \If $\attrib{x}{left} \neq \textsc{nil}$ and $\attrib{\attrib{x}{left}}{max-high} \geq t$ \Then
+            \li $x = \attrib{x}{left}$
+        \Else
+            \li $x = \attrib{x}{right}$
+        \End
+    \End
+    \li \Return $x$
+\end{codebox}
+
+The time complexity of $\proc{Interval-Search}$ is $O(\lg n)$.
+
+\begin{theorem}
+    Any execution of $\proc{Interval-Search}(T,[t,t'])$ either returns a pointer to a node whose interval intersects $[t,t']$, or returns \textsc{nil} if no such interval exists.
+\end{theorem}
+
+\begin{lemma}
+    Loop invariant: if $T$ contains a node whose interval intersects $[t,t']$, then there is such an interval in the subtree rooted at $x$.
+\end{lemma}
+
+% TODO: Add figures for interval tree and augmented RB-tree

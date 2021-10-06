@@ -61,9 +61,51 @@ Figure \ref{fig:rbtree} illustrates the properties of red-black trees.
 
 It follows immediately from this corollary that the $\textsc{Search}$ operation will run in $O(\lg n)$ time on a red-black tree.
 
-\subsection{Rotations}
+\section{Insertion and Deletion in Red-Black Tree}
+
+\subsection{Rotation Operations}
 
 It is obvious that $\textsc{Insert}$ and $\textsc{Delete}$ will also run in $O(\lg n)$ time, but the resulting tree may not satisfy the red-black tree properties, meaning that the tree after insertion and deletion of nodes may not be a red-black tree. We can fix this using a technique known as rotation.
+
+\subsection{Insertion}
+
+\begin{codebox}
+    \Procname{$\proc{Insert}(T,z)$}
+\end{codebox}
+
+We want to first deal with the cases where simple recoloring can fix the problem. We need to determine what color should the newly inserted node be.
+
+If the tree is empty, $z$ should be black. 
+
+If the tree is not empty and the newly inserted node has a black parent, we can make the new node red. This will fix the violation.
+
+If the tree is not empty and the newly inserted node has a red parent, we cannot easily fix the violation by recoloring. If we let that newly inserted node be black, it may lead to a violation of property 3, and if we let the new node be red, it will violate property 2 because it has a red parent.
+
+Suppose that the parent $p$ of the new node is red. Then, $p$ will satisfy the following properties.
+
+\begin{itemize}
+    \item $p$ has a black parent $g$ because of property 2;
+    \item the parent has no other child other than the newly inserted node. This is because because of property 2, $p$'s children must be black, but then by property 3, the black child will violate property 3.
+    \item if $g$ has another child, it would be red
+\end{itemize}
+
+\subsubsection{$z$ Is a Leaf}
+
+Case 0: $g$ has only 1 child. In this case, we perform a right rotation around $p$ and recolor.
+
+Case 1: $g$ has 2 children, recolor according to Figure \ref{fig:rbtree_case1}. But this might create a new violation at $g$, so we need to fix that. If $g$ is the root, we can simply change it to black. Otherwise, we need to continue the fix-up procedure at $g$. By doing so, we move the violation up the tree.
+
+\subsubsection{$z$ Is an Internal Node}
+
+Now suppose that $z$ is an internal node.
+
+Case 1: $z$'s two children are black, and $P$ has another black child. $G$ is red. In this case, recolor according to Figure \ref{fig:rbtree_case1}.
+
+Case 2: $G$ is black. Recoloring won't work. We need to do rotation.
+
+$z$ is a left child of a right child or right child of a left child (i.e. a zigzag path from $G \to P \to z$). In this case, do a left rotation at $P$ according to Figure \ref{fig:rbtree_case2}. After this operation, the tree falls into the next case.
+
+$z$ is a left child of a left child or right child of a right child (i.e. a straight path from $G \to P \to z$). In this case, do a right rotation at $G$ according to Figure \ref{fig:rbtree_case3}.
 
 \subsubsection{Case 1}
 
@@ -91,3 +133,30 @@ It is obvious that $\textsc{Insert}$ and $\textsc{Delete}$ will also run in $O(\
     \caption{<caption>}
     \label{fig:rbtree_case3}
 \end{figure}
+
+\subsection{Deletion}
+
+Use the BST implementation of $\proc{Delete}(T,x)$. 
+
+When $x$ has two children, we replace $x$ by its successor, which gets the same color as $x$. But then we also need to delete the successor first.
+
+When $x$ has only one child, delete $x$, promote $w$ and make it black.
+
+% x
+%  \   to   w
+%   w
+
+When $x$ is a red leaf, we can just delete it without recoloring. 
+
+When $x$ is a black leaf, deleting it will cause a violation of property 3, so we need to fix the violation. Let $P$ be the parent of $x$, and let $W$ be the sibling of $x$.
+
+Case 1: $p$ is red.
+
+Case 2: $p$ is black
+
+Case 2(a): $w$ has exactly one child
+Case 2(b): $w$ is black and has two children
+Case 2(c): $w$ is red and has two children
+Case 2(d): $w$ has no children
+
+In Case 2(d), $w$ has to be black. Once $x$ is deleted, we have only $P$ and $W$, which will gives us a black-height of 1 on both sides. This is not fixable, so we make $p$ double-black. And then our goal is to remove the double-black.
