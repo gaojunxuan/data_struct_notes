@@ -129,9 +129,9 @@ $$
     \Procname{$\proc{Interval-Search}(T,\, [t,t'])$}
     \li $x = \attrib{T}{root}$
     \li \While $x \neq \textsc{nil}$ and $[t,t']$ does not intersect $[\attrib{x}{low},\attrib{x}{high}]$ \Do
-        \If $\attrib{x}{left} \neq \textsc{nil}$ and $\attrib{\attrib{x}{left}}{max-high} \geq t$ \Then
+        \li \If $\attrib{x}{left} \neq \textsc{nil}$ and $\attrib{\attrib{x}{left}}{max-high} \geq t$ \Then
             \li $x = \attrib{x}{left}$
-        \Else
+        \li \Else
             \li $x = \attrib{x}{right}$
         \End
     \End

@@ -5,19 +5,19 @@
 \vspace{\parskip}
 
 \begin{definition}[Probability Space and Sample Space] \index{probability space} \index{sample space} \index{outcome} \index{event}
-    A \textit{\textbf{probability space}} $(\Omega, \Prob)$ consists of a finite or countable set $\Omega$ called the sample space, and the probability function $\Prob:\; \Omega \to \R$ such that for all $\omega \in \Omega$, $\Prob(\omega) \geq 0$ and $\sum_{\omega \in \Omega} \Prob(\omega) = 1$. We cann an element $\omega \in \Omega$ a sample point, or \textit{\textbf{outcome}}, or \textit{\textbf{simple event}}.
+    A \textit{\textbf{probability space}} $(\Omega, \Pr)$ consists of a finite or countable set $\Omega$ called the sample space, and the probability function $\Pr:\; \Omega \to \R$ such that for all $\omega \in \Omega$, $\Pr(\omega) \geq 0$ and $\sum_{\omega \in \Omega} \Pr(\omega) = 1$. We cann an element $\omega \in \Omega$ a sample point, or \textit{\textbf{outcome}}, or \textit{\textbf{simple event}}.
 \end{definition}
 
-A sample space models some random experiment, where $\Omega$ contains all possible outcomes, and $\Prob(\omega)$ is the probability of the outcome $\omega$. We always talk about probabilities in relation to a sample space.
+A sample space models some random experiment, where $\Omega$ contains all possible outcomes, and $\Pr(\omega)$ is the probability of the outcome $\omega$. We always talk about probabilities in relation to a sample space.
 
 \begin{definition}[Event]
     An event $A$ is a set of outcomes, $A \subseteq \Omega$. We define the probability of an event $A$ to be the sum of the probabilities of its elements
     $$
-    \Prob(A) = \sum_{\omega \in A} \Prob(\omega)
+    \Pr(A) = \sum_{\omega \in A} \Pr(\omega)
     $$ 
 \end{definition}
 
-If we have $\Prob(\omega) = \Prob(\omega')$ for all distinct $\omega, \omega' \in \Omega$, we say that the probability is uniform over $\Omega$.
+If we have $\Pr(\omega) = \Pr(\omega')$ for all distinct $\omega, \omega' \in \Omega$, we say that the probability is uniform over $\Omega$.
 
 \subsection{Properties of Probability Functions}
 
@@ -34,19 +34,19 @@ If we have $\Prob(\omega) = \Prob(\omega')$ for all distinct $\omega, \omega' \i
 \begin{theorem}
     $$
     \begin{aligned}
-        \Prob(\overline{A}) &= 1 - \Prob(A) \\
-        \Prob(A \cup B) &= \Prob(A) + \Prob(B) - \Prob(A \cap B) \\
-        \Prob(A \cup B) &\leq \Prob(A) + \Prob(B)
+        \Pr(\overline{A}) &= 1 - \Pr(A) \\
+        \Pr(A \cup B) &= \Pr(A) + \Pr(B) - \Pr(A \cap B) \\
+        \Pr(A \cup B) &\leq \Pr(A) + \Pr(B)
     \end{aligned}
     $$
     It can then be proved by induction that
     $$
-    \Prob(A_1 \cup A_2 \cup \cdots \cup A_k) \leq \Prob(A_1) + \Prob(A_2) + \cdots + \Prob(A_k)
+    \Pr(A_1 \cup A_2 \cup \cdots \cup A_k) \leq \Pr(A_1) + \Pr(A_2) + \cdots + \Pr(A_k)
     $$
     for any events $A_1, \cdots A_k$.
 \end{theorem}
 
-We say that two events $A$ and $B$ are disjoint or mutually exclusive if $A \cap B = \emptyset$. If $A$ and $B$ are disjoint, $\Prob(A \cup B) = \Prob(A) + \Prob(B)$.
+We say that two events $A$ and $B$ are disjoint or mutually exclusive if $A \cap B = \emptyset$. If $A$ and $B$ are disjoint, $\Pr(A \cup B) = \Pr(A) + \Pr(B)$.
 
 \section{Conditional Probability and Independence}
 
@@ -55,9 +55,9 @@ Conditional probability allows us to compute the probability of some event given
 \begin{definition}[Conditional Probability] \index{conditional probability}
     The probability of an event $A$ conditional on an event $B$ is
     $$
-    \Prob(A \mid B) = \frac{\Prob(A \cap B)}{\Prob(B)}
+    \Pr(A \mid B) = \frac{\Pr(A \cap B)}{\Pr(B)}
     $$
-    given that $\Prob(B) > 0$. 
+    given that $\Pr(B) > 0$. 
 \end{definition}
 
 \section{Average Case Analysis}
@@ -87,7 +87,7 @@ We can define the average case time complexity of $A$ as
 
 In general, the average case time complexity is less than or equal to the worst case time complexity, that is $T'(n) \leq T(n)$ for all $n$.
 
-The average case time complexity is dependent on the probability distribution of the inputs, which in turn can depends on the application where the algorithm is to be used. However, this is usually unknown, in which case, uniform distribution usually makes the analysis easier. For some applications, an algorithm with good average case behavior but bad worst case behavior is sufficient.
+The average case time complexity is dependent on the probability distribution of the inputs, which in turn can depends on the application where the algorithm is to be used. However, this is usually unknown, in which case, assuming uniform distribution usually makes the analysis easier. For some applications, an algorithm with good average case behavior but bad worst case behavior is sufficient.
 
 We follow the following steps before we can analyze the average case time complexity of an algorithm:
 
@@ -114,10 +114,10 @@ Consider the following algorithm for linear search in an unsorted array.
 It is obvious that the worst case complexity is $O(n)$ because there will be at most $n$ comparisons with the searching key $k$. Following the procedure introduced above, we can perform an average case complexity analysis.
 
 \begin{enumerate}
-    \item \textbf{Define sample space}: This will be the set of possible inputs that we are considering in our analysis. We define our sample space to be all pairs $(L,k)$ where $L$ is an input of size $n$ and $k$ is a key. Some observations on our choice of sample space:
+    \item \textbf{Define sample space}: This will be the set of possible inputs that we are considering in our analysis. We define our sample space to be all pairs $(L,k)$ where $L$ is an array of size $n$ and $k$ is a key. Some observations on our choice of sample space:
     \begin{itemize}
-        \item If we fix $L = [l_1, \cdots, l_n]$, then the sample space for $k$ is $[l_1,\cdots,l_n, \textsc{nil}]$ where $\textsc{nil}$ is used to indicate a value that is not in $L$. Hence, for a $L$ of size $n$, the sample space for $k$ contains $n+1$ sample points.
-        \item The number of comparisons performed by $\proc{Linear-Search}(L,k)$ is the same for $(L,k)$ and $(L',k')$ if $k$ occurs in $L$ at the same position as $k'$ in $L'$.
+        \item If we fix $L = [l_1, \cdots, l_n]$, then the sample space for $k$ is $[\textsc{nil}, l_1,\cdots,l_n]$ where $\textsc{nil}$ is used to indicate a value that is not in $L$. Hence, for a fixed $L$ of size $n$, the sample space for $k$ contains $n+1$ sample points.
+        \item The number of comparisons performed by $\proc{Linear-Search}$ is the same for $(L,k)$ and $(L',k')$ if $k$ occurs in $L$ at the same position as $k'$ in $L'$. Duplicates don't matter because the algorithm returns as soon as it finds the first occurrence.
         \item If $k$ and $k'$ are not in $L$, then $\proc{Linear-Search}(L,k)$ will also perform the same number of comparisons.
         \item The relative order between elements of $L$ does not matter since $\proc{Linear-Search}$ only performs equality tests, so choosing $L=[1,\cdots,n]$ is just as good as $L=[n,\cdots,1]$.
     \end{itemize}
@@ -126,12 +126,22 @@ It is obvious that the worst case complexity is $O(n)$ because there will be at 
     S_n = \{ (L,i) \mid i \in \{ \textsc{nil}, 1, \cdots, n \} \}
     $$
     where $L = [1,\cdots,n]$.
-    \item \textbf{Probability distribution}: We choose uniform distribution, which means that every point in the sample space has the same probability $\displaystyle \frac{1}{n+1}$.
-    \item \textbf{Define random variable}: Let $t_n:\; S_n \to \N$ be such that $t_n(i)$ is the number of comparisons performed when the input is $(L,i)$ where
+    \item \textbf{Probability distribution}: We choose uniform distribution, which means that every point in the sample space has the same probability $\displaystyle \frac{1}{n+1}$. 
+    $$
+    \Pr(k=j) = \frac{1}{n}
+    $$
+    Alternatively, we can say that $\textsc{nil}$ has probability of $1/2$ and everything else has probability $1/2n$.
+    $$
+    \Pr(k=j) = \begin{cases}
+        \frac{1}{2} & \text{if $j=\textsc{nil}$} \\
+        \frac{1}{2n} & \text{otherwise}
+    \end{cases}
+    $$
+    \item \textbf{Define random variable}: Let $t_n:\; S_n \to \N$ be such that $t_n(i)$ is the number of comparisons on elements $L$ performed when the input is $(L,i)$ where
     $$
     t_n(i) = \begin{cases}
         i & \text{for $i=1,\cdots,n$ } \\
-        n & \text{for $i=0$ }
+        n & \text{for $i=\textsc{nil}$ }
     \end{cases}
     $$
     \item \textbf{Analysis}:
@@ -146,7 +156,7 @@ It is obvious that the worst case complexity is $O(n)$ because there will be at 
         &< \frac{n}{2} + 1 
     \end{aligned}
     $$
-    Hence, $\displaystyle T'(n) \in O(\frac{n}{2})$.
+    Hence, $\displaystyle T'(n) \in O(\frac{n}{2})$. This says the average case is twice better than the worst case.
 \end{enumerate}
 
 \section{Average Case Analysis of Quick Sort}
@@ -168,19 +178,23 @@ In practice, we often choose the first element of $S$ as the pivot. The worst ca
 $$
 T(n) = T(n-1) + T(0) + \Omega(n) \in O(n^2)
 $$
-Following the procedure introduced above, we can perform an average case complexity analysis. In \proc{Quicksort}, only the relative order of the elements matter, not their actual values.
+Following the procedure introduced above, we can perform an average case complexity analysis. In \proc{Quicksort}, or most comparison-based sorting algorithms, only the relative order of the elements matter, not their actual values. So, it's reasonable to assume that $S_n$ is the set of all permutations of $S_n$.
 
 \begin{enumerate}
     \item Define sample space: $S_n = \text{all permutations of $\{1,\cdots,n\}$}$
     \item Probability distribution: We know that $\left| S_n \right| = n!$. Assuming uniform distribution, we have
     $$
-    \Prob[\pi] = \frac{1}{n!} \qquad \text{for all $\pi \in S_n$}
+    \Pr[\pi] = \frac{1}{n!} \qquad \text{for all $\pi \in S_n$}
     $$
     \item Random variables: Let $t_n: \; S_n \to \N$ be the random variable such that
     $$
     t_n(i) = \text{number of element comparison performed by $\proc{Quicksort}(S)$}
     $$
-    \item Analysis: Let $T'(n) = \Expected[t_n]$. Let $X_{ij} \; S_n \to \{0,1\}$ be an indicator random variable such that $X_{ij}(\pi) = 1$ if and only if elements $i$ and $j$ are compared during $\proc{Quicksort}(\pi)$. Since no pair of elements is compared more than once,
+    \item Analysis: We first consider the complexity measure and the worst-case analysis. We choose the number of comparisons as the complexity measure. The comparisons occur when $\proc{Partition}$ is called. In the worst case, the number of comparisons performed by $\proc{Quicksort}$ is $\leq {n \choose 2} \in O(n^2)$. The matching lower bound on the worst-case compexity is achieved when $\proc{Quicksort}$ is performed on a sorted array.
+    
+    Let $T'(n) = \Expected[t_n]$. Let $X_{ij} \; S_n \to \{0,1\}$ be an indicator random variable such that $X_{ij}(\pi) = 1$ if and only if elements $i$ and $j$ are compared during $\proc{Quicksort}(\pi)$. 
+    
+    No pair of elements is compared more than once, so
     $$
     t_n(\pi) = \sum_{1 \leq i < j \leq n} X_{ij}(\pi),
     $$
@@ -188,30 +202,30 @@ Following the procedure introduced above, we can perform an average case complex
     $$
     \begin{aligned}
         T'(n) = \Expected[t_n] &= \sum_{1 \leq i < j \leq n} \Expected[X_{ij}] & {\text{by linearity of expectation }} \\
-        &= \sum_{1 \leq i < j \leq n} \Prob[X_{ij} = 1] & {\text{since $X_{ij}$ is an indicator variable }}
+        &= \sum_{1 \leq i < j \leq n} \Pr[X_{ij} = 1] & {\text{since $X_{ij}$ is an indicator variable }}
     \end{aligned}
     $$
     In $\proc{Quicksort}(\pi)$, as long as no element in $\{i, \cdots, j\}$ is chosen as a pivot, these elements will stay together, either all going to $L$, or all going to $G$ in recursive calls. 
 
-    Eventually, one of the elements in $\{i, \cdots, j\}$ is chosen as pivot. Suppose that $p$ is the first of the elements in $\{ i, \cdots, j \}$ that is chosen as pivot. If $i < p < j$, then $i$ and $j$ are not compared during $\proc{Quicksort}$. If $p=i$ or $j=j$, then $i$ and $j$ are compared.
+    Eventually, one of the elements in $\{i, \cdots, j\}$ is chosen as pivot. Suppose that $p$ is the first of the elements in $\{ i, \cdots, j \}$ to be chosen as pivot. If $i < p < j$, then $i$ and $j$ are not compared during $\proc{Quicksort}$. If $p=i$ or $p=j$, then $i$ and $j$ are compared, making $X_{ij}=1$.
     
-    There are $j-i+1$ possibilities for $p$ to be chosen as pivot. Among those possible choices, $X_{ij} = 1$ for two possibilities, and $X_{ij} = 0$ for the rest. Since all permutations of the inputs are equally likely, each of these possibilities for $p$ is equally like and has probability of $\displaystyle \frac{1}{j-i+1}$.
+    There are $j-i+1$ possibilities for $p$ to be chosen as pivot. Among those possible choices, $X_{ij} = 1$ for two possibilities, and $X_{ij} = 0$ for the rest. Since all permutations of the inputs are equally likely, each of these possibilities for $p$ is equally likely and has probability of $\displaystyle \frac{1}{j-i+1}$.
 
     Hence,
     $$
-    \Prob[X_{ij} = 1] = \frac{2}{j-i+1}
+    \Pr[X_{ij} = 1] = \frac{2}{j-i+1}
     $$
 
     Using this, we can rewrite $T'(n)$ as with $k = j-i+1$ 
     $$
     \begin{aligned}
         T'(n) &= \Expected[t_n] \\
-        &= \sum_{1 \leq i < j \leq n} \Prob[X_{ij} = 1] \\
+        &= \sum_{1 \leq i < j \leq n} \Pr[X_{ij} = 1] \\
         &= \sum_{i=1}^n \sum_{j=i+1}^{n-1} \frac{2}{j-i+1} \\
         &= \sum_{i=1}^n \sum_{k=1}^{n-1} \frac{2}{k+1} & \text{substituting $k$} \\
         &< \sum_{i=1}^n \sum_{k=1}^n \frac{2}{k} \\
-        &= \sum_{i=1}^n O(n\, \lg n) & \text{harmonic series} \\
-        &= O(\lg n)
+        &= n \sum_{k=1}^n \frac{2}{k} \\
+        &\in O(n\, \lg n) & \text{harmonic series} \\
     \end{aligned}
     $$
 
@@ -238,15 +252,59 @@ In randomized quicksort, we randomly pick the pivot instead of using the first e
 
 $\proc{Random}(i,j)$ will return a number in $\{i, i+1, \cdots, j-1, j\}$ each equally likely, assuming $i \leq j$.
 
+The behavior of a randomized algorithm $A$ may depend on its input $I$ and the sequence of choices made by the algorithm.
+
 Let $t(I,p)$ denote the running time of algorithm $A$ on input $I$ with the sequence of random choices $p$. Then, the expected running time of algorithm $A$ on input $I$ is
 $$
-\Expected_p \left[ t(T,p) \right] = \sum_e \Prob [p] t(I,p)
+\Expected_p \left[ t(T,p) \right] = \sum_e \Pr [p] t(I,p)
 $$
 
 The worst case expected time complexity of algorithm $A$ is
 $$
-T(n) = \max_{I \in S_n} \Expected_p \left[ t(I,p) \right]
+T''(n) = \max_{I \in S_n} \Expected_p \left[ t(I,p) \right]
 $$
 where $S_n$ is the set of all inputs of size $n$.
 
 Note that the worst case complexity does not depend on any assumption about the input distribution.
+
+\begin{remark}
+    Be careful that the worst-case expected time complexity is the max of expectation (rather than the other way around).
+\end{remark}
+
+Since all elements in $S$ are equally likely to be chosen as the pivot in each call to $\proc{Randomized-Quicksort}$, each of the $j-i+1$ possibilities for $p$ is equally likely. The same average-case analysis for the non-randomized quicksort applies to the worst-case expected analysis of $\proc{Randomized-Quicksort}$.
+
+Therefore, the worst-case expected time complexity of $\proc{Randomized-Quicksort}$ is $O(n \log n)$.
+
+\section{Randomized Selection}
+
+This section is covered in CLRS 9.2. Given a multi-set $S$ and an integer $k$ such that $1 \leq k \leq |S|$, we want to find the $k$th smallest element in $S$.
+
+If $S = \{a_1 \leq a_2 \leq \cdots \leq a_n \}$, then return $a_k$. A naive implementation involves sorting $S$ using $\proc{Randomized-Quicksort}$ and returning the $k$th element of the sorted list.
+
+\begin{codebox}
+    \Procname{$\proc{Randomized-Select}(S,k)$}
+    \li \If $|S| \isequal 1$
+    \li \Then \Return $S$ \End
+    \li $r = \proc{Random}(1,|S|)$
+    \li $pivot = S[r]$ 
+    \zi \Comment partition $S$ into $L$, $E$, and $G$ such that $L$ contains all elements less than $pivot$
+    \zi \Comment $E$ contains all elements equal to $pivot$, and $G$ contains all elements greater than $pivot$
+    \li $L,E,G = \proc{Partition}(S,pivot)$
+    \li \If $|L| \geq k$ \Then
+    \li \Return $\proc{Randomized-Select}(L,k)$
+    \End
+    \li \If $|L| + |E| \geq k$ \Then
+    \li \Return $pivot$
+    \End
+    \li \Return $\proc{Randomized-Select}(G, k-|L|-|E|)$
+\end{codebox}
+
+In $\proc{Randomized-Select}$ we perform one fewer recursive call than $\proc{Randomized-Quicksort}$, so we know that the worst-case time complexity is less than or equal to the compexity of $\proc{Randomized-Quicksort}$.
+
+Let $S_n$ be the set of all permutations of $\{1,\cdots,n\}$, which is our sample space. There is no probability distribution because we are already considering a randomized algorithm. Similar to randomized quicksort, we consider the worst-case expected time complexity $T''(n)$.
+
+$$
+T''(n) \leq \frac{1}{n} \sum_{i=1}^n \max \{ T''(i-1),\, T''(n-i) \} + n - 1
+$$
+
+% NOTE: n-1 is the number of comparisons performed during partition; minus 1 because we don't compare to the pivot itself.
