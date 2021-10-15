@@ -16,6 +16,160 @@ Furthermore, if $|U| > m$, then by the pigeonhole principle, there are at least 
 
 \section{Resolving Collision}
 
+Chaining put all elements in $S \subseteq U$ that hash to the same slot in a linked list.
+
+We define the load factor $\alpha$ to be $\alpha = n/m$ where $n = |S|$ and $m$ is the number of buckets (slots) in the hash table. $\alpha$ is the average number of elements of $S$ stored in a slot of the hash table.
+
+Let $n_i$ be the number of elements of $S$ in slot $i$. Then,
+$$
+\sum_{i=0}^{m-1} n_i = n
+$$
+
+In the worst case, hashing with chaining takes $\Theta(\max_{0 \leq i \leq m-1} n_i)$ in addition to the time to compute $h(x)$ (the hashing step).
+
+From the analysis above, we know that $\max\{n_i\} = n$ if all elements of $S$ map to the same bucket.
+
+If $|U| > m(n-1)$, then by the pigeonhole principle, there exists $S \subseteq U$ with $|S|=n$ such that all element of $S$ hash to the same bucket.
+
+Overall, hashing with chaining without randomization has the following complexity:
+\begin{itemize}
+    \item $\proc{Insert}(x)$: $O(1)$ assuming all linked lists are unsorted and $x \not\in S$
+    \item $\proc{Delete}(p)$: $O(1)$ if list is doubly linked; if singly linked, then $O(n_i)$ where $n_i$ is the size of the bucket where $p$ is in.
+\end{itemize}
+
 \section{Universal Hashing}
 
-Let $\mathcal{H}$ be a finite collection of hash functions that map a given universe $U$ into the range $\{0,\cdots,m-1\}$. Such a collection is said to be universal if for each pair of distinct keys, $k,l \in U$, the number of hash functions $h \in \mathcal{H}$ for which $h(k) = h(l)$ is at most $|\mathcal{H}|/m$. In other words, with a hash function randomly chosen from $\mathcal{H}$, the chance of a collision between distinct keys is not more than the chance $1/m$ of a collision if $h(k)$ and $h(l)$ were randomly and independently chosen from the set $\{0,\cdots,m-1\}$. 
+Let $\mathcal{H}$ be a finite collection of hash functions that map a given universe $U$ into the range $\{0,\cdots,m-1\}$. Such a collection is said to be universal if for each pair of distinct keys, $k,l \in U$, the number of hash functions $h \in \mathcal{H}$ for which $h(k) = h(l)$ is at most $|\mathcal{H}|/m$. In other words, with a hash function randomly chosen from $\mathcal{H}$, the chance of a collision between distinct keys is not more than the chance $1/m$ of a collision if $h(k)$ and $h(l)$ were randomly and independently chosen from the set $\{0,\cdots,m-1\}$.
+
+That is, a finite set $\mathcal{H}$ of hash functions from $U \to [0,\cdots,m-1]$ is universal if for all $x \neq y \in U$
+$$
+\Pr_{h \in \mathcal{H}} [h(x) = h(y)] \leq \frac{1}{m}
+$$
+or equivalently,
+$$
+\left| \{ h \in \mathcal{H} \mid h(x) = h(y) \} \right| \leq \frac{|\mathcal{H}|}{m}
+$$
+
+Here are some examples of universal hashing families.
+
+\begin{enumerate}
+    \item $\mathcal{H}$ is the set of all hash functions from $U \to [0,\cdots,m-1]$ assuming $U$ is finite. Let $u = |U|$. Then, $|\mathcal{H}|=m^u$. For any distinct $x,y\in U$
+    $$
+    \left| \{ h \in \mathcal{H} \mid h(x) = h(y) \} \right| = m^{u-1}
+    $$
+    and
+    $$
+    \Pr_{h \in \mathcal{H}} [h(x) = h(y)] = \frac{1}{m}
+    $$
+    Therefore, $\mathcal{H}$ is universal.
+
+    \item Let $p$ be prime and $U = \{0,\cdots,p-1\} = \Z_p$. And let
+    $$
+    h_{a,b}(x) = ((ax+b) \mod p) \mod m
+    $$
+    and
+    $$
+    \mathcal{H}_{p,m} = \{h_{a,b}:\, U \to [0,\cdots,m-1] \mid a,b \in U, a \neq 0 \}
+    $$
+    So $|\mathcal{H}_{p,m}| = p(p-1)$. We can prove that $\mathcal{H}_{p,m}$ is universal.
+
+    \item Let $U = \{0, \cdots, 2^k-1\}$ and let
+    $$
+    h_a(x) = \left\lfloor \frac{ax \mod 2^k}{2^{k-1}} \right\rfloor
+    $$
+    This selects the $(k-m+1)$th through $k$th least significant bits. $m=2^{m'}$. Let
+    $$
+    \mathcal{H}' = \{ h_a \mid 0 < a < 2^k,\, \text{$a$ is odd}\}
+    $$
+    We have $|\mathcal{H}'| = u/2$. $\mathcal{H}'$ is universal. The proof is more complicated.
+\end{enumerate}
+
+\section{Analysis of Hashing with Chaining}
+
+Fix $S \subseteq $ where $|S|=n$. Pick $h \in \mathcal{H}$ randomly where $\mathcal{H}$ is a universal family of hash functions from $U \to \{0,\cdots,m-1\}$
+
+Let $x \in U$. Let $C_x:\, \mathcal{H} \to \N$ be such that
+$$
+C_x(h) = \text{the number of keys in $S$ that hash to $h(x)$}
+$$
+$C_x$ is a random variable that depends on the choice of $h$.
+
+For each $y \in S$, let $C_{x,y}:\; \mathcal{H} \to \{0,1\}$ be the indicator random variable that is $1$ if and only if $h(x)=h(y)$.
+$$
+C_x(h) = \sum_{y \in S} C_{x,y}(h)
+$$
+
+\begin{theorem}
+    $$
+    \Expected_{h\in\mathcal{H}}[C_x] \leq 1+\frac{n}{m} = 1 + \alpha
+    $$
+\end{theorem}
+
+\begin{proof}
+    If $y=x$, then $C_{x,y}(h)=1$ for all $h \in \mathcal{H}$ so $\Expected_{h\in\mathcal{H}}[C_x] = 1$
+
+    If $y \neq x$, then
+    $$
+    \begin{aligned}
+        \Expected_{h\in\mathcal{H}}[C_x] &= \Pr_{h\in\mathcal{H}}[C_{x,y}(h) = 1] \\
+        &= \Pr_{h\in\mathcal{H}}[h(x)=h(y)] \leq 1/m & \text{since $\mathcal{H}$ is universal}
+    \end{aligned}
+    $$
+    Hence,
+    $$
+    \begin{aligned}
+        \Expected_{h\in\mathcal{H}}[C_x] &= \sum_{y\in S}\Expected_{h\in\mathcal{H}}[C_{x,y}] & \text{by linearity of expectation} \\
+        &\leq 1 + \sum_{y \in S-\{x\}} \frac{1}{m} \leq 1 + \frac{n}{m} = 1+\alpha
+    \end{aligned}
+    $$
+\end{proof}
+
+\begin{corollary}
+    The worst-case expected search time for $x$ is $O(1+\alpha)$.
+\end{corollary}
+
+\begin{corollary}
+    Starting with an initially empty hash table of size $m$. The worst-case expected time to handle anyy sequence of $s$ \proc{Insert}, \proc{Delete}, \proc{Search} operations containing $n = O(m)$ \proc{Insert} operations is $O(s)$.
+\end{corollary}
+
+\section{Perfect Hashing}
+
+$h$ is perfect for $S$ if for each element of $S$ hashes to a different slot (i.e. no collisions). For example,
+$$
+h(x) = x \mod 5
+$$
+is perfect for $\{1,14,20\}$, but not for $\{1,9,14\}$.
+
+\subsection{Constructing a Perfect Hash Functions}
+
+Let $S$ be a set of $n$ keys. Let $\mathcal{H}$ be a universal family of hash functions. Let $C:\, \mathcal{H}\to\N$ be the random variable so that
+$$
+C(h) = \text{the number of collisions when $h$ is used to hash $S$}
+$$
+More formally,
+$$
+C(h) = \left| \{x,y\} \in S \mid x \neq y,\, h(x)=h(y) \right|
+$$
+
+\begin{lemma}
+    $$
+    \Expected[C] \leq \frac{{n \choose 2}}{m}
+    $$
+\end{lemma}
+
+\begin{proof}
+    $$C(h) = \sum \{ C_{x,y}(h) \mid x<y,\, x,y \in S \}$$
+    By linearity of expectation,
+    $$
+    \begin{aligned}
+        \Expected_{h \in \mathcal{H}} [C] = \sum \{ \Expected_{h \in \mathcal{H} } [C_{x,y}] \mid x,y \in S,\, x < y\} \\
+        &= \sum \{ \Pr_{h \in \mathcal{H}} [h(x)=h(y)] \mid x,y\in S,\, x<y\} \\
+        &\leq \sum \{1/m \mid x,y \in S,\, x<y \} & \text{since $\mathcal{H}$ is universal} \\
+        &= \frac{{n \choose 2}}{m}
+    \end{aligned}
+    $$
+\end{proof}
+
+If $m > {n \choose 2}$, then $\Expected_{h \in \mathcal{H}}[C] < 1$.
+
+FKS hashing
