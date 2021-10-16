@@ -1,0 +1,50 @@
+We will continue our discussion of randomized algorithms and probabilistic of such algorithms.
+
+\section{Random Permutations of an Array}
+
+We aim to devise and analyze an algorithm for permuting an array $A$ of $n$ elements. The input is an array $A$ of $n$ elements. The output is the array $A$ with the elements permuted in place.
+
+\begin{codebox}
+    \Procname{$\proc{Randomize-In-Place}(A)$ }
+    \li $n = \attrib{A}{length}$ 
+    \li \For $i$ from $1$ to $n-1$ \Do
+        \li $\proc{Swap}(A[i],\, \proc{Random}(A,i,n))$ 
+\end{codebox}
+
+Claim: at the beginning of the $i$th iteration, $A[1,\cdots,i-1]$ contains a uniformly random array of length $i-1$. That is, $x_1,\cdots,x_{i-1}$ appears with the probability $\frac{1}{(i-1)! {n \choose i-1}} = \frac{(n-i+1)!}{n!}$.
+
+\begin{proof}
+    We will prove the claim using induction.
+
+    \textbf{Base case}: for $i=2$, the first element was chosen randomly from all of $A[1\cdots n]$.
+
+    \textbf{Inductive step}: Suppose that as our inductive hypothesis, any sequence of length $k-1$ is likely $k-1$ is likely to occur in $A[1 \cdots k-1]$ after $k-1$ iterations. Consider iteration $k$.
+    $$
+    \begin{aligned}
+        \Pr(\text{$x_1 \cdots x_k$ occurs at $A[1 \cdots k]$}) = \Pr(\text{$x_k$ at $A[k]$} \mid \text{$x_1 \cdots x_{k-1}$ at $A[1 \cdots k-1]$}) \cdot \Pr(\text{$x_1 \cdots x_{k-1}$ at $A[1 \cdots k-1]$}) \\
+        = \frac{1}{n-k-1} \cdot \frac{(n-k+1)!}{n!} & \text{by inductive hypothesis}
+        = \frac{(n-k)!}{n!}
+    \end{aligned}
+    $$
+    This result implies that $x_1 \cdots x_k$ occurs randomly uniformly among all length $k$ subsequences of $A$.
+\end{proof}
+
+\begin{codebox}
+    \Procname{$\proc{Permute-With-All}(A)$}
+    \li $n = \attrib{A}{length}$ 
+    \li \For $i$ from 1 to $n-1$ \Do
+        \li $\proc{Swap}(A[i],\, \proc{Random}(A,\textbf{1},n))$ 
+\end{codebox}
+
+This algorithm, unlike the first one, does not produce uniform permutation. As an example, consider the array $A = [1,2,3]$ and the probability that the algorithm produces the output $[1,2,3]$.
+
+Cases:
+\begin{itemize}
+    \item $A[1] \leftrightarrow A[1]$ and $A[2] \leftrightarrow A[2]$
+    \item $A[1] \leftrightarrow A[2]$ and $A[2] \leftrightarrow A[1]$, with 
+    \item $A[1] \leftrightarrow A[3]$, not possible to get $[1,2,3]$ by swapping 2
+\end{itemize}
+
+\section{The Hiring Problem}
+
+\section{Reservoir Sampling}

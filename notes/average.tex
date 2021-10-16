@@ -23,7 +23,7 @@ If we have $\Pr(\omega) = \Pr(\omega')$ for all distinct $\omega, \omega' \in \O
 
 \vspace{\parskip}
 
-\begin{definition}[Complement]
+\begin{definition}[Complement] \index{complement (probability)}
     The complement of an event $A$ is
     $$
     \overline{A} = \Omega \setminus A
@@ -74,7 +74,7 @@ $$
 
 We can define the average case time complexity of $A$ as
 
-\begin{definition}
+\begin{definition} \index{average case time complexity}
     The average case time complexity of $A$ is
     $$
     T'(n) = \Expected [ t(x) \mid \text{$x$ has size $n$} ]
@@ -159,7 +159,7 @@ It is obvious that the worst case complexity is $O(n)$ because there will be at 
     Hence, $\displaystyle T'(n) \in O(\frac{n}{2})$. This says the average case is twice better than the worst case.
 \end{enumerate}
 
-\section{Average Case Analysis of Quick Sort}
+\section{Average Case Analysis of Quick Sort} \index{quicksort}
 
 Quicksort is ued to sort a multi-set of elements $S$ from a totally ordered domain. The pseudocode for quicksort is shown below.
 
@@ -234,7 +234,7 @@ Following the procedure introduced above, we can perform an average case complex
 
 From this analysis, we notice that the average case time complexity for quicksort is much smaller than the worst case time complexity. If the actual distribution of inputs is close to uniform distribution, then the average case time complexity will serve as a more realistic estimate of running time. But problem arises when the actual distribution is not uniform. To solve this issue, we can modify the quicksort algorithm to use a randomized pivot selection.
 
-\section{Randomized Quicksort}
+\section{Randomized Quicksort} \index{randomized quicksort}
 
 In randomized quicksort, we randomly pick the pivot instead of using the first element of $S$. Pick each element of $S$ to be the pivot with probability of $\displaystyle \frac{1}{|S|}$ using a random number generator. 
 
