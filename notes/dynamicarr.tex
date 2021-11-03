@@ -42,7 +42,7 @@ Immediately after the first \proc{Append}, $\Phi(C_1) = 2 - \begin{cases} 1 & \t
 
 The amortized cost of the first append with respect to $\Phi$ is
 $$
-\underbrace{1}_{\substack{\text{actual cost of} \\ \text{writing new element}}} + \begin{cases} 1 \\ 2 \\ 2} \end{cases} \leq 3
+\underbrace{1}_{\substack{\text{actual cost of} \\ \text{writing new element}}} + \begin{cases} 1 \\ 2 \end{cases} \leq 3
 $$
 
 Immediately before any subsequent expansion, the number of elements in the array is equal to the size of the array so $\Phi(D)$ is equal to the number of elements in the array.
@@ -59,9 +59,10 @@ The problem with this algorithm is that the amortized complexity is very big! Co
 
 \begin{codebox}
     \li \proc{Append} $2^{k-1}+1$ times
-    \li \Repeat $2^{k-3}$ times \Do
+    \li \Repeat
         \li \proc{Delete} 2 items
-        \li \proc{Append} 2 items
+        \li \proc{Append} 2 items \End
+    \li $2^{k-3}$ times
 \end{codebox}
 
 The time complexity can be summarized in this table
@@ -69,7 +70,8 @@ The time complexity can be summarized in this table
 \begin{center}
     \begin{tabular}{c|c|c|c}
         Operations & Number of resulting elements & Size of resulting array & Cost of operations \\
-        $2^{k-1}_1$ \proc{Append}s & $2^{k-1}+1$ & $2^k$ & $3(2^{k-1}+1)$ \\
+        \hline
+        $2^{k-1}-1$ \proc{Append}s & $2^{k-1}+1$ & $2^k$ & $3(2^{k-1}+1)$ \\
         $2$ \proc{Delete}s & $2^{k-1}-1$ & $2^{k-1}$ & $2^{k-1}$ \\
         $2$ \proc{Append}s & $2^{k-1}+1$ & $2^{k}$ & $2^{k-1}+2$
     \end{tabular}
@@ -81,7 +83,7 @@ An improved algorithm is: when an array overflows, double it; when an array is l
 
 Allocated charge for \proc{Append} is \$3 and for \proc{Delete} is \$2. We maintain the following credit invariant:
 
-In an array of size $2^k$ where $k \geq 0$, there are at least $\lflor 2^k/4 \rfloor$ elements. Elements in the last half (i.e. last $\lflor 2^k/2 \rfloor$ slots) have \$2 stored with them. Empty slots in the first half (i.e. first $\lflor 2^k/4 \rfloor$ slots) have \$1 stored with them.
+In an array of size $2^k$ where $k \geq 0$, there are at least $\lfloor 2^k/4 \rfloor$ elements. Elements in the last half (i.e. last $\lfloor 2^k/2 \rfloor$ slots) have \$2 stored with them. Empty slots in the first half (i.e. first $\lfloor 2^k/4 \rfloor$ slots) have \$1 stored with them.
 
 Prove the credit invariant by induction.
 

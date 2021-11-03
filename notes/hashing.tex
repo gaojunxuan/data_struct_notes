@@ -303,18 +303,6 @@ Each second-level table is stored preceeded by the specifications of its hash fu
     This two-level hash table is often called the FKS hash table, which owes its name to its inventors M. Fredman, J. Koml\'{o}s, and E. Szemer\'{e}di. They published the article titled \href{https://www.cs.dartmouth.edu/~ac/Teach/CS105-Winter05/Handouts/fks-perfecthash.pdf}{\textit{Storing a Sparse Table with O(1) Worst Case Access Time}} in 1984, in which they first introduced this kind of hash table.
 \end{remark}
 
-\section{Open Addressing} \index{open addressing} \index{linear probing}
-
-The idea of open addressing is to store keys directly into the hash table. If the hash table is full, we cannot insert new elements, unless we create a new hash table and double the size. In open addressing, rather than mapping each key to a single slot and use chaning to resolve collision, we instead compute a sequence of slots. With such approach, the load factor $\alpha$ can never exceed 1.
-
-Let $h:\; U \times \{0,\cdots,m-1\} \to \{0,\cdots,m-1\}$. For each key $k_1$, its probe sequence 
-$$
-(h(k,0), h(k,1),\cdots, h(k,m-1))
-$$
-is a permutation of $(0,1,\cdots,m-1)$ 
-
-For $\proc{Insert}(H,k)$, we put $k$ into the first empty $(N_i)$ slot in its probe sequence.
-
 \section{Application of Hashing}
 
 Given an array $A$ of $n$ numbers, determine if all of them are different.

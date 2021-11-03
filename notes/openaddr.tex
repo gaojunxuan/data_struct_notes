@@ -1,0 +1,74 @@
+\section{Open Addressing} \index{open addressing}
+
+The idea of open addressing is to store keys directly into the hash table. If the hash table is full, we cannot insert new elements, unless we create a new hash table and double the size. In open addressing, rather than mapping each key to a single slot and use chaning to resolve collision, we instead compute a sequence of slots. With such approach, the load factor $\alpha$ can never exceed 1.
+
+Let $h:\; U \times \{0,\cdots,m-1\} \to \{0,\cdots,m-1\}$. For each key $k_1$, its probe sequence 
+$$
+(h(k,0), h(k,1),\cdots, h(k,m-1))
+$$
+is a permutation of $(0,1,\cdots,m-1)$ 
+
+For $\proc{Insert}(H,k)$, we put $k$ into the first empty $(N_i)$ slot in its probe sequence.
+
+\subsection{Linear Probing} \index{linear probing}
+
+Let $h':\; U \to \{0,\cdots,m-1\}$ be the auxillary hash function. Linear probing uses the hash function $h$, which is defined as follows.
+$$
+h(x,i) = (h'(x) + i) \bmod m
+$$
+
+\begin{codebox}
+    \Procname{$\proc{Insert}(H,x)$}
+    \zi Put $x$ into the first empty slot in its probing sequence
+\end{codebox}
+
+\begin{codebox}
+    \Procname{$\proc{Search}(H,x)$}
+    \zi Examine each slot in the its probing sequence. Return if found.
+    \zi \If empty slot or $m$ elements have been searched \Then
+        \zi \Return False
+\end{codebox}
+
+As an example, consider a hash table with $m=8$ with the auxillary hash function $h'(x) = x \bmod m$ implemented using linear probing.
+
+Linear probing is good at minimizing page fetches as it exploits locality of reference.
+
+\subsection{Analysis of Linear Probing}
+
+\begin{theorem}
+    Assume that for each key $x_1$ that its probe sequence is equally likely to be any permutation of $\{0\cdots m-1\}$. For any $\alpha<1$, the expected number of probes in
+    \begin{itemize}
+        \item a successful search $\leq \frac{1}{1-\alpha}$
+        \item an unsuccessful search $\leq \frac{1}{\alpha} \ln\left( \frac{1}{1-\alpha} \right) $  
+    \end{itemize}
+\end{theorem}
+
+For linear probing, there are only $m$ possible sequences, not $m!$. The problem with linear probing is that it suffers from primary clustering where clusters of keys occur and occupied slots gets longer, increasing the average search time.
+
+\section{Quadratic Probing}
+
+In quadratic probing, we use the auxillary hash function $h'$ along with the hash function
+$$
+h(x,i) = (h'(x) + c_1i + c_2i^2) \bmod m
+$$
+for some constant $c_1,c_2$ and $c_2 \neq 0$.
+
+Our goal is to generate permutations of $\{0\cdots m-1\}$. 
+
+Similar to linear probing, we still only get $m$ probing sequences, and it also has its own clustering problem known as secondary clustering.
+
+\section{Double Hashing}
+
+For double hashing, we use two auxillary hash functions $h_1$ and $h_2$ for the main hash function $h$, which is defined as
+$$
+h(x,i) = (h_1(x) + ih_2(x)) \bmod m
+$$
+The idea behind this choice of hash function is that we want to ``jump by $h_2(x)$'' starting from $h_1(x)$.
+
+In practice, we choose $h_2$ such that $h_2(x)$ is relatively prime with $m$.
+
+This generates $\Theta(m^2)$ probing sequences.
+
+\section{Deletion in Open Addressing}
+
+Although insertion to a hash table implemented using open addressing is relatively simple, it has its unique problem when it comes to deletion. We cannot simply set the value at a slot to \const{nil}. If we did so, we will be unable to retrieve any key $k$ during whose insertion probing we had skipped the slot previously occupied by the deleted element. To solve this, we use a method called ``tombstone''. Essentially, we mark the deleted slot with a special marker \const{deleted} known as the tombstone. The tombstone indicates that there used to be an item at that slot but is no longer there. We will still skip the tombstone during probing as if there is still an item.
