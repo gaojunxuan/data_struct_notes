@@ -1,0 +1,158 @@
+\section{Disjoint Set ADT}
+
+A disjoint set is a collection of nonempty, pairwise disjoint sets of objects. Each set contains 1 special element called its representative. Sometimes, it may also be referred to as Union-Find.
+
+A disjoint set ADT should support the following operations:
+
+\begin{itemize}
+    \item $\proc{Make-Set}(x)$: Takes an object $x$ that is not in any of the current sets and adds $\{ x \}$ into the collection. The representative of the new set is $x$.
+    \item $\proc{Find-Set}(x)$: Given an element $x$ (the pointer to $x$), return the representative of the set that contains $x$.
+    \item $\proc{Union}(x,y)$: Given (the pointers to) two elements $s \in S_x$ and $y \in S_y$, adds the set $S_x \cup S_y$ to the collection and removes $S_x$ and $S_y$ from the collection. Return the representative of the new set, which can be any element of the set. If $x$ and $y$ belong to the same set, $\proc{Union}(x,y)$ has no effect.
+    \item $\proc{Link}(x,y)$: Same as $\proc{Union}$, except that $x$ and $y$ are the representatives of their sets.
+\end{itemize}
+
+Disjoint sets can be useful for the following applications:
+
+\begin{itemize}
+    \item Classifying webpages and finding sets of duplicate pages;
+    \item Reconstructing DNA sequences from small fragments (genome assembly);
+    \item Graph algorithms such as finding connected components in a graph;
+    \item Determining if two finite automata accepts the same language;
+    \item Model checking for program verification.
+\end{itemize}
+
+\section{Data Structures for Disjoint Sets}
+
+Consider a sequence of $m$ $\proc{Make-Set}$, $\proc{Link}$, and $\proc{Find-Set}$ operations applied to an initially empty colleciton of sets. Let $n \leq m$ be the number of $\proc{Make-Set}$ operations in this sequence. Each $\proc{Union}(x,y)$ operation can be replaced by
+
+\begin{codebox}
+    \li $x' = \proc{Find-Set}(x)$
+    \li $y' = \proc{Find-Set}(y)$
+    \li $\proc{Link}(x',y')$
+\end{codebox}
+
+In this section, we will take a look at a few data structures that implement the disjoint set ADT. For all the data structures described in this section, we would also need an auxillary data structure to keep track of the set/element pointers.
+
+\subsection{Circular Linked List}
+
+We can implement a disjiont set using a circular linked list. Each element of the disjoint set is a linked list node which contains a \id{next} pointer and a bit indicating whether this element is the representative of the set it belongs to. We can then represent each set in the collection by a circular singly linked list of its element nodes. In each linked list, exactly one node stores a 1 bit, indicating that node is the representative.
+
+\begin{codebox}
+    \Procname{$\proc{Make-Set}(x)$ }
+    \zi Create a linked list where $x$ is the only node
+    \zi Set this node to 1 so that $x$ is the representative
+\end{codebox}
+
+Clearly, $\proc{Make-Set}$ runs in $O(1)$ time.
+
+\begin{codebox}
+    \Procname{$\proc{Find-Set}(x)$ }
+    \zi Follow pointers starting from $x$ until an element with bit 1 is found. 
+    \zi Return the element with bit 1
+\end{codebox}
+
+The complexity of $\proc{Find-Set}$ is $O(n)$ assuming all $n$ elements are in the same set, or more generally, $O(\text{size of the set containing $x$})$.
+
+\begin{codebox}
+    \Procname{$\proc{Link}(x,y)$ }
+    \zi \If $x \neq y$ \Then
+    \zi Change the first element of each list to point to the second element 
+    \zi of the other list \End
+    \zi The representative of the new set is $x$ 
+\end{codebox}
+
+$\proc{Link}(x,y)$ would also run in $O(1)$ time.
+
+The worst-case sequence complexity of a sequence of $m$ $\proc{Make-Set}$, $\proc{Link}$, and $\proc{Find-Set}$ operations is $\Theta(mn)$. The upper bound follows from the fact that if each set has $O(n)$ elements, each operation takes $O(n)$ time and there are $m$ operations. To obtain the matching lower bound, we perform $n$ $\proc{Make-Set}$ operations, create one set by performing $n-1$ \proc{Link} operations, then finally perform $m-2n+1$ \proc{Find-Set} operations on the element that follows the representative in the list. Each of these operation takes $\Omega(2n-1)+\Omega(n(2m-2n+1)) = \Omega(mn)$ time.
+
+\subsection{Linked List With Back Pointers}
+
+Represent each set by a singly linked list of its elements. The first element in the list is the set representative. Each node contains a \id{next} pointer of a \id{representative} pointer.
+
+For $\proc{Make-Set}(x)$, simply create a node with both the \id{next} and \id{representative} pointers pointing to itself. This takes $O(1)$ time.
+
+For $\proc{Find-Set}(x)$, follow the representative pointer in $x$, and this also takes $O(1)$ time.
+
+\begin{codebox}
+    \Procname{$\proc{Link}(x,y)$}
+    \zi Insert the list with representative $y$ immediately after $x$
+    \zi Update the representative pointers of each element in list containing $y$ to point to $x$
+\end{codebox}
+
+This will take $O(\text{length of list containing $y$})$.
+
+Now, let us consider the worst-case sequence complexity of the sequence of operations described at the beginning of the section (i.e. a sequence of $m$ \proc{Make-Set}, \proc{Link}, and \proc{Find-Set} operations and $n$ is the number of \proc{Make-Set} operations in the sequence). The worst-case sequence complexity is $\Theta(m+n^2)$. For the upper bound, there can be at most $n-1$ non-trivial \proc{Link} operations that takes $O(n)$ steps. All other operations takes $O(1)$ steps. For the lower bound, perform $n$ \proc{Make-Set} operations, followed by $n-1$ \proc{Link} operations. The \proc{Link} operations take in total $\sum_{i=2}^{n} (i-1) \in \Omega(n^2)$. In addition, there are $m$ operations, each of which takes $\Omega(1)$ time. Hence, the lower bound of the worst-case sequence complexity is $\Omega(n^2+m)$. 
+
+The only expensive operation is \proc{Link}. If we call \proc{Link} on lists $y$ of length $\Theta(n)$, then the time would be $O(mn)$. This is an overestimate since $\proc{Link}(x,y)$ with $x \neq y$ can occur at most $n-1$ times.
+
+
+\subsection{Linked List With Back Pointers Using Union By Weight}
+
+In addition to the \id{back} and \id{representative} pointer, we store the size of each set at the head of the list.
+
+The time to perform \proc{Link} is $O(\min \{ |S_x|,\, |S_y|\})$. During \proc{Link}, the representative of the bigger set becomes the representative of the new set.
+
+We claim that with union by weight, the worst-case sequence complexity is $\Omega(m+n \log n)$. For the lower bound, we can first perform $n=2^k$ \proc{Make-Set} operations, and then repeatedly \proc{Link} sets of equal sizes. There are $n/2 = 2^{k-1}$ pair of lists each of length $2^0$, and $n/4 = 2^{k-2}$ pairs of lists each of length $2^1$, etc. The total cost is $\sum_{i=1}^k \frac{n}{2^i} \cdot 2^{i-1} = k\cdot n/2 \in \Omega(n \log n)$. 
+
+For the upper bound, consider the number of times the \id{representative} pointer changes for each element $x$. Whenever $x$'s representative pointer is changed, $|S_x|$ is at least doubled. With $|S_x| = 1$ initially, the maximum size of $S_x$ is $n$. Hence, $x$'s representative pointer changes at most by $\log_2 n$ times.
+
+\subsection{Trees}
+
+We can represent each set by a tree, where the root is the representative and each node has a \id{parent} pointer points to its parent. The root points to itself. There are no child pointers.
+
+\begin{codebox}
+    \Procname{$\proc{Find-Set}(x)$}
+    \zi Follow the parent pointers from $x$ until reaching the root
+\end{codebox}
+
+This clearly takes $\Theta(\attrib{T}{height})$ time.
+
+\begin{codebox}
+    \Procname{$\proc{Link}(x,y)$}
+    \zi Change the parent pointer to point to $x$
+    \zi Return $x$
+\end{codebox}
+
+This takes $O(1)$ time.
+
+The worst-case sequence complexity is $\Omega(mn)$. To obtain a lower bound, we can make $n$ sets by calling \proc{Make-Set} $n$ times. Then, link these sets by calling \proc{Link} $n-1$ time. Because of the implementation of \proc{Link}, this will essentially just create a linked list of length $n-1$. Finally, call \proc{Find-Set} $m-(2n-1)$ times, which in total gives us a $\Omega(mn)$ lower bound.
+
+For the upper bound, each operation is $O(h) \leq O(n)$. With $m$ operations, it takes $O(mn)$ in total. This is the same as a circular linked list, so this does not improve the performance. In fact, it might be better if we use a linked list with back pointers using union by height.
+
+\subsection{Trees With Union By Height}
+
+Store the height of each tree at the root. Representative of the taller tree becomes the new representative. If the heights are different, then the new height remains the maximum of the height of the two. If the two trees have the same height, the height of the new tree increases by 1.
+
+\begin{lemma}
+    Any tree of height $h$ has size of at least $2^h$.
+\end{lemma}
+
+\begin{proof}
+    By induction.
+\end{proof}
+
+\begin{corollary}
+    Any tree created by a sequence of $n$ \proc{Make-Set} and at most $n-1$ \proc{Link} operations has $O(\log n)$ height.
+\end{corollary}
+
+The upper bound on the worst-case sequence complexity is $O(m \log n)$ since the worst-case for \proc{Find-Set} is $O(\log n)$ and there are $m$ operations in total. The lower bound can be achieved by constructing a binomial tree and then perform \proc{Find-Set} on a deepest node. So the worst-case sequence complexity is $\Theta(m \log n)$.
+
+\subsection{Trees With Path Compression}
+
+During $\proc{Find-Set}(x)$, each node visited on the path from $x$ to the root is made a child of the root. This at most doubles the running time of \proc{Find-Set}.
+
+\textit{Claim}. The worst-case sequence complexity is 
+$$
+\Theta \left( n + f \cdot \left( \frac{1+ \log n}{\log (2 + f/n)} \right) \right)
+$$
+where $f$ is the number of \proc{Find-Set} operations.
+
+\subsection{Additional Implementations}
+
+Trees with union by weight and path compression. 
+
+Trees with union by height and path compression. The problem with this is that we cannot trivially maintain height information in the data structure when path compression is performed because path compression can change the height.
+
+\subsection{Trees With Union By Rank and Path Compression}
+
+Store the rank of each tree instead of its height. The rank denotes the height of the tree if there is no path compression.

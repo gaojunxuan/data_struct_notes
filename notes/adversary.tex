@@ -1,0 +1,17 @@
+\section{Guess a Number Game}
+
+\subsection{Battleship}
+
+\section{Proving Problem Lower Bound Using Adversary Argument}
+
+To prove a lower bound $L(n)$ for the time complexity of problem $P$ using an adversary argument, show that, for each algorithm $A$ that solves $P$ and for each input size $n$, an adversary can choose an input of size $n$ (not necessarily in advance) on which algorithm $A$ must take at least $L(n)$ steps.
+
+This is usually done using proof by contradiction.
+
+\begin{thmrule}[Lower Bound Proof Using Adversary Argument]
+    We want to prove that the lower bound on the time complexity of problem $P$ is $L(n)$.
+
+    Suppose there exists a comparison tree of height lower than $L(n)$ (if comparison-based problem). More generally, suppose there is an algorithm that solves the problem in fewer than $L(n)$ steps.
+
+    Devise an adversary strategy that gives answers consistent with its previous answers so that the algorithm is forced to take as many steps as possible. Choose and update input based on the adversary strategy and show that on such input, the comparison tree/algorithm gives the wrong answer. This contradicts the correctness of the comparison tree/algorithm.
+\end{thmrule}

@@ -26,14 +26,86 @@
     The adjacency-list representation of a graph $G=(V,E)$ consists of an arrray \textit{Adj} of $|V|$ lists, one for each vertex in $V$. For each $u \in V$, the adjacency list \textit{Adj[u]} contains all the vertices $v$ such that there is an edge $(u,v) \in E$. That is, \textit{Adj}[u] contains all the vertices adjacent to $u$ in $G$.
 \end{definition}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{figures/undirected_graph.pdf}
-    \caption{Representations of undirected graph: (a) the graph; (b) adjacency list of the graph; (c) adjacency matrix of the graph.}
-    \label{<label>}
-\end{figure}
-
 \section{Breadth-first Search} \index{breadth-first search (BFS)}
 
 Given a graph $G=(V,E)$ and a distinguished source vertex $s$, breadth-first search systematically explores the edges of $G$ to discover every vertex that is reachable from $s$. Breadth-first search expands the frontier between disvoered and undiscovered vertices uniformly across the breadth of the frontier. The algorithm discovers all vertices at distance $k$ from $s$ before discovering any vertices at distance $k+1$.
 
+BFS visits all the vertices in a connected undirected graph in order of their distance from the start vertex $s$. As we visit the nodes, we can also determine $\delta(s,v)$ which is the distance from $s$ to $v$, that is, the number of edges on the shortest path from $s$ to $v$.
+
+\begin{codebox}
+    \Procname{$\proc{BFS}(s)$}
+    \li $Q = \proc{Queue}(\{\})$;\; $d = [ \, ]$ 
+    \li \For $v \in V$ \Do
+        \li $d[v] = 0$ 
+        \li label $v$ as unvisited \End
+    \li visit $s$
+    \li $\color{cyan} \pi[s] = \const{nil}$ 
+    \li $\proc{Enqueue}(Q,s)$
+    \li \While $Q \neq \emptyset$ \Do
+        \li $u = \proc{Head}(Q)$
+        \li \For {\color{cyan}out} neighbor $v$ of $u$ \Do
+            \li \If $v$ is unvisited \Then
+                \li $\proc{Enqueue}(Q,v)$
+                \li $d[v] = d[u] + 1$
+                \li \color{cyan} $\pi[v] = u$  \End
+            \End
+        \li $\proc{Dequeue}(Q)$
+\end{codebox}
+
+If $G$ is not connected, this algorithm visits the connected component of $G$ containing $s$. If $G$ is directed, this visits all vertices reachable from $s$ by a directed path.
+
+\textit{Claim}. If $G$ is connected, then at the end of BFS, $d[v] = \delta(s,v)$ for all $v \in V$.
+
+Tree edge: $\{v,\, \attrib{v}{parent}\}$ or $(\attrib{v}{parent},\, v)$ if directed.
+
+Cross edge: $\{ u,v \}$ or $(u,v)$ if directed where $u$ is not an ancestor of descendant of $v$ in the BFS tree.
+
+Back edge: edge from a node to one of its ancestors.
+
+\begin{lemma}
+    If $G$ is undirected, then all edges are tree edges or cross edges.
+\end{lemma}
+
+\begin{proof}
+    Suppose that $\{u,v\}$ is a back edge discovered when $u$ is at the head of $Q$.
+
+    Since $v$ is an ancestor of $u$, it was visited and hence enqueued before $u$. So $v$ was the head of $Q$ before $u$. Since $\{u,v\} \in E$, $u$ was visited when $v$ was at the head of $Q$.This means that $\{u,v\}$ is a tree edge.
+\end{proof}
+
+If represented using an adjacency list, the BFS algorithm is $O(n+m)$. Each node $v$ is enqueued at most once. Its adjacency list is examined at most once. If represnted using an adjacency matrix, it requires $\Theta(n^2)$ time.
+
+$d[v]=0$ if and only if $v=s$. If $G$ is directed, $(\pi[v],\, v) \in E$. If $G$ is undirected, $\{ \pi[v], v \} \in E$. $d[v] = d[\pi[v]]+1$.
+
+\begin{lemma}
+    At the end of the BFS, $d[v] \geq \delta(s,v)$ for all nodes reachable from $s$.
+\end{lemma}
+
+\begin{proof}
+    $d[v]$ is the length of the path from $s$ to $v$ in the BFS tre since $d[v] = d[\pi[v]] + 1$ for all nodes $v \neq s$ reachable from $s$.
+
+    All these edges are in $E$, so $\delta(s,v) \leq d[v]$.
+\end{proof}
+
+\begin{lemma}
+    Let $s=v_1,v_2,\cdots,v_n$ be the nodes in the order they are visited (enqueued). Then, $0=d[v_1] \leq \cdots \leq d[v_n]$. 
+\end{lemma}
+
+\begin{proof}
+    Suppose not. Let $j>1$ be the smallest integer such that $d[v_j]<d[v_{j-1}]$.
+    
+    Let $v_h = \pi[v_{j-1}]$ where $h < j-1$, and let $v_i = \pi[v_j]$ where $i < j$.
+    
+    $d[v_{j-1}] = 1 + d[v_{h}]$ and $d[v_j] = 1 + d[v_i]$. Since $d[v_{j-1}] > d[v_j]$, then $d[v_h] > d[v_i]$. This implies that $i<h$. So, $d[v_j] \leq d[v_i]$ and $d[v_h] \leq d[v_{j-1}]$.
+
+    This means $v_i$ is enqueued and hence dequeued before $v_h$, which then implies that $v_j$ was enqueued before $v_{j-1}$. This is a contradiction.
+\end{proof}
+
+\begin{theorem}
+    At the end of $\proc{BFS}(s)$, $d[v] = \delta(s,v)$ for all nodes $v$ reachable from $s$.
+\end{theorem}
+
+\begin{proof}
+    Consider the shortest path (of length) $\delta(s,v)$ from $s$ to $v$ in $G$. Let $\{u,v\}$ be the last edge in this path. $\delta(s,u) = \delta(s,v) - 1$.
+
+    $\delta(s,s) = 0 = d[s]$. Let $v$ be a vertex where this is not ture. That is, let $v$ be a vertex with minimum value of $\delta(s,v)$ such that $d[v] < \delta(s,v)$. In particular, we know that $\delta(s,u) = d[u]$ and $\delta(s,v) = d[v] = d[\pi[v]]+1$. So, $d[v] > d[u] + 1$. This implies that $u$ is enqueued before $\pi[v]$. This is a contradiction, so no such $v$ exists.
+\end{proof}

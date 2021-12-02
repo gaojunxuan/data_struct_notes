@@ -1,0 +1,20 @@
+\section{Height of Trees}
+
+A $t$-ary tree of height $h$ has at most $t^h$ leaves. A $t$-ary tree with $L$ leaves has height at least $\lceil \log_t L \rceil$.
+
+Therefore, the worst-case number of $t$-way comparisons performed by a comparison tree $T$ that solves $P$ is at least $\lceil \log_t (\text{number of leaves in $T$}) \rceil$.
+$$
+C(P) \geq \min \{ \lceil \log_t (\text{number of leaves in $T$}) \rceil \mid \text{$T$ solves $P$} \}
+$$
+If $P$ has at least $m$ different possible outputs, then every comparison tree that solves $P$ has at least $m$ leaves, and it follows that every comparison tree that solves $P$ has height of at least $\lceil \log_t m \rceil$.
+
+\begin{example}
+    Consider the problem of searchign a sorted list using only $\leq$ comparisons. The input for this problem is $A[1\ldots n]$ where $A[1] \leq \cdots \leq A[n]$ and a search key $x$. The output is $i$ such that $x=A[i]$ or 0 if does not exist.
+
+    Naturally, there are $n+1$ possible outputs. The information thoery lower bound for this problem is then
+    $$
+    C(P) \geq \lceil \log_2 (n+1) \rceil
+    $$
+\end{example}
+
+\section{Sorting In Linear Time}

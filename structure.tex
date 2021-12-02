@@ -326,12 +326,12 @@
 \theoremstyle{pinknumbox}
 \newtheorem{axiomT}[dummy]{Axiom}
 \theoremstyle{greennumbox}
-\newtheorem{ruleT}{Rule}[chapter]
+\newtheorem{ruleT}{Template}[chapter]
 
 % A new set of theorem definitions used in appendix only
 \newcounter{appendixcounter}
 \theoremstyle{greennumbox}
-\newtheorem{ruleT_appendix}[appendixcounter]{Rule}
+\newtheorem{ruleT_appendix}[appendixcounter]{Template}
 \theoremstyle{pinknumbox}
 \newtheorem{axiomT_appendix}[appendixcounter]{Axiom}
 \theoremstyle{ocrenumbox}
@@ -596,7 +596,7 @@ innerbottommargin=5pt]{rBox}
 {\parindent \z@ \raggedright \normalfont
 \ifnum \c@secnumdepth >\m@ne
 \if@mainmatter
-\renewcommand{\@chapapp}{Lecture}
+\renewcommand{\@chapapp}{Chapter}
 \begin{tikzpicture}[remember picture,overlay]
 \node at (current page.north west)
 {\begin{tikzpicture}[remember picture,overlay]
