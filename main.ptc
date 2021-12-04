@@ -326,6 +326,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {23}Depth-First Search}{111}{chapter.23}%
 \defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {23.1}Depth First Search (DFS)}{111}{section.23.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {23.2}Applications of BFS/DFS}{112}{section.23.2}%
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {24}Minimum Spanning Trees}{113}{chapter.24}%
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {25}Bellman-Ford's Algorithm}{115}{chapter.25}%

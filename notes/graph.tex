@@ -20,6 +20,8 @@ A hypergraph is a graph consists of vertices and hyperedges. A hyperedge is a no
 
 A weighted graph has a weight function $w:\; E \to \R$ that assign a weight to each edge. We can similarly define a weight function for the vertices.
 
+An induced subgraph $G'$ of $G$ is the graph $(V',E')$ such that there exists a mapping $\psi:\; V' \to V$ such that $\forall u,v \in V'.\, \{u,v\} \in E \iff \{\psi(u), \psi(v)\} \in E'$. 
+
 \section{Operations on Graphs}
 
 \begin{multicols*}{2}
@@ -37,7 +39,7 @@ A weighted graph has a weight function $w:\; E \to \R$ that assign a weight to e
         \item Find all nodes $u$ that are connected to some node $v$.
         \item Find all neighbors of $v$.
         \item Find all connected components in an undirected graph.
-        \item Check if $G$ is induced subgraph (if there exists a mapping $\psi$ from $V$ to $V'$ such that $\forall u,v\in V.\, \{u,v\} \in E' \iff \psi(u),\psi(v) \in E$).
+        \item Check if $G$ is induced subgraph (if there exists a mapping $\psi$ from $V$ to $V'$ such that $\forall u,v\in V.\, \{u,v\} \in E' \iff \{\psi(u),\psi(v)\} \in E$).
         \item Find maximal matching.
         \item Check isomorphism.
         \item Compute flows (minimum and maximum flow) in a weighted directed graph.

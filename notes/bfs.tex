@@ -52,6 +52,8 @@ BFS visits all the vertices in a connected undirected graph in order of their di
         \li $\proc{Dequeue}(Q)$
 \end{codebox}
 
+We keep track of the shortest length from $s$ to each vertex in the array $d$.
+
 If $G$ is not connected, this algorithm visits the connected component of $G$ containing $s$. If $G$ is directed, this visits all vertices reachable from $s$ by a directed path.
 
 \textit{Claim}. If $G$ is connected, then at the end of BFS, $d[v] = \delta(s,v)$ for all $v \in V$.
