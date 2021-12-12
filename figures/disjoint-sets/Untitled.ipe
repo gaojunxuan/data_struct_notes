@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70218" creator="Ipe 7.2.24">
-<info created="D:20211203164751" modified="D:20211204175010"/>
+<info created="D:20211211023124" modified="D:20211211023124"/>
+<preamble>\usepackage{clrscode3e}
+\usepackage{amsmath,amsfonts,amssymb,amsthm} </preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -313,64 +315,112 @@ h
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
 <path layer="alpha" stroke="black">
-16 0 0 16 128 704 e
-</path>
-<path stroke="black">
-16 0 0 16 256 704 e
-</path>
-<path stroke="black">
-16 0 0 16 192 640 e
-</path>
-<path stroke="black">
-16 0 0 16 320 640 e
-</path>
-<path stroke="black">
-16 0 0 16 384 704 e
-</path>
-<path stroke="black">
-16 0 0 16 128 576 e
-</path>
-<path stroke="seagreen" pen="fat" arrow="normal/normal">
-144 704 m
+192 736 m
+192 704 l
 240 704 l
-</path>
-<path stroke="seagreen" pen="fat" arrow="normal/normal">
-272 704 m
-368 704 l
+240 736 l
+h
 </path>
 <path stroke="red" pen="heavier" arrow="normal/normal">
-205.092 649.198 m
-244.62 692.753 l
+240 720 m
+256 720 l
+256 752 l
+176 752 l
+176 720 l
+192 720 l
 </path>
-<path stroke="seagreen" pen="fat" arrow="normal/normal">
-267.819 693.215 m
-307.52 650.013 l
+<path stroke="black">
+320 736 m
+320 704 l
+368 704 l
+368 736 l
+h
 </path>
-<path stroke="seagreen" pen="fat" arrow="normal/normal">
-304 640 m
-208 640 l
+<path stroke="black">
+400 736 m
+400 704 l
+448 704 l
+448 736 l
+h
 </path>
-<path stroke="black" dash="dash dotted" pen="heavier" arrow="normal/normal">
-384 688 m
-102.508 0 0 -102.508 282.824 671.529 192 624 a
+<path stroke="black">
+480 736 m
+480 704 l
+528 704 l
+528 736 l
+h
 </path>
 <path stroke="black" arrow="normal/normal">
-138.77 564.168 m
-144.429 0 0 144.429 254.982 649.927 393.427 691.072 a
+368 720 m
+400 720 l
 </path>
 <path stroke="black" arrow="normal/normal">
-128 592 m
-128 688 l
+448 720 m
+480 720 l
 </path>
-<path stroke="blue" pen="heavier" arrow="normal/normal">
-128 720 m
-160 0 0 -160 256 624 384 720 a
+<path stroke="red" pen="heavier" arrow="normal/normal">
+424 736 m
+424 748 l
+344 748 l
+344 736 l
 </path>
-<text transformations="translations" pos="128 704" stroke="black" type="label" width="7.94" height="7.412" depth="0" halign="center" valign="center" size="LARGE" style="math">s</text>
-<text matrix="1 0 0 1 64 -64" transformations="translations" pos="128 704" stroke="black" type="label" width="9.579" height="7.412" depth="0" halign="center" valign="center" size="LARGE" style="math">x</text>
-<text matrix="1 0 0 1 192 -64" transformations="translations" pos="128 704" stroke="black" type="label" width="8.837" height="7.41" depth="3.35" halign="center" valign="center" size="LARGE" style="math">y</text>
-<text matrix="1 0 0 1 128 0" transformations="translations" pos="128 704" stroke="black" type="label" width="8.598" height="7.412" depth="0" halign="center" valign="center" size="LARGE" style="math">z</text>
-<text matrix="1 0 0 1 256 0" transformations="translations" pos="128 704" stroke="black" type="label" width="12.513" height="7.412" depth="0" halign="center" valign="center" size="LARGE" style="math">w</text>
-<text matrix="1 0 0 1 0 -128" transformations="translations" pos="128 704" stroke="black" type="label" width="8.767" height="7.412" depth="0" halign="center" valign="center" size="LARGE" style="math">v</text>
+<path stroke="red" pen="heavier" arrow="normal/normal">
+504 736 m
+504 756 l
+336 756 l
+336 736 l
+</path>
+<path stroke="black">
+320 656 m
+320 624 l
+368 624 l
+368 656 l
+h
+</path>
+<path stroke="black">
+400 656 m
+400 624 l
+448 624 l
+448 656 l
+h
+</path>
+<path stroke="black" arrow="normal/normal">
+368 640 m
+400 640 l
+</path>
+<path stroke="darkred" pen="heavier" arrow="normal/normal">
+424 656 m
+424 668 l
+344 668 l
+344 656 l
+</path>
+<use matrix="16.5 0 0 4.66667 -5890 -2449.33" name="mark/cross(sx)" pos="380 668" size="large" stroke="black"/>
+<use name="mark/cross(sx)" pos="384 720" size="large" stroke="black"/>
+<path stroke="black" arrow="normal/normal">
+368 720 m
+388 696
+356 688
+292 684
+292 640
+308 640
+320 640 c
+</path>
+<path stroke="red" pen="heavier" arrow="normal/normal">
+340 656 m
+340 704 l
+</path>
+<path stroke="red" pen="heavier" arrow="normal/normal">
+428 656 m
+428 680
+424 684
+360 680
+356 684
+356 704 c
+</path>
+<text matrix="1 0 0 1 -8 0" transformations="translations" pos="192 784" stroke="black" type="label" width="62.591" height="7.473" depth="2.49" valign="baseline" style="math">\proc{Make-Set}(x)</text>
+<text transformations="translations" pos="216 720" stroke="black" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
+<text matrix="1 0 0 1 128 0" transformations="translations" pos="216 720" stroke="black" type="label" width="5.694" height="4.289" depth="0" halign="center" valign="center" style="math">x</text>
+<text matrix="1 0 0 1 128 -80" transformations="translations" pos="216 720" stroke="black" type="label" width="5.242" height="4.297" depth="1.93" halign="center" valign="center" style="math">y</text>
+<text matrix="1 0 0 1 208 0" transformations="translations" pos="192 784" stroke="black" type="label" width="45.373" height="7.473" depth="2.49" valign="baseline" style="math">\proc{Link}(x,y)</text>
 </page>
 </ipe>

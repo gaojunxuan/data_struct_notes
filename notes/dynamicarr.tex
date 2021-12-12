@@ -1,6 +1,21 @@
 \section{Dynamic Array}
 
-Idea: When we want to append but the array is full, then we copy the list to an array that is twice as large.
+In this section, we will consider the data structure known as dynamic array. It is similar to a regular array, but its length changes according to the ``fullness'' of the array.
+
+\index{dynamic array}
+
+The array will be initialized with a fixed length. Upon calling \textsc{Insert}, it will insert an element into the array, and whenver the current array becomes full, we create a longer array and copy everything into the new array. Similarly, after calling \textsc{Delete}, we will shrink the array whenever the array becomes too empty. If we only consider the worst case, the runtime complexities are bad: $O(n)$ for both operations. However, if we look at the amortized cost, the runtime is actually smaller.
+
+\begin{figure}[htbp]
+    \captionsetup{singlelinecheck=false, font=footnotesize, labelsep=space, margin={0pt,1cm}, justification=raggedright}
+    \includegraphics[width=0.4\linewidth]{figures/dynamic_arr_append.pdf}
+
+    \hfill
+
+    \caption[width=0.5\linewidth]{The dynamic array after the operation \textsc{Insert}(9). The length of the new array is doubled, and old elements are copied to the new array.}
+\end{figure}
+
+\textit{Idea}: When we want to append but the array is full, then we copy the list to an array that is twice as large.
 
 Let $n = \text{\# of elements in the list before an \proc{Append} operation}$. The worst-case cost of \proc{Append} is $n+1$.
 
@@ -23,10 +38,17 @@ Credit invariant: Each element in the last half of the array has \$2 credits.
 
     Case 2: If the array is full, all elements in the last half of the array have \$2 credits (if array size is 1, all elements have \$2). The number of elements in the last half of the array is equal to the number of elements in the first half (or no element in the first half if the array size if 0). Copy the array elements from old array to new array of twice the size. Pay for this using stored \$1 credit. Finally, write the new element to the first available slot. It is the only element in the last half of the new array. Hence, the credit invariant is true.
 
-    By induction, the credit invariant.
+    By induction, the credit invariant holds.
 
     Hence, the allocated charge (amortized cost) of \proc{Append} is $\$3 \in O(1)$.
 \end{proof}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/accounting_method_insert.pdf}
+    \caption{The credit scheme for amortized analysis of dynamic array.}
+    \label{fig:dyarr-amortized}
+\end{figure}
 
 \section{Amortized Analysis of Dynamic Array Using Potential Method}
 
@@ -65,7 +87,7 @@ The problem with this algorithm is that the amortized complexity is very big! Co
     \li $2^{k-3}$ times
 \end{codebox}
 
-The time complexity can be summarized in this table
+The time complexity can be summarized as this table
 
 \begin{center}
     \begin{tabular}{c|c|c|c}
@@ -83,51 +105,90 @@ An improved algorithm is: when an array overflows, double it; when an array is l
 
 Allocated charge for \proc{Append} is \$3 and for \proc{Delete} is \$2. We maintain the following credit invariant:
 
-In an array of size $2^k$ where $k \geq 0$, there are at least $\lfloor 2^k/4 \rfloor$ elements. Elements in the last half (i.e. last $\lfloor 2^k/2 \rfloor$ slots) have \$2 stored with them. Empty slots in the first half (i.e. first $\lfloor 2^k/4 \rfloor$ slots) have \$1 stored with them.
+In a nonempty array of size $2^k$ where $k \geq 0$, there are at least $\lfloor 2^k/4 \rfloor$ elements. Elements in the last half (i.e. last $\lfloor 2^k/2 \rfloor$ slots) have \$2 stored with them. Empty slots in the first half (i.e. first $\lfloor 2^k/4 \rfloor$ slots) have \$1 stored with them.
 
 Prove the credit invariant by induction.
 
 \begin{proof}
-    Base case: $k=0$, array is empty. 
+
+    \hfill
+
+    \textbf{Base case}: $k=0$, array is empty. 
     
-    Inductive step: Assume the credit invariant is true before some operation. If the array is empty, then the operation must be \proc{Append}.
+    \textbf{Inductive step}: Assume the credit invariant is true before some operation. If the array is empty, then the operation must be \proc{Append}.
 
-    % TODO: handle base cases in induction
+    If the array is empty, the operation must be \proc{Append}. The element is put into the first half of an array of size 2. There are no elements in the second half and there is no empty slots in the first half. The actual cost of the operation uses \$1. The allocated cost is \$3, so the remaining \$2 can be donated to charity.
 
-    There are four major cases:
+    Otherwise, there are four major cases:
 
     Case 1: Append without overflow:
 
     Case 1a (append without overflow, with previous expansion): \$1 actual cost, \$2 to store in the data structure.
-    Case 1b (append without overflow, without prior expansion): \$1 actual cost, \$1 from data structure, leftover \$3 can be donated to charity. % TODO: diagrams
+
+    \includegraphics[width=0.5\linewidth]{dynamicarr/dynamicarr-case1a.pdf}
+
+    Case 1b (append without overflow, without prior expansion): \$1 actual cost, \$1 from data structure, leftover \$3 can be donated to charity.
+    
+    \includegraphics[width=0.5\linewidth]{dynamicarr/dynamicarr-case1b.pdf}
 
     Case 2: Append with overflow: $2^k$ in data structure. Actual cost $2^k+1$. Put \$2 into new array with new element. Allocated charge if \$3 is sufficient.
+
+    \includegraphics[width=0.5\linewidth]{dynamicarr/dynamicarr-case2.pdf}
 
     Case 3: Delete without contraction
 
     Case 3a: \$1 actual cost, \$2 in data structure. Leftover \$3 donated to charity.
 
+    \includegraphics[width=0.5\linewidth]{dynamicarr/dynamicarr-case3a.pdf}
+
     Case 3b: \$1 actual cost, store \$1 in data structure. Allocated charge \$2 is sufficient.
 
+    \includegraphics[width=0.5\linewidth]{dynamicarr/dynamicarr-case3b.pdf}
+
     Case 4: Delete with contraction: there is \$$2^{k-2}$ in the data structure, which is used to copy elements from old array. \$2 allocated charge donated to charity if there is leftover.
+
+    \includegraphics[width=0.5\linewidth]{dynamicarr/dynamicarr-case4.pdf}
 \end{proof}
 
 Since credit invariant is true and the credit in the data structure is at least 0. The amortized cost of \proc{Append} is at most \$3, and the amortized cost for \proc{Delete} is at most \$2.
 
 \section{Amortized Analysis of Dynamic Array With Delete Using Potential Method}
 
-Let
+Let $\Phi$ be the potential function such that
 $$
-\Phi(D) = 2 \times \text{\# of elements in the list} - \text{size of array}
+\Phi(D) = | 2 \times \text{\# of elements in the list} - \text{size of array} |
 $$
 Let $D_i$ be the state of the data structure after $i$th operation, and let $c_i$ be the actual cost of the $i$th operation. Let $a_i = c_i + \Phi(D_i) - Phi(D_{i-1})$. If $\Phi(D_n) > \Phi(D_0)$, then $\sum_{i=1}^n a_i = \Phi(D_n) - \Phi(D_0) + \sum_{i=1}^n c_i \geq \sum_{i=1}^{n} c_i$.
 
+The absolute value in the definition of the potential function is necessary because otherwise, the potential in the case of deletion with contraction would be negative.
+
+Let $\Phi(D_0) = 3$. 
+
 Consider the following cases:
 
-1. Append without overflow: If elements in the list increases by 1, size of the array does not change, so $\Delta\Phi = \Phi(D_i)-\Phi(D{i-1}) = 2$. Actual cost is 1, so $a_i = 1+\Delta\Phi = 3$.
+\begin{enumerate}
+    \item Append without overflow: If elements in the list increases by 1, size of the array does not change, so $\Delta\Phi = \Phi(D_i)-\Phi(D{i-1}) = 2$. Actual cost is 1, so $a_i = 1+\Delta\Phi = 3$.
+    \item Append with overflow: $a_i = 2^k + 1 + (2-2^k) = 3$:
+    \begin{center}
+        \begin{tabular}{c|c|c|}
+             & Before & After \\
+            \hline
+            number of elements & $2^k$ & $2^k + 1$ \\
+            array size & $2^{k}$ & $2^{k+1}$ \\
+            $\Phi$ & $2^{k}$ & 2   
+        \end{tabular}
+    \end{center}
+    \item Delete without contraction: The number of elements in the list decreases by 1, and array size is unchanged. So, $\Delta\Phi = \Phi(D_i) - \Phi(D_{i-1}) \leq 2$. The actual cost is 1, so $a_i = 1 + \Delta\Phi \leq 3$.
+    \item Delete with contraction: The actual cost is $2^k - 1$ so $a_i = 2^k - 1 + 2 - 2^{k+1} \leq 3$:
+    \begin{center}
+        \begin{tabular}{c|c|c|}
+             & Before & After \\
+            \hline
+            number of elements & $2^k$ & $2^k - 1$ \\
+            array size & $2^{k+1}$ & $2^{k+1}$ \\
+            $\Phi$ & $2^{k+1}$ & 2   
+        \end{tabular}
+    \end{center}
+\end{enumerate}
 
-2. Append with overflow: $a_i = 2^k + 1 + (2-2^k) = 3$% TODO: add table
-
-3. Delete without contraction: The number of elements in the list decreases by 1, and array size is unchanged. So, $\Delta\Phi=-2$. The actual cost is 1, so $a_i = 1 + \Delta\Phi = -1$.
-
-4. Delete with contraction: % TODO: add table
+In all cases, $a_i \geq 3$, so the amortized cost of \proc{Append} and \proc{Delete} is at most 3.

@@ -206,10 +206,10 @@
 \chapter{Dynamic Arrays}
 \input{notes/dynamicarr.tex}
 
-\chapter{Scapegoat Tree}
+\chapter{Scapegoat Tree and Splay Tree}
 \input{notes/scapegoat.tex}
 
-\part{Hashing and Related Topics}
+\part{Hashing}
 
 \chapter{Hashing}
 \input{notes/hashing.tex}
@@ -257,10 +257,11 @@
 \input{notes/dfs.tex}
 
 \chapter{Minimum Spanning Trees}
+\input{notes/mst.tex}
 
-\chapter{Bellman-Ford's Algorithm}
+\chapter{Single-Source Shortest Path Algorithms}
+\input{notes/dijkstra.tex}
 
-\chapter{Dijkstra's Algorithm}
 
 
 
@@ -268,11 +269,14 @@
 %----------------------------------------------------------------------------------------
 %	APPENDIX
 %----------------------------------------------------------------------------------------
-
 \part*{Appendix}
 \appendix
 \chapter*{Commonly Used Axioms \& Theorems}
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Axioms \& Theorems}} 
+
+\renewcommand{\leftmark}{\sffamily\bfseries Axioms \& Theorems}
+\renewcommand{\rightmark}{\sffamily\bfseries Axioms \& Theorems}
+
 \input{appendix/appendix1}
 
 \chapter*{Basic Prerequisite Mathematics}
@@ -288,9 +292,9 @@
 %----------------------------------------------------------------------------------------
 
 \chapter*{Index}
-
-\cleardoublepage % Make sure the index starts on an odd (right side) page
-\phantomsection
+\renewcommand{\leftmark}{\sffamily\bfseries Index}
+\renewcommand{\rightmark}{\sffamily\bfseries Index}
+%\cleardoublepage % Make sure the index starts on an odd (right side) page
 \setlength{\columnsep}{0.75cm} % Space between the 2 columns of the index
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Index}} % Add an Index heading to the table of contents
 
@@ -300,6 +304,8 @@
 %   BIBLIOGRAPHY ENTRIES
 %------------------------------------------------
 \chapter*{Bibliography}
+\renewcommand{\leftmark}{\sffamily\bfseries Bibliography}
+\renewcommand{\rightmark}{\sffamily\bfseries Bibliography}
 \addcontentsline{toc}{chapter}{\textcolor{ocre}{Bibliography}} % Add a Bibliography heading to the table of contents
 
 \section*{Courses}
@@ -319,10 +325,6 @@
 %------------------------------------------------
 %   TUTORIALS
 %------------------------------------------------
-\definecolor{ocre}{HTML}{4c9d4c}
-\part*{Tutorial}
-
-\newpage
 
 %----------------------------------------------------------------------------------------
 

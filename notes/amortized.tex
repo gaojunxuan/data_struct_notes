@@ -114,7 +114,7 @@ Generally, there are three methods for performing amortized analysis. Although a
 
 Get an upper and lower bound on $C(m)$ worst-case sequence complexity and then divide it by $m$. The previous two analyses on the examples (sorted linked list and binary counter) are all done using the aggregate method.
 
-\section{Accounting Method} \index{accounting method}
+\section{Accounting Method} \index{accounting method} \index{allocated charge} \index{credit invariant}
 
 In the accounting method, each kind of operation is assigned a fixed charge $a(\id{op})$ called the \textbf{allocated charge} or \textbf{amortized cost} of that operation. \index{allocated charge} \index{amortized cost}
 
@@ -122,7 +122,7 @@ When the allocated cost $a(\id{op})$ is greater than the actual cost of $\id{op}
 
 If the total credit in the data structure is always non-negative (i.e. the bank account never runs out of money), then the total actual cost of the sequence of operations is less than or equal to the sum of allocated charges of the operations in the sequence.
 
-To prove that the total credit in the data structure is always non-negative, we will use a credit invariant (similar to loop invariant used to prove correctness). The credit invariant is a rule that says that parts of the data structure with certain properties will have a certain number of credits associated with them. Credit invariants are proved by induction.
+To prove that the total credit in the data structure is always non-negative, we will use a \textbf{credit invariant} (similar to loop invariant used to prove correctness). The credit invariant is a rule that says that parts of the data structure with certain properties will have a certain number of credits associated with them. Credit invariants are proved by induction.
 
 Sometimes, credits are needed to establish the credit invariant for the initial state. Then, the total actual cost of the sequence $\leq$ the cost to establish the credit invariant plus the sum of allocated charge to the operations in the sequence.
 
@@ -165,56 +165,46 @@ When we flip a bit from 1 to 0, the associated \$1 credit at that bit can be use
     The total actual cost of $m$ operations $C(m) \leq 0 + 2m$. Hence, the amortized cost $A(m)$ of \proc{Incremente} is at most 2 bit flips.  
 \end{proof}
 
-\section{Dynamic Array}
-
-In this section, we will consider the data structure known as dynamic array. It is similar to a regular array, but its length changes according to the ``fullness'' of the array.
-
-\index{dynamic array}
-
-The array will be initialized with a fixed length. Upon calling \textsc{Insert}, it will insert an element into the array, and whenver the current array becomes full, we create a longer array and copy everything into the new array. Similarly, after calling \textsc{Delete}, we will shrink the array whenever the array becomes too empty. If we only consider the worst case, the runtime complexities are bad: $O(n)$ for both operations. However, if we look at the amortized cost, the runtime is actually smaller.
-
-\begin{figure}[htbp]
-    \captionsetup{singlelinecheck=false, font=footnotesize, labelsep=space, margin={0pt,1cm}, justification=raggedright}
-    \includegraphics[width=0.4\linewidth]{figures/dynamic_arr_append.pdf}
-
-    \hfill
-
-    \caption[width=0.5\linewidth]{The dynamic array after the operation \textsc{Insert}(9). The length of the new array is doubled, and old elements are copied to the new array.}
-\end{figure}
-
-\subsection{Accounting Method Analysis for Dynamic Array}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{figures/accounting_method_insert.pdf}
-    \caption{<caption>}
-\end{figure}
-
 \section{Potential Method}
 
 \vspace{\parskip}
 
-Prepaid wors in represented as potential energy associated with the whole data structure. Potential energy in a data structure can be released to pay for later operations.
+Prepaid credits is represented as potential energy associated with the whole data structure. Potential energy in a data structure can be released to pay for later operations.
 
 \begin{definition}[Potential Function] \index{potential function}
     Let $D$ be some data structure with initial state $D_0$. For each $i = 1,2,\cdots,n$, let $c_i$ be the actual cost of the $i$-th operation and $D_i$ be the resulting data structure after applying the $i$-th operation to data structure $D_{i-1}$.
 
     The potential function $\Phi$ maps each data structure at state $i$, denoted $D_i$, to a real number $\Phi(D_i)$, which is the potential associated with data structure $D_i$.
 
-    The amortized cost $\hat{c_i}$ of the $i$-th operation with respect to the potential function $\Phi$ is
+    The amortized cost $a$ of an operation with respect to the potential function $\Phi$ is
     $$
-    \hat{c_i} = c_i + \Phi(D_i) - \Phi(D_{i-1})
+    a = \underbrace{c_i}_{\substack{\text{actual} \\ \text{cost}}} + \underbrace{\Phi(D')}_{\substack{\text{potential of configuration} \\ \text{after operation}}} - \underbrace{\Phi(D)}_{\substack{\text{potential of configuration} \\ \text{before operation}}}
     $$
-    And the total amortized cost of $n$ operations is
+    Consider a sequence of $m$ operations that result in the sequences of data structure configurations $D_0 \to D_1 \to D_2 \to \cdots \to D_m$. Then, the total amortized cost of the $m$ operations is
     $$
-    \sum_{i=1}^{n} \hat{c_i} = \sum_{i=1}^{n} \left( c_i + \Phi(D_i) - \Phi(D_{i-1}) \right) = \sum_{i=1}^{n} c_i + \Phi(D_n) - \Phi(D_0)
+    \sum_{i=1}^{n} a_i = \sum_{i=1}^{m} \left( t_i + \Phi(D_i) - \Phi(D_{i-1}) \right) = \Phi(D_m) - \Phi(D_0) + \sum_{i=1}^{m} t_i
     $$
 \end{definition}
+Intuitively, $\Phi(D')-\Phi(D)$ is the increase in potential, or the prepaid work (credit). If $\Phi(D_m) \geq \Phi(D_0)$, then $T(\sigma) = \sum_{i=1}^m t_i \leq \sum_{i=1}^m a_i$.
+
+Coming up with a good potential function is the hard and creative part of the analysis. Usually, we choose the potential of the initial configuration to be 0, and the potential to be non-negative after every operation. Similar to a credit invariant, this is typially proved using induction.
 
 \subsection{Analysis of Binary Counter Using Potential Method}
 
-Let $C_i$ be the configuration after $i$th \proc{Increment}.
+Let $C_i$ be the configuration after $i$th \proc{Increment}. Let $\Phi(C)$ be the number of 1 bits in the stored representation of the counter in counfiguration $C$.
 
-Let $\Phi(c)$ be the number of 1 bits in the stored representation of the counter in counfiguration $C$.
+$\Phi(C) \geq 0$ for all configurations $C$. For the initial configuration $C_0$, $\Phi(C_0) = 0$ since all bits are 0 initially.
 
-$\Phi(C) \geq 0$ for all configurations $C$. $\Phi(C) = 0$ since all bits are 0 initially.
+Let $a_i$ be the cost of the $i$th \proc{Increment} operation with respect to $\Phi$ and let $t_i$ be the actual cost of the $i$th \proc{Increment} operation.
+
+If all bits are 1 in configuration $C_{i-1}$, then there are $t_i = k$ bit flips and $\Phi(C_{i-1}) = k$ and $\Phi(C_i) = 0$. In this case $a_i = k+0-k = 0$.
+
+Otherwise, the $i$th \proc{Increment} flips 1 bit from 0 to 1 and flips $t_i-1$ bits from 1 to 0. In this case, $\Phi(C_i)-\Phi(C_{i-1}) = 1 - (t_i - 1)$, so
+$$
+\begin{aligned}
+    a_i &= t_i + \Phi(C_i) - \Phi(C_{i-1}) \\
+    &= t_i + (1-t_i + 1) \\
+    &= 2
+\end{aligned}
+$$  
+Thus the amortized cost of each \proc{Increment} operation with respect $\Phi$ is at most 2.

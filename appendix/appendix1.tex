@@ -94,6 +94,63 @@ $A \vee \neg A \equiv \textbf{T}$
 \end{axiom_appendix}
 
 \section*{Induction}
+
+\vspace{\parskip}
+
 \begin{axiom_appendix}[Well Ordering Principle]
 Every nonempty set of nonnegative integers has a smallest element. i.e., For any $A \subset \N$ such that $A \neq \emptyset$, there is some $a \in A$ such that $\forall a' \in A.a\leq a'$.
 \end{axiom_appendix}
+
+\section*{Recurrences}
+
+\vspace{\parskip}
+
+\begin{theorem_appendix}[The Master Theorem]
+Suppose that for $n \in \Z^+$.
+\begin{equation*}
+    T(n) =
+    \begin{cases}
+    c & \text{if $n<B$} \\
+    a_1 T(\lceil n/b \rceil) + a_2 T(\lfloor n/b \rfloor) + dn^i & \text{if $n\geq B$}
+    \end{cases}
+\end{equation*}
+where $a_1, a_2, B, b \in \N$.
+
+Let $a = a_1+a_2 \geq 1$, $b>1$, and $c,d,i \in \R \cup \{0\}$. Then,
+\begin{equation*}
+    T(n) \in
+    \begin{cases}
+    O(n^i \log n) & \text{if $a=b^i$} \\
+    O(n^i) & \text{if $a < b^i$} \\
+    O(n^{\log_b a}) & \text{if $a > b^i$}
+    \end{cases}
+\end{equation*}
+\end{theorem_appendix}
+
+Linear Recurrences:
+
+A linear recurrence is an equation
+$$
+f(n) = \underbrace{a_1 f(n-1) + a_2 f(n-2) + \cdots + a_d f(n-d)}_{\text{homogeneous part}}  + \underbrace{g(n)}_{\text{inhomogeneous part}}
+$$
+along with some boundary conditions.
+
+The procedure for solving linear recurrences are as follows:
+
+\begin{enumerate}
+    \item Find the roots of the characteristic equation. Linear recurrences usually have exponential solutions (such as $x^n$). Such solution is called the \textbf{homogeneous solution}.
+    $$
+    x^n = a_1 x^{n-1} + a_2 x^{n-2} + \cdots + a_{k-1} x + a_k
+    $$
+    \item Write down the homogeneous solution. Each root generates one term and the homogeneous solution is their sum. A non-repeated root $r$ generates the term $cr^n$, where $c$ is a constant to be determined later. A root with $r$ with multiplicity $k$ generates the terms
+    $$
+    d_1r^n \quad d_2nr^n \quad d_3n^2r^n \quad \cdots \quad d_kn^{k-1}r^n
+    $$
+    where $d_1,\cdots,d_k$ are constants to be determined later.
+    \item Find a \textbf{particular solution} for the full recurrence including the inhomogeneous part, but without considering the boundary conditions.
+    
+    If $g(n)$ is a constant or a polynomial, try a polynomial of the same degree, then of one higher degree, then two higher. If $g(n)$ is exponential in the form $g(n) = k^n$, then try $f(n) = ck^n$, then $f(n) = (bn+c)k^n$, then $f(n) = (an^2+bn+c)k^n$, etc.
+    
+    \item Write the \textbf{general solution}, which is the sum of homogeneous solution and particular solution.
+    \item Substitute the boundary condition into the general solution. Each boundary condition gives a linear equation. Solve such system of linear equations for the values of the constants to make the solution consistent with the boundary conditions.
+\end{enumerate}

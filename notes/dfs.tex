@@ -1,5 +1,7 @@
 \section{Depth First Search (DFS)}
 
+\subsection{DFS Algorithms}
+
 \begin{codebox}
     \Procname{$\proc{DFS}(s)$}
     \li $S = \proc{Stack}(\{ \, \})$ 
@@ -47,6 +49,8 @@ In DFS, we can keep track of the following two properties of each vertex:
     Without loss of generality, suppose $d[u] < d[v]$. If $f[u] < d[v]$, then $d[u] < f[u] < d[v] < f[v]$. So suppose $d[v] < f[u]$, then $v$ is a descendant of $u$ if the DFS tree, so $\proc{DFS-Vist}(v)$ finishes before $\proc{DFS-Visit}(u)$, so $f[v] < f[u]$. Hence, $d[u] < d[v] < f[v] < f[u]$. The other case when $d[u] > d[v]$ is the mirror of this case.
 \end{proof}
 
+\subsection{Classification of Edges}
+
 Tree edges: from $\pi(v)$ to $v$. $d[u] < d[v] < f[v] < f[u]$.
 
 Back edges: from a node to an ancestor. $d[v] < d[u] < f[u] < f[v]$.
@@ -54,6 +58,17 @@ Back edges: from a node to an ancestor. $d[v] < d[u] < f[u] < f[v]$.
 Forward edges: a non-tree edge from a node to a descedant. $d[u] < d[v] < f[v] < f[u]$.
 
 Cross edges: between two nodes of which is a descendant of the other. $d[v] < f[v] < d[u] < f[u]$.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\linewidth]{dfs.pdf}
+
+    \hfill
+
+    \caption{Example of a DFS on a graph.}
+    \label{fig:dfs-edges}
+\end{figure}
+
 
 \begin{theorem}
     In an undirected graph, all edges are either tree edges or back edges (we do not differentiate between forward edge and back edge because the graph is undirected).
@@ -68,8 +83,11 @@ Cross edges: between two nodes of which is a descendant of the other. $d[v] < f[
 \begin{itemize}
     \item Broadcast information in a connected network.
     \item Detect if a graph contains a cycle. Every back edge is part of a cycle. If an undirected graph has no back edges. If all edges are tree edges, the graph is a tree and acylcic. 
-    \item 
 \end{itemize}
+
+\subsection{Cycle Detection}
+
+\vspace{\parskip}
 
 \begin{lemma}
     A directed graph is acyclic if and only if a DFS of the graph has no back edges.
@@ -82,3 +100,47 @@ Cross edges: between two nodes of which is a descendant of the other. $d[v] < f[
 \begin{lemma}
     An undirected graph contains a cycle if and only if its BFS tree contains a cross edge.
 \end{lemma}
+
+\subsection{Determining If a Graph is Bipartite}
+
+\vspace{\parskip}
+
+\begin{definition}
+    A graph $G=(V,E)$ is a bipartite if and only if $V = A \cup B$ where $A,B \neq \emptyset$ and $A \cap B = \emptyset$ such that every edge $e \in E$ has 1 endpoint in $A$ and the other endpoint is in $B$. 
+\end{definition}
+
+Do BFS, record the parity of the distance of each node from the source.
+
+\subsection{Topological Sort}
+
+The topological sort of a directed acyclic graph (DAG) $G = (V,E)$. Ordering of the vertices of $V$ such that for if $(u,v) \in E$, then $u < v$. That is, $u$ is before $v$ in the ordering.
+
+\begin{codebox}
+    \Procname{$\proc{Topological-Sort}(G)$}
+    \li $L = \{ \, \}$ 
+    \li $\proc{DFS}(G)$ 
+    \li \> after computing $f[v]$ for vertex $v$, insert $v$ at the front of $L$
+    \li \Return $L$  
+\end{codebox}
+
+The algorithm sorts vertices in decreasing order of finish time.
+
+\begin{theorem}
+    \proc{Topological-Sort} is correct.
+\end{theorem}
+
+\begin{proof}
+    Consider any edge $(u,v) \in E$, since $G$ is acyclic, it has no back edges.
+
+    If $(u,v)$ is a tree edge or forward edge,
+    $$
+    d[u] < d[v] < f[v] < f[u]
+    $$
+    which is equivalent to $u < v$ in finish time.
+
+    If $(u,v)$ is a cross edge.
+    $$
+    d[v] < f[v] < d[u] < f[u]
+    $$
+    $v$ is discovered and finished before the discovery and finish of $u$, so $u < v$ in finish time.
+\end{proof}

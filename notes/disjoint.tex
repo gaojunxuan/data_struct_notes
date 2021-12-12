@@ -128,7 +128,7 @@ Store the height of each tree at the root. Representative of the taller tree bec
 \end{lemma}
 
 \begin{proof}
-    By induction.
+    By induction on $h$.
 \end{proof}
 
 \begin{corollary}
@@ -143,7 +143,7 @@ During $\proc{Find-Set}(x)$, each node visited on the path from $x$ to the root 
 
 \textit{Claim}. The worst-case sequence complexity is 
 $$
-\Theta \left( n + f \cdot \left( \frac{1+ \log n}{\log (2 + f/n)} \right) \right)
+\Theta \left( n + f \cdot \left( \frac{1+ \log n}{\log (2 + \frac{f}{n})} \right) \right)
 $$
 where $f$ is the number of \proc{Find-Set} operations.
 
@@ -155,4 +155,36 @@ Trees with union by height and path compression. The problem with this is that w
 
 \subsection{Trees With Union By Rank and Path Compression}
 
-Store the rank of each tree instead of its height. The rank denotes the height of the tree if there is no path compression.
+In this implementation, we store the rank of each tree instead of its height. The rank can be thought as a ``pseudoheight'' that denotes the height of the tree if there is no path compression.
+
+\begin{codebox}
+    \Procname{$\proc{Link}(x,y)$}
+    \li \If $\proc{Rank}(x) \isequal \proc{Rank}(y)$ \Then
+        \li $\attrib{y}{parent} = x$
+        \li $\proc{Rank}(x) = \proc{Rank}(x) + 1$
+    \li \ElseIf  $\proc{Rank}(x) > \proc{Rank}(y)$ \Then
+        \li $\attrib{y}{parent} = x$
+    \li \Else
+        \li $\attrib{x}{parent} = y$
+\end{codebox}
+
+The rank of any tree created by a sequence of $\proc{Make-Set}$ and $\proc{Link}$ operations is equal to its height and hence is in $O(\log n)$.
+
+\proc{Find-Set} operations with path compression reduce the height of the tree but do not change the ranks. Maintain the rank of a tree takes fewer bits than maintaining the weight of a tree.
+
+Finally, let us examine the sequence complexity of a sequence of operations performed on a disjoint set implemented using union-by-rank with path compression.
+
+\begin{definition}[Iterated Logarithm]
+    $$
+    \log^*(n) = \min \{ i \geq 0 \mid \log^{(i)} (n) \leq 1 \}
+    $$
+    where $\log^{(0)}(n) = n$, $\log^{(1)}(n) = \log n$, and $\log^{(i+1)}(n) = \log(\log^{(i)})n$. Intuitively, $\log^*$ is the number of times we need to apply $\log$ to $n$ until we get a number of at most 1. For most practical purposes, $\log^*$ with base 2 has at most 5 (e.g. $\log^* 2^{65536} = 5$).
+\end{definition}
+
+\begin{theorem}
+    The worst-case sequence complexity of a sequence of $m$ \proc{Make-Set} operations and \proc{Find-Set} operations with $n$ \proc{Make-Set} operations performed on a disjoint set implemented using union-by-rank with path compression is $O(m \log^* n)$. 
+\end{theorem}
+
+\begin{theorem}[A Tight Bound on Union-by-Rank With Path Compression]
+    The worst-case sequence complexity of a disjoint set implemented using union-by-rank with path compression is $\Theta(m\alpha(n,m))$ where $\alpha$ is the inverse Ackermann function.
+\end{theorem}

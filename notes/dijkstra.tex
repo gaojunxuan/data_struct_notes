@@ -1,0 +1,21 @@
+\section{Shortest Path}
+
+\section{Dijkstra's Algorithm}
+
+\begin{codebox}
+    \Procname{$\proc{Dijkstra}(G,s)$}
+    \li \For $v \in V - \{s\}$ \Do
+        \li $d[v] = \infty$
+        \li $\attrib{v}{parent} = \infty$
+        \End
+    \li $d[s] = 0$
+    \li $\attrib{s}{parent} = s$
+    \li $Q = \proc{Priority-Queue}(V,\, \id{key}=d)$
+    \li \While $Q \neq \emptyset$ \Do
+        \li $u = \proc{Extract-Min}(Q)$
+        \li \For neighbor $v$ of $u$ \Do
+            \li \If $v \in Q$ \textbf{and} $d[v] > d[u] + w(\{u,v\})$ \Then
+                \li $d[v] = d[u] + w(\{u,v\})$
+                \li $\proc{Decrease-Priority}(Q,v,\, \id{priority}=d[u]+w(\{u,v\}))$
+                \li $\attrib{v}{parent} = u$   
+\end{codebox}

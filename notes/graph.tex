@@ -14,13 +14,13 @@ We use $n = |V|$ to denote the number of vertices, and $m = |E|$ to denote the n
 
 \subsection{Other Types of Graphs} \index{simple graph} \index{hypergraph} \index{weighted graph}
 
-A simple graph has no multiple edges or self loops.
+A \textbf{simple graph} has no multiple edges or self loops.
 
-A hypergraph is a graph consists of vertices and hyperedges. A hyperedge is a nonempty set of vertices.
+A \textbf{hypergraph} is a graph consists of vertices and hyperedges. A hyperedge is a nonempty set of vertices.
 
-A weighted graph has a weight function $w:\; E \to \R$ that assign a weight to each edge. We can similarly define a weight function for the vertices.
+A \textbf{weighted graph} has a weight function $w:\; E \to \R$ that assign a weight to each edge. We can similarly define a weight function for the vertices.
 
-An induced subgraph $G'$ of $G$ is the graph $(V',E')$ such that there exists a mapping $\psi:\; V' \to V$ such that $\forall u,v \in V'.\, \{u,v\} \in E \iff \{\psi(u), \psi(v)\} \in E'$. 
+An \textbf{subgraph} $G'$ of $G$ \textbf{induced} by $V'$ is the graph $(V',E')$ such that $E' = \{ \{u,v\} \in E \mid u,v \in V' \}$. 
 
 \section{Operations on Graphs}
 
@@ -39,7 +39,7 @@ An induced subgraph $G'$ of $G$ is the graph $(V',E')$ such that there exists a 
         \item Find all nodes $u$ that are connected to some node $v$.
         \item Find all neighbors of $v$.
         \item Find all connected components in an undirected graph.
-        \item Check if $G$ is induced subgraph (if there exists a mapping $\psi$ from $V$ to $V'$ such that $\forall u,v\in V.\, \{u,v\} \in E' \iff \{\psi(u),\psi(v)\} \in E$).
+        \item Check if $G$ is induced subgraph.
         \item Find maximal matching.
         \item Check isomorphism.
         \item Compute flows (minimum and maximum flow) in a weighted directed graph.

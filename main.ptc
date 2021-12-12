@@ -158,35 +158,31 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {8.3}Accounting Method}{50}{section.8.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.4}Dynamic Array}{51}{section.8.4}%
+\contentsline {section}{\numberline {8.4}Potential Method}{51}{section.8.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.4.1}Accounting Method Analysis for Dynamic Array}{52}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.1}Analysis of Binary Counter Using Potential Method}{52}{subsection.8.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.5}Potential Method}{52}{section.8.5}%
+\contentsline {chapter}{\numberline {9}Dynamic Arrays}{53}{chapter.9}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.5.1}Analysis of Binary Counter Using Potential Method}{53}{subsection.8.5.1}%
+\contentsline {section}{\numberline {9.1}Dynamic Array}{53}{section.9.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {9}Dynamic Arrays}{55}{chapter.9}%
+\contentsline {section}{\numberline {9.2}Amortized Analysis of Dynamic Array Using Accounting Method}{53}{section.9.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.1}Dynamic Array}{55}{section.9.1}%
+\contentsline {section}{\numberline {9.3}Amortized Analysis of Dynamic Array Using Potential Method}{54}{section.9.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.2}Amortized Analysis of Dynamic Array Using Accounting Method}{55}{section.9.2}%
+\contentsline {section}{\numberline {9.4}Deletion From Dynamic Array}{55}{section.9.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.3}Amortized Analysis of Dynamic Array Using Potential Method}{56}{section.9.3}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.4}Deletion From Dynamic Array}{56}{section.9.4}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {9.4.1}Amortized Analysis of Dynamic Array With Deletion}{57}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.1}Amortized Analysis of Dynamic Array With Deletion}{56}{subsection.9.4.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {9.5}Amortized Analysis of Dynamic Array With Delete Using Potential Method}{58}{section.9.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {10}Scapegoat Tree}{59}{chapter.10}%
+\contentsline {chapter}{\numberline {10}Scapegoat Tree and Splay Tree}{59}{chapter.10}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {10.1}Scapegoat Tree}{59}{section.10.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {10.2}Amortized Analysis of Scapegoat Tree}{59}{section.10.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\@mypartnumtocformat {III}{Hashing and Related Topics}}{61}{part.3}%
+\contentsline {part}{\@mypartnumtocformat {III}{Hashing}}{61}{part.3}%
 \ttl@stoptoc {default@2}
 \ttl@starttoc {default@3}
 \defcounter {refsection}{0}\relax 
@@ -328,35 +324,51 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {23.1}Depth First Search (DFS)}{111}{section.23.1}%
 \defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {23.1.1}DFS Algorithms}{111}{subsection.23.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {23.1.2}Classification of Edges}{112}{subsection.23.1.2}%
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {23.2}Applications of BFS/DFS}{112}{section.23.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {24}Minimum Spanning Trees}{113}{chapter.24}%
+\contentsline {subsection}{\numberline {23.2.1}Cycle Detection}{113}{subsection.23.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {25}Bellman-Ford's Algorithm}{115}{chapter.25}%
+\contentsline {subsection}{\numberline {23.2.2}Determining If a Graph is Bipartite}{113}{subsection.23.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {26}Dijkstra's Algorithm}{117}{chapter.26}%
+\contentsline {subsection}{\numberline {23.2.3}Topological Sort}{113}{subsection.23.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {24}Minimum Spanning Trees}{115}{chapter.24}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {24.1}Spanning Forest and Spanning Tree}{115}{section.24.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {24.2}Computing the Minimum Spanning Tree}{115}{section.24.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {24.3}Kruskal's Algorithms}{117}{section.24.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {24.4}Prim's Algorithm}{118}{section.24.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {25}Single-Source Shortest Path Algorithms}{121}{chapter.25}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {25.1}Shortest Path}{121}{section.25.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {25.2}Dijkstra's Algorithm}{121}{section.25.2}%
 \ttl@stoptoc {default@6}
 \ttl@starttoc {default@7}
 \defcounter {refsection}{0}\relax 
-\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Appendix\hskip 1em\relax \mbox {}}}}{119}{section*.33}%
+\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Appendix\hskip 1em\relax \mbox {}}}}{123}{section*.36}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Axioms \& Theorems}}{121}{appendix*.34}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Axioms \& Theorems}}{125}{appendix*.37}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Basic Prerequisite Mathematics}}{125}{appendix*.38}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Basic Prerequisite Mathematics}}{129}{appendix*.42}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Proof Templates}}{131}{appendix*.39}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Proof Templates}}{135}{appendix*.43}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{143}{section*.41}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{145}{appendix*.44}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{145}{appendix*.42}%
+\contentsline {chapter}{\leavevmode {\color {ocre}Bibliography}}{149}{appendix*.45}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Courses}{145}{section*.43}%
+\contentsline {section}{Courses}{149}{section*.46}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Books}{145}{section*.44}%
+\contentsline {section}{Books}{149}{section*.47}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Journal Articles}{146}{section*.45}%
-\ttl@stoptoc {default@7}
-\ttl@starttoc {default@8}
-\defcounter {refsection}{0}\relax 
-\contentsline {part}{\setlength \fboxsep {0pt}\noindent \colorbox {ocre!40}{\strut \parbox [c][.7cm]{\linewidth }{\Large \sffamily \centering Tutorial\hskip 1em\relax \mbox {}}}}{147}{section*.47}%
+\contentsline {section}{Journal Articles}{150}{section*.48}%
 \contentsfinish 
