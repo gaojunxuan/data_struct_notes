@@ -35,15 +35,17 @@ Before starting to formally define heaps, let's review some definitions about bi
     A full binary tree (sometimes proper binary tree or 2-tree) is a tree in which every node other than the leaves has two children. 
 \end{definition}
 
-\begin{definition}[Complete Binary Tree] \index{complete binary tree}
-    A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.
+\begin{definition}[Heap-Shape] \index{complete binary tree} \index{heap shape}
+    A binary tree is in heap-shape if every level of the binary tree, except possibly the last, is completely filled, and all nodes are as far left as possible.
 
-    Importantly, a complete binary tree with $n$ nodes has $\left\lfloor n / 2 \right\rfloor$ internal nodes (nodes that are not leaves).
+    Importantly, a binary tree in heap-shape with $n$ nodes has $\left\lfloor n / 2 \right\rfloor$ internal nodes (nodes that are not leaves).
 \end{definition}
 
-\begin{definition}[Perfect Binary Tree] \index{perfect binary tree}
+\begin{definition}[Complete Binary Tree] \index{perfect binary tree}
     A perfect binary tree is a binary tree in which all interior nodes have two children and all leaves have the same depth or same level.
 \end{definition}
+
+A note on the terminologies: some instructors and textbooks refer to a binary tree in heap-shape as ``complete binary tree'', and call a complete binary tree ``perfect binary tree''. In these notes, we will use ``heap shape'' and ``complete binary tree''. Unfortunately, both sets of terminologies are accepted and widely used.
 
 \begin{figure}[h!]
     \centering
@@ -72,15 +74,15 @@ Before starting to formally define heaps, let's review some definitions about bi
             [.{} {} \edge[blank]; \node[blank]{}; ] ]
         \end{tikzpicture}
     }
-    \caption{From left to right: full binary tree, complete binary tree, perfect binary tree.}
+    \caption{From left to right: full binary tree, binary tree in heap shape, complete binary tree.}
 \end{figure}
 
-Conveniently, a complete binary tree can be represented as an array.
+Conveniently, a binary tree in heap-shape can be represented as an array.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{figures/heap_as_arr.pdf}
-    \caption{A complete binary tree and its corresponding array representation}
+    \caption{A heap-shaped binary tree and its corresponding array representation}
 \end{figure}
 
 Assuming that we index from 0, we can compute the indices of each node's parent, left, and right child.
@@ -97,7 +99,7 @@ If we index from 1, the indices are calculated as follows:
 
 \subsection{Heap Property}
 
-Then, we can define a max-heap as a complete binary tree with the max-heap property.
+Then, we can define a max-heap as a binary tree in heap-shape with the max-heap property.
 
 \begin{definition}[Max-heap Property] \index{max-heap property} \index{max-heap}
     In a max-heap represented by the array $A$ , the max-heap property is that for every node $i$ other than the root,
@@ -153,7 +155,7 @@ To insert into a max-heap while maintaining the heap property, we use a similar 
 \end{codebox}
 
 
-The reason we start calling \proc{Max-Heapify} at $\left\lfloor A.length / 2 \right\rfloor$ is because elements beyond that $A[n / 2+1, \cdots, n]$ are all leaves of the tree. Recall that for a complete binary tree with $n$ nodes, there are only $\left\lfloor n / 2 \right\rfloor$ internal nodes.
+The reason we start calling \proc{Max-Heapify} at $\left\lfloor A.length / 2 \right\rfloor$ is because elements beyond that $A[n / 2+1, \cdots, n]$ are all leaves of the tree. Recall that for a heap-shaped binary tree with $n$ nodes, there are only $\left\lfloor n / 2 \right\rfloor$ internal nodes.
 
 \subsection{Running Time of \proc{Build-Max-Heap}}
 

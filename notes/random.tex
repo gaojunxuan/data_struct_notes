@@ -1,5 +1,3 @@
-We will continue our discussion of randomized algorithms and probabilistic of such algorithms.
-
 \section{Random Permutations of an Array}
 
 We aim to devise and analyze an algorithm for permuting an array $A$ of $n$ elements. The input is an array $A$ of $n$ elements. The output is the array $A$ with the elements permuted in place.
@@ -21,9 +19,9 @@ Claim: at the beginning of the $i$th iteration, $A[1,\cdots,i-1]$ contains a uni
     \textbf{Inductive step}: Suppose that as our inductive hypothesis, any sequence of length $k-1$ is likely $k-1$ is likely to occur in $A[1 \cdots k-1]$ after $k-1$ iterations. Consider iteration $k$.
     $$
     \begin{aligned}
-        \Pr(\text{$x_1 \cdots x_k$ occurs at $A[1 \cdots k]$}) = \Pr(\text{$x_k$ at $A[k]$} \mid \text{$x_1 \cdots x_{k-1}$ at $A[1 \cdots k-1]$}) \cdot \Pr(\text{$x_1 \cdots x_{k-1}$ at $A[1 \cdots k-1]$}) \\
-        = \frac{1}{n-k-1} \cdot \frac{(n-k+1)!}{n!} & \text{by inductive hypothesis}
-        = \frac{(n-k)!}{n!}
+        \Pr(\text{$x_1 \cdots x_k$ at $A[1 \cdots k]$}) &= \Pr(\text{$x_k$ at $A[k]$} \mid \text{$x_1 \cdots x_{k-1}$ at $A[1 \cdots k-1]$}) \cdot \Pr(\text{$x_1 \cdots x_{k-1}$ at $A[1 \cdots k-1]$}) \\
+        &= \frac{1}{n-k-1} \cdot \frac{(n-k+1)!}{n!} \qquad \text{by inductive hypothesis} \\
+        &= \frac{(n-k)!}{n!}
     \end{aligned}
     $$
     This result implies that $x_1 \cdots x_k$ occurs randomly uniformly among all length $k$ subsequences of $A$.
@@ -40,11 +38,58 @@ This algorithm, unlike the first one, does not produce uniform permutation. As a
 
 Cases:
 \begin{itemize}
-    \item $A[1] \leftrightarrow A[1]$ and $A[2] \leftrightarrow A[2]$
-    \item $A[1] \leftrightarrow A[2]$ and $A[2] \leftrightarrow A[1]$, with 
-    \item $A[1] \leftrightarrow A[3]$, not possible to get $[1,2,3]$ by swapping 2
+    \item $A[1] \leftrightarrow A[1]$ and $A[2] \leftrightarrow A[2]$, with a probability of $1/9$.
+    \item $A[1] \leftrightarrow A[2]$ and $A[2] \leftrightarrow A[1]$, with a probability of $1/9$.
+    \item $A[1] \leftrightarrow A[3]$, not possible to get $[1,2,3]$ by swapping 2.
 \end{itemize}
 
 \section{The Hiring Problem}
 
+The hiring problem is a classic example of average case analysis. Consider the scenario where you want to hire someone from a pool of candidates to replace your current assistant. You want to fire your current assistant only if the new candidate is better than the current one. There is a cost every time you interview an applicant, and another cost if you fire your current assistant. We want to know what is the average cost of hiring the best applicant through this process.
+
+This problem can be alternatively phrased as finding the maximum in an array.
+
+\begin{codebox}
+    \Procname{$\proc{Array-Max}(A,n)$}
+    \li $\id{curr-max} = 0$
+    \li \For $i$ in $1\ldots n$ \Do
+        \li \If $A[i] > \id{curr-max}$ \Then
+            \li $\id{curr-max} = A[i]$
+        \End
+    \End
+    \li \Return $\id{curr-max}$   
+\end{codebox}
+
+Let $X_i$ be the indicator random variable such that $X_i$ is 1 if and only if $A[i] = \max\{A[1\ldots i] \}$. Observe that the incurred cost is equal to $c \sum X_i$ where $c$ is the cost associated with firing your current assistant (or updating the current max variable). Then, by linearity of expectation, we have the following:
+
+$$
+\begin{aligned}
+    \Expected[c \sum_i {X_i}] &= c \sum_i \Expected[X_i] \\
+    &= c \sum_{i} \Pr(X_i = 1) \\
+    &= c \sum_{i=1}^n \frac{1}{i} \\
+    &\leq c \sum_{i=1}^\infty \frac{1}{n} = c \log n
+\end{aligned}
+$$
+
 \section{Reservoir Sampling}
+
+Reservoir sampling is an algorithm that allows us to uniformly choose sample from a stream of input of unknown size $n$. Because the size is unknown, we cannot just pick sample with a fixed probability each time.
+
+\begin{codebox}
+    \Procname{$\proc{Reservoir-Sampling}(X,k)$}
+    \li $\id{reservoir} = [\,]$
+    \li $i = 1$ 
+    \li \For $x$ in $X$ \Do
+        \li \If $i < k$ \Then
+            \li $\id{reservoir}.\proc{Append}(x)$ 
+            \End
+        \li $\id{idx} = \proc{Random}(1,i)$
+        \li \If $\id{idx} < k$ \Then
+            \li $\id{reservoir}[\id{idx}] = x$
+            \End
+        \li $i = i + 1$
+        \End
+    \li \Return $\id{reservoir}$  
+\end{codebox}
+
+It can be proved by induction that for all $1 \leq j \leq i \leq n$, $\Pr[X_i \in \id{reservoir}] = \Pr[X_j \in \id{reservoir}]$ after the $i$th step. 

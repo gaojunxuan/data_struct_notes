@@ -165,6 +165,18 @@ When we flip a bit from 1 to 0, the associated \$1 credit at that bit can be use
     The total actual cost of $m$ operations $C(m) \leq 0 + 2m$. Hence, the amortized cost $A(m)$ of \proc{Incremente} is at most 2 bit flips.  
 \end{proof}
 
+\begin{thmrule}[Accounting Method]
+
+    \hfill
+
+    \begin{enumerate}
+        \item State complexity measure: what \$1 credit can pay for.
+        \item Assign credits to operations: how many credits are given to what operations; where are credits stored.
+        \item Explicitly state the credit invariant and prove it.
+        \item Conclude the amortized cost of each operation.
+    \end{enumerate}
+\end{thmrule}
+
 \section{Potential Method}
 
 \vspace{\parskip}
@@ -208,3 +220,31 @@ $$
 \end{aligned}
 $$  
 Thus the amortized cost of each \proc{Increment} operation with respect $\Phi$ is at most 2.
+
+\section{Amortized Analysis of Stack with Multipop}
+
+In this section, we consider stack with an additional \proc{Multi-Pop} operation, defined as follows:
+
+$\proc{Multi-Pop}(S,k)$: $k$ is a positive integer. If $|S|>k$, pop top $k$ elements from $S$; if $|S|\leq k$, pop the entire stack.
+
+Assume that pop and push operations each costs 1, then the actual cost of $\proc{Multi-Pop}(S,k)$ is $\min(|S|,k)$.
+
+In a sequence of $n$ \proc{Push} and \proc{Multi-Pop} operations, the worst-case cost of \proc{Multi-Pop} is $O(n)$, so the worst-case sequence complexity is $O(n^2)$. However, this is not a tight upper bound since we cannot find a matching lower bound where a sequence of operations takes $\Omega(n^2)$ steps. In this case, it is a good idea to consider amortized analysis.
+
+\subsection{Amortized Analysis of Multi-Pop Using Accounting Method}
+
+For the purpose of analysis, assume 1 credit can pay for a \proc{Push} or \proc{Pop} operation.
+
+Each \proc{Push} operation will be assigned a \$2 credit. One credit is used to pay for the \proc{Push} operation, and another credit is stored in the newly pushed element in case it was later popped.
+
+Each \proc{Multi-Pop} operation is assigned \$0 credit since we can use the credits stored in each element to pay for the \proc{Pop} operation of that element.
+
+We maintain the credit invariant that each element in the stack stores 1 credit.
+
+\begin{proof}
+    \hfill
+    
+    \textbf{Base case}: When the stack was empty, there is no element. The credit invariant is vacuously true.
+
+    \textbf{Inductive step}: Assume credit invariant holds before the $i$th operation. Show it is still true after the $i$th operation.
+\end{proof}

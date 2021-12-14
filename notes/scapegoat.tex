@@ -1,3 +1,9 @@
 \section{Scapegoat Tree}
 
+\begin{theorem}
+    We say a binary tree is unbalanced at $x$ if either $x$'s left or right subtree contains more than $2/3 \id{size}(x)$ nodes. If $x$ is a node at depth greater than $\lfloor \log_{3/2} n \rfloor$ in a binary tree with $n$ nodes, then the binary tree is unbalanced at some proper ancestor of $x$. 
+\end{theorem}
+
+This theorem can be generalized so that $2/3$ is replaced with a constant factor $\frac{1}{2} \leq \alpha < 1$.
+
 \section{Amortized Analysis of Scapegoat Tree}

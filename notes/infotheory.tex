@@ -8,13 +8,40 @@ C(P) \geq \min \{ \lceil \log_t (\text{number of leaves in $T$}) \rceil \mid \te
 $$
 If $P$ has at least $m$ different possible outputs, then every comparison tree that solves $P$ has at least $m$ leaves, and it follows that every comparison tree that solves $P$ has height of at least $\lceil \log_t m \rceil$.
 
-\begin{example}
-    Consider the problem of searchign a sorted list using only $\leq$ comparisons. The input for this problem is $A[1\ldots n]$ where $A[1] \leq \cdots \leq A[n]$ and a search key $x$. The output is $i$ such that $x=A[i]$ or 0 if does not exist.
+\section{Lower Bounds for Searching}
 
-    Naturally, there are $n+1$ possible outputs. The information thoery lower bound for this problem is then
-    $$
-    C(P) \geq \lceil \log_2 (n+1) \rceil
-    $$
-\end{example}
+\subsection{Searching Sorted List}
+
+Consider the problem of searchign a sorted list using only $\leq$ comparisons. The input for this problem is $A[1\ldots n]$ where $A[1] \leq \cdots \leq A[n]$ and a search key $x$. The output is $i$ such that $x=A[i]$ or 0 if does not exist.
+
+Naturally, there are $n+1$ possible outputs. The information
+ thoery lower bound for this problem is then
+$$
+C(P) \geq \lceil \log_2 (n+1) \rceil
+$$
+
+Now let us consider the same problem, but with a slightly modified set of outputs. Instead of outputing 0, the lagorithm returns $-\infty$ if $x < A[i]$, $\infty$ if $x>A[i]$, or $(i,i+1)$ if $A[i] < x < A[i+1]$. Call this problem $P'$.
+
+In this case, there are $2n+1$ different possible outputs. So the information theory lower bound gives $C(P') \geq \lceil \log_2 (2n+1) \rceil$.
+
+Any comparison tree that solves $P'$ can be converted into a comparison tree by relabeling leaves. Conversely, any comparison tree using $\leq$ comparisons that solves $P$ can be converted into a comparison tree that solves $P'$ by relabeling leaves.
+
+\begin{lemma}
+    In any comparison tree that solves $P$ using $\leq$ comparisons, for any array $A$, if search keys $y<z$ go to the same leaf, then search key $u$ also goes to that leaf, for $y < u < z$.
+\end{lemma}
+
+\begin{proof}
+    Consider the comparison $x \leq A[i]$. If this is true for $x=z$ then it is also true for $x=u$, since $u < z \leq A[i]$. If this test is false for $x=y$, then it is also false for $x=u$, since $u>y>A[i]$.
+\end{proof}
+
+Hence $C(P) \geq \lceil \log_2 (2n+1) \rceil$ where $P$ is the problem for searching a sorted list using only $\leq$ comparisons. $\lceil \log_2 (2n+1) \rceil$ is also an upper bound (consider binary search). So the lower bound is tight.
+
+\subsection{Searching Unsorted List}
+
+Now let's consider the problem $U$ of searching an unsorted list using only $=$ comparisons. The input is an array $A[1\ldots n]$ and a search key $x$. It should output $i$ such that $x=A[i]$ or 0 if no such $i$ exists.
+
+There are $n+1$ possible outputs, so by information theory lower bound, $C(U) \geq \lceil \log_2 (n+1) \rceil$.
+
+As we will show later, this lower bound is not tight.
 
 \section{Sorting In Linear Time}
