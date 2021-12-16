@@ -11,7 +11,13 @@ If two keys are mapped to the same location/bucket/slot by the hash function, we
 Furthermore, if $|U| > m$, then by the pigeonhole principle, there are at least two keys that collide. And because in virtually all cases, $|U| > m$, collision is unavoidable. A well-chosen hash function will minimize the number of collisions, but we still need some means to resolve collisions.
 
 \begin{remark}
-    A fun fact about the etymology of the word ``hash'': it is said that the word ``hash'' originated from the french word ``hache'', which refers to the action of chopping something into pieces. Hashing, as we will see, involves the same notion of randomly chopping and mixing.
+    \begin{minipage}{0.8\linewidth}
+        A fun fact about the etymology of the word ``hash'': it is said that the word ``hash'' originated from the french word ``hache'', which refers to the action of chopping something into pieces. Hashing, as we will see, involves the same notion of randomly chopping and mixing.
+    \end{minipage}
+    \hspace{1em}
+    \begin{minipage}{0.2\linewidth}
+        \includegraphics[width=\linewidth]{hashbrown-patties.png}
+    \end{minipage}
 \end{remark}
 
 \section{Resolving Collision}
