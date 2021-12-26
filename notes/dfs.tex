@@ -1,4 +1,4 @@
-\section{Depth First Search (DFS)}
+\section{Depth-First Search (DFS)} \index{depth-first search (DFS)}
 
 \subsection{DFS Algorithms}
 
@@ -38,7 +38,7 @@ In DFS, we can keep track of the following two properties of each vertex:
     \item $f[v]$: finish time of vertex $v$
 \end{itemize}
 
-\begin{theorem}
+\begin{theorem}[Parenthesis Theorem] \index{Parenthesis Theorem}
     In DFS of $G$, for all $u,v \in V$, either $(d[u],\, f[u])$ and $(d[v],\, f[v])$ are disjoint, or one is contained in the other. That is
     $$
     d[u] < f[u] < d[v] < f[v] \lor d[u] < d[v] < f[v] < f[u] \lor d[v] < d[u] < f[u] < f[v]
@@ -46,22 +46,25 @@ In DFS, we can keep track of the following two properties of each vertex:
 \end{theorem}
 
 \begin{proof}
-    Without loss of generality, suppose $d[u] < d[v]$. If $f[u] < d[v]$, then $d[u] < f[u] < d[v] < f[v]$. So suppose $d[v] < f[u]$, then $v$ is a descendant of $u$ if the DFS tree, so $\proc{DFS-Vist}(v)$ finishes before $\proc{DFS-Visit}(u)$, so $f[v] < f[u]$. Hence, $d[u] < d[v] < f[v] < f[u]$. The other case when $d[u] > d[v]$ is the mirror of this case.
+    Without loss of generality, suppose $d[u] < d[v]$. If $f[u] < d[v]$, then $d[u] < f[u] < d[v] < f[v]$. So suppose $d[v] < f[u]$, then $v$ is a descendant of $u$ in the DFS tree, so $\proc{DFS-Vist}(v)$ finishes before $\proc{DFS-Visit}(u)$, so $f[v] < f[u]$. Hence, $d[u] < d[v] < f[v] < f[u]$. The other case when $d[u] > d[v]$ is the mirror of this case.
 \end{proof}
 
-\subsection{Classification of Edges}
+Note that if a vertex $v$ is visited after $u$, it will have a larger discovery time ($d[u] < d[v]$) but a smaller finish time ($f[v] < f[u]$) since we will not be able to finish $u$ until we have visited all its descendants and travel back up from the recursion.
 
-Tree edges: from $\pi(v)$ to $v$. $d[u] < d[v] < f[v] < f[u]$.
+\subsection{Edge Classification}
 
-Back edges: from a node to an ancestor. $d[v] < d[u] < f[u] < f[v]$.
+Similar to BFS, we can construct a DFS tree and classify the edges into four categories by running the DFS algorithm on a graph.
 
-Forward edges: a non-tree edge from a node to a descedant. $d[u] < d[v] < f[v] < f[u]$.
-
-Cross edges: between two nodes of which is a descendant of the other. $d[v] < f[v] < d[u] < f[u]$.
+\begin{itemize} \index{tree edge} \index{cross edge} \index{back edge} \index{forward edge}
+    \item Tree edges ({\color{seagreen} green}): from $\pi(v)$ to $v$. $d[u] < d[v] < f[v] < f[u]$.
+    \item Back edges ({\color{red} red}): from a node to an ancestor. $d[v] < d[u] < f[u] < f[v]$.
+    \item Forward edges ({\color{blue} blue}): a non-tree edge from a node to a descedant. $d[u] < d[v] < f[v] < f[u]$.
+    \item Cross edges ({\color{orange} orange}): between two nodes of which is a descendant of the other. $d[v] < f[v] < d[u] < f[u]$.
+\end{itemize}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.4\linewidth]{dfs.pdf}
+    \includegraphics[width=0.7\linewidth]{dfs.pdf}
 
     \hfill
 
@@ -111,7 +114,7 @@ Cross edges: between two nodes of which is a descendant of the other. $d[v] < f[
 
 Do BFS, record the parity of the distance of each node from the source.
 
-\subsection{Topological Sort}
+\subsection{Topological Sort} \index{topological sort}
 
 The topological sort of a directed acyclic graph (DAG) $G = (V,E)$. Ordering of the vertices of $V$ such that for if $(u,v) \in E$, then $u < v$. That is, $u$ is before $v$ in the ordering.
 

@@ -1,29 +1,6 @@
-\section{Definition}
+\section{Breadth-First Search (BFS)} \index{breadth-first search (BFS)}
 
-\vspace{\parskip}
-
-\begin{definition}[Neighbors and Degrees] \index{neighbors} \index{predecessor} \index{successor} \index{degree} \index{in-degree} \index{out-degree}
-    For any edge $uv$ in an undirected graph, we call $u$ neighbor of $v$ and vice versa, and we say that $u$ and $v$ are adjacent. The degree of a node is its number of neighbors.
-
-    In directed graphs, for every edge $u \to v$, we call $u$ a predecessor of $v$, and we call $v$ a successor of $u$. The in-degree of a vertex is its number of predecessors; the out-degree is its number of sucessors.
-\end{definition}
-
-\begin{definition}[Subgraphs] \index{subgraphs}
-    A graph $G' = (V',E')$ is a subgraph of $G=(V,E)$ if $V' \subseteq V$ and $E' \subseteq E$. A proper subgraph of $G$ is any subgraph that is not $G$ itself.
-\end{definition}
-
-\section{Representations of Graphs}
-
-\subsection{Adjacency List}
-
-\vspace{\parskip}
-
-\begin{definition}[Adjacency List] \index{adjacency-list}
-    The adjacency-list representation of a graph $G=(V,E)$ consists of an arrray \textit{Adj} of $|V|$ lists, one for each vertex in $V$. For each $u \in V$, the adjacency list \textit{Adj[u]} contains all the vertices $v$ such that there is an edge $(u,v) \in E$. That is, \textit{Adj}[u] contains all the vertices adjacent to $u$ in $G$.
-\end{definition}
-
-\section{Breadth-first Search} \index{breadth-first search (BFS)}
-
+\subsection{BFS Algorithm}
 Given a graph $G=(V,E)$ and a distinguished source vertex $s$, breadth-first search systematically explores the edges of $G$ to discover every vertex that is reachable from $s$. Breadth-first search expands the frontier between disvoered and undiscovered vertices uniformly across the breadth of the frontier. The algorithm discovers all vertices at distance $k$ from $s$ before discovering any vertices at distance $k+1$.
 
 BFS visits all the vertices in a connected undirected graph in order of their distance from the start vertex $s$. As we visit the nodes, we can also determine $\delta(s,v)$ which is the distance from $s$ to $v$, that is, the number of edges on the shortest path from $s$ to $v$.
@@ -48,17 +25,28 @@ BFS visits all the vertices in a connected undirected graph in order of their di
         \li $\proc{Dequeue}(Q)$
 \end{codebox}
 
-We keep track of the shortest length from $s$ to each vertex in the array $d$.
+We keep track of the shortest length from $s$ to each vertex in the array $d$. We will prove the correctness of BFS for calculating shortes path in a later subsection.
 
 If $G$ is not connected, this algorithm visits the connected component of $G$ containing $s$. If $G$ is directed, this visits all vertices reachable from $s$ by a directed path.
 
-\textit{Claim}. If $G$ is connected, then at the end of BFS, $d[v] = \delta(s,v)$ for all $v \in V$.
+\subsection{Edge Classification}
 
-Tree edge: $\{v,\, \attrib{v}{parent}\}$ or $(\attrib{v}{parent},\, v)$ if directed.
+We can create a tree, known as BFS tree, by running the BFS algorithm on a graph. Each level of the BFS tree contains vertices reachable with one step from their corresponding parents at the previous level.
 
-Cross edge: $\{ u,v \}$ or $(u,v)$ if directed where $u$ is not an ancestor of descendant of $v$ in the BFS tree.
+Using the BFS tree, we can classify edges in a graph into three categories:
 
-Back edge: edge from a node to one of its ancestors.
+\begin{itemize} \index{tree edge} \index{cross edge} \index{back edge}
+    \item Tree edge ({\color{seagreen} green}): $\{v,\, \attrib{v}{parent}\}$ or $(\attrib{v}{parent},\, v)$ if directed.
+    \item Cross edge ({\color{orange} orange}): $\{ u,v \}$ or $(u,v)$ if directed where $u$ is not an ancestor of descendant of $v$ in the BFS tree.
+    \item Back edge ({\color{red} red}): edge from a node to one of its ancestors.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{bfs/bfs-example.pdf}
+    \caption{A graph and its corresponding BFS tree. Edges are colored based on their classification.}
+    \label{fig:bfs-example}
+\end{figure}
 
 \begin{lemma}
     If $G$ is undirected, then all edges are tree edges or cross edges.
@@ -70,9 +58,13 @@ Back edge: edge from a node to one of its ancestors.
     Since $v$ is an ancestor of $u$, it was visited and hence enqueued before $u$. So $v$ was the head of $Q$ before $u$. Since $\{u,v\} \in E$, $u$ was visited when $v$ was at the head of $Q$.This means that $\{u,v\}$ is a tree edge.
 \end{proof}
 
-If represented using an adjacency list, the BFS algorithm is $O(n+m)$. Each node $v$ is enqueued at most once. Its adjacency list is examined at most once. If represnted using an adjacency matrix, it requires $\Theta(n^2)$ time.
+\subsection{Correctness of BFS}
 
-$d[v]=0$ if and only if $v=s$. If $G$ is directed, $(\pi[v],\, v) \in E$. If $G$ is undirected, $\{ \pi[v], v \} \in E$. $d[v] = d[\pi[v]]+1$.
+\textit{Claim}. If $G$ is connected, then at the end of BFS, $d[v] = \delta(s,v)$ for all $v \in V$.
+
+\textit{Observation}. $d[v]=0$ if and only if $v=s$. If $G$ is directed, $(\pi[v],\, v) \in E$. If $G$ is undirected, $\{ \pi[v], v \} \in E$. $d[v] = d[\pi[v]]+1$.
+
+From this observation, we have the following lemma.
 
 \begin{lemma}
     At the end of the BFS, $d[v] \geq \delta(s,v)$ for all nodes reachable from $s$.
@@ -89,21 +81,31 @@ $d[v]=0$ if and only if $v=s$. If $G$ is directed, $(\pi[v],\, v) \in E$. If $G$
 \end{lemma}
 
 \begin{proof}
-    Suppose not. Let $j>1$ be the smallest integer such that $d[v_j]<d[v_{j-1}]$.
+    Suppose not. Let $j>1$ be the smallest integer such that $d[v_{j-1}] > d[v_j]$.
     
     Let $v_h = \pi[v_{j-1}]$ where $h < j-1$, and let $v_i = \pi[v_j]$ where $i < j$.
     
-    $d[v_{j-1}] = 1 + d[v_{h}]$ and $d[v_j] = 1 + d[v_i]$. Since $d[v_{j-1}] > d[v_j]$, then $d[v_h] > d[v_i]$. This implies that $i<h$. So, $d[v_j] \leq d[v_i]$ and $d[v_h] \leq d[v_{j-1}]$.
+    $d[v_{j-1}] = 1 + d[v_{h}]$ and $d[v_j] = 1 + d[v_i]$. Since $d[v_{j-1}] > d[v_j]$, then $d[v_h] > d[v_i]$. Since $h,i \leq j-1$ and $d[v_1] \leq \cdots \leq d[v_{j-1}]$, it follows that $i<h$. So, $d[v_j] \leq d[v_i]$ and $d[v_h] \leq d[v_{j-1}]$.
 
     This means $v_i$ is enqueued and hence dequeued before $v_h$, which then implies that $v_j$ was enqueued before $v_{j-1}$. This is a contradiction.
 \end{proof}
+
+Alternatively, this lemma can also be proved using induction on the number of queue operations (see CLRS pp 599).
+
+Finally, using the lemmas that we have proved, we can show that BFS correctly calculates the shortest path from $s$ to all vertices reachable from $s$.
 
 \begin{theorem}
     At the end of $\proc{BFS}(s)$, $d[v] = \delta(s,v)$ for all nodes $v$ reachable from $s$.
 \end{theorem}
 
 \begin{proof}
-    Consider the shortest path (of length) $\delta(s,v)$ from $s$ to $v$ in $G$. Let $\{u,v\}$ be the last edge in this path. $\delta(s,u) = \delta(s,v) - 1$.
+    Consider the shortest path (of length) $\delta(s,v)$ from $s$ to $v$ in $G$. Let $\{u,v\}$ be the last edge in this path where $u$ is the parent of $v$ on that path. $\delta(s,u) = \delta(s,v) - 1$. $\delta(s,s) = 0 = d[s]$.
 
-    $\delta(s,s) = 0 = d[s]$. Let $v$ be a vertex where this is not ture. That is, let $v$ be a vertex with minimum value of $\delta(s,v)$ such that $d[v] < \delta(s,v)$. In particular, we know that $\delta(s,u) = d[u]$ and $\delta(s,v) = d[v] = d[\pi[v]]+1$. So, $d[v] > d[u] + 1$. This implies that $u$ is enqueued before $\pi[v]$. This is a contradiction, so no such $v$ exists.
+    Let $v$ be a vertex where the theorem is not ture. That is, let $v$ be a vertex with minimum value of $\delta(s,v)$ such that $d[v] > \delta(s,v)$. Let $u$ be the predecessor of $v$ on the shortest path from $s$ to $v$. Then, we know that $\delta(s,u) = d[u]$ and $\delta(s,v) = d[v] = d[\pi[v]]+1$. So, $d[v] > d[u] + 1$. 
+    
+    Consider the two cases: If $v$ was unvisited, then $d[v] = d[u] + 1$ after the execution, which is a contradiction. If $v$ has been visited, there exists a $\pi[v]$ in the BFS tree that was dequeued and thus enqueued before $u$. By Lemma, $d[\pi[v]] \leq d[u]$. Hence $d[v] = d[\pi[v]] + 1 \leq d[u] + 1$, which is a contradiction. No such $v$ exists. Therefore, the theorem holds.
 \end{proof}
+
+\subsection{Running Time of BFS}
+
+If represented using an adjacency list, the BFS algorithm is $O(n+m)$. Each node $v$ is enqueued at most once. Its adjacency list is examined at most once. If represnted using an adjacency matrix, it requires $\Theta(n^2)$ time.

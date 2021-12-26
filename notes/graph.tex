@@ -12,6 +12,17 @@
 
 We use $n = |V|$ to denote the number of vertices, and $m = |E|$ to denote the number of edges in a graph. For an undirected graph, $|E| \leq \choose{n 2}$ and $|E| \leq n^2$ for directed graph. 
 
+\begin{definition}[Neighbors and Degrees] \index{neighbors} \index{predecessor} \index{successor} \index{degree} \index{in-degree} \index{out-degree}
+    For any edge $uv$ in an undirected graph, we call $u$ neighbor of $v$ and vice versa, and we say that $u$ and $v$ are adjacent. The degree of a node is its number of neighbors.
+
+    In directed graphs, for every edge $u \to v$, we call $u$ a predecessor of $v$, and we call $v$ a successor of $u$. The in-degree of a vertex is its number of predecessors; the out-degree is its number of sucessors.
+\end{definition}
+
+\begin{definition}[Subgraphs] \index{subgraphs}
+    A graph $G' = (V',E')$ is a subgraph of $G=(V,E)$ if $V' \subseteq V$ and $E' \subseteq E$. A proper subgraph of $G$ is any subgraph that is not $G$ itself.
+\end{definition}
+
+
 \subsection{Other Types of Graphs} \index{simple graph} \index{hypergraph} \index{weighted graph}
 
 A \textbf{simple graph} has no multiple edges or self loops.
@@ -24,7 +35,7 @@ An \textbf{subgraph} $G'$ of $G$ \textbf{induced} by $V'$ is the graph $(V',E')$
 
 \section{Operations on Graphs}
 
-\begin{multicols*}{2}
+\begin{multicols}{2}
     \begin{itemize}
         \item Find the shortest path between $u,v\in V$.
         \item Cycle detection.
@@ -44,7 +55,7 @@ An \textbf{subgraph} $G'$ of $G$ \textbf{induced} by $V'$ is the graph $(V',E')$
         \item Check isomorphism.
         \item Compute flows (minimum and maximum flow) in a weighted directed graph.
     \end{itemize}
-\end{multicols*}
+\end{multicols}
 
 \section{Data Structures for Representing Graph}
 
@@ -52,7 +63,7 @@ An \textbf{subgraph} $G'$ of $G$ \textbf{induced} by $V'$ is the graph $(V',E')$
 
 We can simply store a graph as a list of all edges in the graph. It takes $O(m)$ words, each of $O(\lg n)$ bits. The list can either be sorted or unsorted.
 
-\subsection{Adjacency Matrix}
+\subsection{Adjacency Matrix} \index{adjacency matrix}
 
 \vspace{\parskip}
 
@@ -66,7 +77,7 @@ This representation takes $O(n^2)$ space. It is efficient if the grraph is dense
 
 \vspace{\parskip}
 
-\begin{definition}[Adjacency List] \index{adjacency-list}
+\begin{definition}[Adjacency List] \index{adjacency list}
     The adjacency-list representation of a graph $G=(V,E)$ consists of an arrray \textit{Adj} of $|V|$ lists, one for each vertex in $V$. For each $u \in V$, the adjacency list \textit{Adj[u]} contains all the vertices $v$ such that there is an edge $(u,v) \in E$. That is, \textit{Adj}[u] contains all the vertices adjacent to $u$ in $G$.
 \end{definition}
 
@@ -79,7 +90,7 @@ It requires $O(n+m)$ words to store an adjacency list. There are in total $2m$ e
     \label{fig:graph-rep}
 \end{figure}
 
-\section{Incidence Matrix}
+\section{Incidence Matrix} \index{incidence matrix}
 
 $M[v,e]=0$ if $v$ is not incident to $e$. For undirected graph, $M[v,e]=1$ if $v$ is incident to $e$. For directed graph, $M[v,e]=1$ if $v$ is the destination of $e$ and $-1$ if $v$ is the source of $e$. A self-loop is typically represented using a special value.
 
@@ -106,6 +117,6 @@ For the problem of finding the neighbors
 \end{itemize}
 
 
-\begin{theorem}[Rivest-Vuiellemin Theorem]
+\begin{theorem}[Rivest-Vuiellemin Theorem] \index{Rivest-Vuiellemin Theorem}
     Any nontrivial monotone graph property that is invariant under isomorphism requires $\Omega(n^2)$ adjacency matrix probes. Monotone means the property does not change from True to False when more edges are added.
 \end{theorem}

@@ -172,6 +172,14 @@ The rank of any tree created by a sequence of $\proc{Make-Set}$ and $\proc{Link}
 
 \proc{Find-Set} operations with path compression reduce the height of the tree but do not change the ranks. Maintain the rank of a tree takes fewer bits than maintaining the weight of a tree.
 
+\begin{codebox}
+    \Procname{$\proc{Find-Set}(x)$}
+    \li \If $x \neq \attrib{x}{p}$ \Then
+        \li $\attrib{x}{p} = \proc{Find-Set}(\attrib{x}{p})$
+        \End
+    \li \Return $\attrib{x}{p}$ 
+\end{codebox}
+
 Finally, let us examine the sequence complexity of a sequence of operations performed on a disjoint set implemented using union-by-rank with path compression.
 
 \begin{definition}[Iterated Logarithm]
@@ -188,3 +196,108 @@ Finally, let us examine the sequence complexity of a sequence of operations perf
 \begin{theorem}[A Tight Bound on Union-by-Rank With Path Compression]
     The worst-case sequence complexity of a disjoint set implemented using union-by-rank with path compression is $\Theta(m\alpha(n,m))$ where $\alpha$ is the inverse Ackermann function.
 \end{theorem}
+
+\section{Amortized Analysis of Disjoint Set}
+
+The following proof was adopted from \textit{Introduction to Algorithms (1st Edition)} by Cormen, Leiserson, and Rivest. The proof was first presented by Hopcroft and Ullman in the paper \textit{Set Merging Algorithms} in SIAM J. Compt. in 1973.
+
+\begin{lemma} \label{lem:logstar1}
+    Any tree of rank $r$ has size of at least $2^r$.
+\end{lemma}
+
+\begin{proof}
+    By induction on the number of \proc{Link} operations.
+\end{proof}
+
+\begin{lemma} \label{lem:logstar2}
+    If $p$ is the parent of $x$, then $\id{rank}(p) > \id{rank}(x)$. 
+\end{lemma}
+
+\begin{proof}
+    By construction and the fact that rank is non-decreasing. The non-decreasing property of rank can be shown using induction on the number of operations.
+\end{proof}
+
+\begin{lemma} \label{lem:logstar3}
+    For any integer $r \geq 0$, there are at most $n/2^r$ nodes of rank $r$.
+\end{lemma}
+
+\begin{proof}
+    Fix $r \geq 0$. The trees rooted at any two nodes with rank $r$ are disjoint. By Lemma \ref{lem:logstar1}, each of these trees contains at least $2^r$ nodes. Since there are at most $n$ nodes in total, there are at most $n/2^r$ nodes of rank $r$.
+\end{proof}
+
+\begin{corollary} \label{cor:logstar4}
+    Every node has rank at most $\lfloor \lg n \rfloor$ 
+\end{corollary}
+
+\begin{proof}
+    Let $r > \lg n$, then there are at most $n/2^r < 1$ nodes of rank $r$.
+\end{proof}
+
+Now we proceed to prove Theorem.
+
+\begin{proof}
+    We partition the ranks into $\log^* n$ blocks where rank $r$ goes into block $\log^* r$.
+
+    For example,
+    \begin{itemize}
+        \item Block 0: rank 0 and 1
+        \item Block 1: rank 2
+        \item Block 2: rank $3=2^1 + 1$  to $4 = 2^2$ 
+        \item Block 3: rank $5=2^2 + 1$  to $16=2^{2^2}$ 
+        \item Block $j$: rank $T(j-1)+1$ to $T(j)$ where $T(j)$ denotes a height $j$ tower of 2. 
+    \end{itemize}
+
+    Note that the last block is Block $\log^*(\log n) = \log^*n - 1$.
+    
+    The analysis uses the aggregate method. Consider the charges corresponding to the actual cost of each operation. \proc{Make-Set} and \proc{Link} are each associated with one charge since both are $O(1)$ operation.
+
+    For \proc{Find-Set}, we associate it with two types of charges: block charge and path charge. Suppose that the \proc{Find-Set} operation starts at a node $x_0$ and the path it takes to the root $x_l$ consists of nodes $x_0,x_1,\ldots,x_l$, where each of $x_i$ is the parent of $x_{i-1}$. By Lemma \ref{lem:logstar2}, we know that $\id{rank}(x_0) < \id{rank}(x_1) < \cdots < \id{rank}(x_l)$.
+    
+    There is one block charge for the last node in the sequence $x_0 \ldots x_l$ whose rank is in Block $j$ for $j\geq 0$. Additionally, give a block charge to the child of the root $r_{l-1}$, it it does not already have a block charge. This will cover the cost of calling \proc{Find-Set} on the child of root.
+
+    All other nodes have a path charge. Note that by definition, $x_l$ has a block charge. For example, if we have the find path $x_0,x_1,x_2,x_3,x_4,x_5$ with ranks $2,3,4,6,8,9$, respectively, the block charges and path charges are assigned as follows ($\Box$ represents a block charge, $\rightsquigarrow$ represents a path charge).
+
+    \begin{tabular}{c||cc|c|cc|ccccccc}
+        &&& $\color{red}\Box$ & $\color{red}\rightsquigarrow$ & $\color{red}\Box$ & & $\color{red}\rightsquigarrow$ && $\color{red}\Box$ & $\color{red}\Box$ \\
+        Node & & & $x_0$ & $x_1$ & $x_2$ & & $x_3$ & & $x_4$ & $x_5$ \\
+        \hline
+        Rank & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & $\cdots$ & 16 \\
+        Block & \multicolumn{2}{c|}{Block 0} & Block 1 & \multicolumn{2}{c|}{Block 2} & \multicolumn{7}{c}{Block 3}
+    \end{tabular}
+
+    Node that the total number of charges is still equal to the total number of nodes visited in all \proc{Find-Set} operations in the sequence of $m$ operations.
+
+    In each \proc{Find-Set} operation, there is at most 1 block charge per block, plus one for the child of root. There are $\log^* n$ blocks, so there are at most $m[\log^*(n) + 1] \in O(m \log^* n)$ block charges. Whenever we call \proc{Find-Set} on a child of the root, the cost is paid for by the block charges.
+
+    If $x$ is not a root or a child of the root, then $\id{rank}(x)$ does not change during path compression. But it gains a parent of a larger rank. This implies the observation that if $x$ is not root or child of the root and $x$ gets a block charge in some \proc{Find-Set} operation, then it gets a block charge in all subsequent \proc{Find-Set} operations involving $x$. Once a node gets a block charge, it will no longer receive path charges.
+
+    Suppose that $\id{rank}(x)$ is in Block $j$, we want to know how many times $x$ can get a path charge. Each time \proc{Find-Set} is called on $x$, $x$ gets a parent with larger rank. Eventually, $x$ will get a parent with rank in the next block and hence gets a block charge ($x$ now sits on the boundary between two blocks). Recall that ranks contained in each block range from $T(j-1)+1$ to $T(j)$. It follows that when $j=0,2$, $x$ get at most 1 path charge; when $j=1$, $x$ gets no block charge; and for all $j > 2$, at most $T(j)-T(j-1)-1$ path charges. Once $x$ gets the final path charge, it will gets a block charge and no more path charge in subsequent calls. 
+
+    Next, we bound the number of nodes that have ranks in Block $j$ in order to derive a bound on the number of path charges. Let $N(j)$ be the number of nodes whose ranks are in Block $j$. By Lemma \ref{lem:logstar3}
+    $$
+    N(j) \leq \sum_{r=T(j-1)+1}^{T(j)} \frac{n}{2^r}
+    $$
+    For $j \geq 1$,
+    $$
+    \begin{aligned}
+        N(j) &\leq \frac{n}{2^{T(j-1)+1}} \sum_{r=0}^{T(j)-T(j-1)-1} \frac{1}{2^r} \\
+        &< \frac{n}{2^{T(j-1)+1}} \sum_{r=0}^\infty \frac{1}{2^r} \\
+        &= \frac{n}{2^{T(j-1)}} \\
+        &= \frac{n}{T(j)}
+    \end{aligned}
+    $$
+    Finally, we can conclude that the total number path charges by summing over all blocks the product of the maximum number of nodes with ranks in that block and the maximum number of path charges per node in that block.
+    $$
+    \begin{aligned}
+        \sum_{j=0}^{\log^* n - 1} N(j) \cdot (T(j)-T(j-1)-1) &\leq \sum_{j=0}^{\log^* n - 1} N(j) \cdot T(j) \\
+        &\leq \sum_{j=0}^{\log^* n - 1} \frac{n}{T(j)} \cdot T(j) \\
+        &= n \log^* n \in O(m \log^* n)
+    \end{aligned}
+    $$
+\end{proof}
+
+A proof of the tight bound is presented in CLRS Chapter 21.4 using the potential method.
+
+\subsection{An Alternative Proof}
+
+I personally found this proof using block charges and path charges rather counterintuitive. Here, I present a more intuitive and straightforward proof, first discovered by Seidel and Sharir in their paper \textit{Top-down Analysis of Path Compression}, published in SIAM J. Compt. in 2005.
