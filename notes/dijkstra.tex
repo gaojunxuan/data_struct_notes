@@ -1,21 +1,51 @@
 \section{Shortest Path}
 
+Given a weighted directed graph $G=(V,E)$ with a weight function $w:\; E \to \R$, we define the weight of a path $p = v_0,v_1,\ldots,v_k$ to be the sum of all edges on that path
+$$
+w(p) = \sum_{i=1}^k w(v_{i-1},v_i)
+$$
+Additionally, if there is a path from $u$ to $v$ in a graph $G$, let $\delta(u,v)$ denote the minimum weight of any of such path. Otherwise, define $\delta(u,v) = \infty$, meaning that $v$ is not reachable from $u$. 
+
+A path $p$ from $u$ to $v$ is a shortest path if $w(p) = \delta(u,v)$.
+
+If a graph is undirected and the weight of all edges are equal to 1, we already know how to solve the problem: just use BFS.
+
+\begin{lemma}
+    Any subpath of a shortest path is a shortest path.
+\end{lemma}
+
+\begin{proof}
+    By contradiction. Suppose $p$ is a shortest path from $u$ to $v$, but it contains a subpath $q$ from $x$ to $y$ that is not a shortest path. Say $p = p_1 q p_2$. Let $q'$ be a shortest path from $x$ to $y$, so $w(q') < w(q)$.
+
+    Then, $w(p_1q'p_2) < w(p_1qp_2) = w(p)$, which contradicts the fact that $p$ is a shortest path because $w(p_1q'p_2)$ is a shorter path from $u$ to $v$. 
+\end{proof}
+
+In this chapter, we will restrict ourselves to graphs without negative weight. More discussion on an algorithm for general graphs (possible with negative edges and negative cycles) is in the upcoming notes on algorithm design.
+
+Suppose there is a negative weight cycle in the graph reachable from the source $s$. In a graph like this, there is not a ``shortest'' path per se, because one can traverse the negative cycle and always get a shorter path. In such case, conventionally, we define the weight of the shortest path to be $-\infty$. 
+
 \section{Dijkstra's Algorithm}
+
+The idea of Dijkstra's algorithm is to construct a set of vertices $V'$ whose shortest path from $s$ has been determined. Each vertex $v \in V' - \{s\}$ has its predecessor $\attrib{v}{\id{parent}}$ on this path and $v.d$ is the weight of this path.
+
+Line 10-13 of the algorithm is known as ``edge relaxation''. Similar to Prim and Kruskal's algorithm, Dijkstra's algorithm is a greedy algorithm.  It orders the nodes based on their distances (or more precisely, the current estimate of distances at a given stage of the algorithm, $d$) from $s$. At each step of the algorithm (the outer while loop), the algorithm looks at the node $u$ with the smallest $d$ and perform edge relaxation between $u$ and its neighbors.
 
 \begin{codebox}
     \Procname{$\proc{Dijkstra}(G,s)$}
     \li \For $v \in V - \{s\}$ \Do
-        \li $d[v] = \infty$
-        \li $\attrib{v}{parent} = \infty$
+        \li $v.d = \infty$
+        \li $\attrib{v}{parent} = \const{nil}$
         \End
-    \li $d[s] = 0$
+    \li $s.d = 0$
     \li $\attrib{s}{parent} = s$
     \li $Q = \proc{Priority-Queue}(V,\, \id{key}=d)$
     \li \While $Q \neq \emptyset$ \Do
         \li $u = \proc{Extract-Min}(Q)$
         \li \For neighbor $v$ of $u$ \Do
-            \li \If $v \in Q$ \textbf{and} $d[v] > d[u] + w(\{u,v\})$ \Then
-                \li $d[v] = d[u] + w(\{u,v\})$
-                \li $\proc{Decrease-Priority}(Q,v,\, \id{priority}=d[u]+w(\{u,v\}))$
+            \li \If $v \in Q$ \textbf{and} $v.d > u.d + w(\{u,v\})$ \Then
+                \li $v.d = u.d + w(\{u,v\})$
+                \li $\proc{Decrease-Priority}(Q,v,\, \id{priority}=u.d+w(\{u,v\}))$
                 \li $\attrib{v}{parent} = u$   
 \end{codebox}
+
+If implemented using a simple binary heap, Dijkstra's algorithm runs in $O((|V|+|E|)\log|V|)$. This can be improved to $O(|V|\log |V| + |E|)$ if the priority queue is implemented using Fibonacci heap because it allows \proc{Decrease-Priority} to run in $O(1)$ amortized time.
